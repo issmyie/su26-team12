@@ -6,4 +6,4 @@
 
 > Team Member #2 name
 
-> Team Member #3 name
+> Abdullah Khan
