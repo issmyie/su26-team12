@@ -24,7 +24,7 @@
     2. Create services - .
     3. View customer statistics -  .
     4. Reply to reviews - .
-3. SysAdmin (the user with the admin role if applicable):
+3. SysAdmin (Abdullah khan):
     1. Manage user access - .
     2. Moderate services - .
     3. Moderate reviews - .
