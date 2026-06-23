@@ -1,5 +1,5 @@
 ## Title
-> Your project title
+> StudySpace
 
 ## Team Members
 > Eman Dweik
@@ -9,9 +9,8 @@
 > Abdullah Khan
 
 ## Description 
-> A brief description of your product. Include a brief summary for the services provided by the app.
-> Possible questions to answer here:  What is the motivation for the app? What are the goals of the app/ What problem will the app solve?
->
+> University students can find Campus-aligned tutoring from official helpers.
+>The offical helpers consist of TAs and Lab Assistants 
 
 ## App Functions
 1. Customer (the user with the customer role):
@@ -19,7 +18,7 @@
     2. View available services - <how will your app do this?>.
     3. Subscribe to available services - <how will your app do this?>.
     4. Write reviews for subscribed services - <how will your app do this?>.
-2. Provider (the user with the provider role):
+2. Provider (Eman Dweik):
     1. Create/modify/remove provider profile - .
     2. Create services - .
     3. View customer statistics -  .
