@@ -13,11 +13,11 @@
 >The offical helpers consist of TAs and Lab Assistants 
 
 ## App Functions
-1. Customer (the user with the customer role):
-    1. Create/modify customer profile - <how will your app do this?>
-    2. View available services - <how will your app do this?>.
-    3. Subscribe to available services - <how will your app do this?>.
-    4. Write reviews for subscribed services - <how will your app do this?>.
+1. Customer (the user with the customer role):Abdullah Khan
+    1. Create/modify customer profile - Students can create an account and update their profile with their major, courses, academic interests, and tutoring needs.
+    2. View available services - Students can browse available tutors, study resources, and view tutor availability.
+    3. Subscribe to available services - Students can schedule tutoring appointments with available tutors and access shared study resources.
+    4. Write reviews for subscribed services - Students can leave ratings and reviews after receiving tutoring services.
 
 2. Provider (Lab Assistants and TAs) (Eman Dweik):
 
