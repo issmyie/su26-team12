@@ -10,7 +10,8 @@
 
 ## Description 
 > University students can find Campus-aligned tutoring from official helpers.
->The offical helpers consist of TAs and Lab Assistants 
+>The offical helpers consist of TAs and Lab Assistants
+> Tutors and students will be able to see each other's profiles. Students will be able to see what subjects a tutor teaches to be able to select the best-suited tutor. Tutors will be able to decide and mark their availability, and students should be able to schedule appointments. Tutors are able to post any study guides or study resources on a community page for any student to access and see. After a tutoring service is done, students should be able to leave a review and tutors should have the ability to reply to them. 
 
 ## App Functions
 1. Customer (the user with the customer role):Abdullah Khan
