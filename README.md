@@ -4,7 +4,7 @@
 ## Team Members
 > Eman Dweik
 
-> Team Member #2 name
+> Shafath Moreano
 
 > Abdullah Khan
 
@@ -42,7 +42,7 @@
 
 
 3. SysAdmin (the user with the admin role if applicable):
-    1. Manage user access - .
-    2. Moderate services - .
-    3. Moderate reviews - .
-    4. View usage statistics - .
+    1. Manage user access - Able to manage student and tutor accounts. They can approve official helpers such as TAs and Lab Assistants, remove inactive accounts, and make sure users have the correct role in the system.
+    2. Moderate services - Able to review tutoring services tutor profile available courses and posted study resources to make sure the information is appropiate and related to campus tutoring.
+    3. Moderate reviews - Able to review student rating and comments, they can remove inappropiate reviews handle report feedback and make sure the review sections stays respectful.
+    4. View usage statistics - Able to view basic app statistics such as the number of active students active tutors scheduled tutoring sessions popular courses and frequently used study resources.
