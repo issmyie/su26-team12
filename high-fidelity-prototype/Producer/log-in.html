@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Log In</title>
+    <link rel="stylesheet" href="log-in.css" />
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Brand -->
+            <div class="login-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+            <p class="login-subtitle">Sign in to your account</p>
+
+            <!-- Role Selection -->
+            <div class="role-selector">
+                <label class="role-option">
+                    <input type="radio" name="role" value="tutor" checked />
+                    <span class="role-card">
+                        <span class="role-icon">👨‍🏫</span>
+                        <span class="role-name">Tutor</span>
+                    </span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="student" />
+                    <span class="role-card">
+                        <span class="role-icon">👨‍🎓</span>
+                        <span class="role-name">Student</span>
+                    </span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="sysadmin" />
+                    <span class="role-card">
+                        <span class="role-icon">⚙️</span>
+                        <span class="role-name">Sysadmin</span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" placeholder="you@studyhub.com" value="jane@studyhub.me" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" value="password123" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" onclick="handleLogin()">Sign In</button>
+            </form>
+
+            <p class="login-footer">Demo: click Sign In to continue as Tutor</p>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin() {
+            const role = document.querySelector('input[name="role"]:checked').value;
+            if (role === 'tutor') {
+                window.location.href = 'index.html';
+            } else if (role === 'student') {
+                alert('Student dashboard coming soon!');
+            } else if (role === 'sysadmin') {
+                alert('Sysadmin dashboard coming soon!');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Booking Statistics</title>
+    <link rel="stylesheet" href="booking-statistics.css" />
+</head>
+<body>
+
+    <div class="app">
+
+                  <!--Redirecting issues-->
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html">
+                    <span class="nav-icon">📊</span> Main Menu
+                </a>
+                <a href="#" class="active">
+                    <span class="nav-icon">📈</span> Booking Stats
+                </a>
+                <a href="reviews.html">
+                    <span class="nav-icon">⭐</span> Reviews
+
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar">JD</div>
+                    <div>
+                        <p class="tutor-name">Jane Doe</p>
+                        <p class="tutor-role">Math Tutor</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+      
+        <main class="main">
+
+            <header class="main-header">
+                <div>
+                    <h1>📈 Booking Statistics</h1>
+                    <p class="greeting">Detailed analytics for your tutoring business</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='index.html'">← Back to Dashboard</button>
+                    <button class="btn btn-primary" onclick="showToast('📊 Report exported!')">Export Report</button>
+                </div>
+            </header>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Bookings</div>
+                    <div class="stat-number">342</div>
+                    <span class="stat-change up">↑ 18%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg. Session Length</div>
+                    <div class="stat-number">1.5 hrs</div>
+                    <span class="stat-change up">↑ 0.2</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Cancellation Rate</div>
+                    <div class="stat-number">4.2%</div>
+                    <span class="stat-change down">↓ 1.1%</span>
+                </div>
+            </section>
+
+            <!-- Charts Row -->
+            <div class="charts-grid">
+
+                <!-- Weekly Bookings Chart -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>📅 Weekly Bookings</h2>
+                        <span class="badge">last 7 days</span>
+                    </div>
+                    <div class="chart-bars">
+                        <div class="bar-item">
+                            <span class="bar-label">Mon</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:65%;"></div></div>
+                            <span class="bar-value">13</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Tue</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:85%;"></div></div>
+                            <span class="bar-value">17</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Wed</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:55%;"></div></div>
+                            <span class="bar-value">11</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Thu</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:70%;"></div></div>
+                            <span class="bar-value">14</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Fri</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:90%;"></div></div>
+                            <span class="bar-value">18</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Sat</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:40%;"></div></div>
+                            <span class="bar-value">8</span>
+                        </div>
+                        <div class="bar-item">
+                            <span class="bar-label">Sun</span>
+                            <div class="bar-track"><div class="bar-fill" style="height:25%;"></div></div>
+                            <span class="bar-value">5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demand by Course -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>📚 Demand by Course</h2>
+                        <span class="badge">top 5</span>
+                    </div>
+                    <div class="demand-list">
+                        <div>
+                            <div class="demand-item"><span class="course">Calculus I</span><span class="count">18</span></div>
+                            <div class="bar-wrap"><div class="bar-fill" style="width:100%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="demand-item"><span class="course">Algebra II</span><span class="count">12</span></div>
+                            <div class="bar-wrap"><div class="bar-fill" style="width:67%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="demand-item"><span class="course">Statistics</span><span class="count">9</span></div>
+                            <div class="bar-wrap"><div class="bar-fill" style="width:50%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="demand-item"><span class="course">Geometry</span><span class="count">5</span></div>
+                            <div class="bar-wrap"><div class="bar-fill" style="width:28%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="demand-item"><span class="course">Trigonometry</span><span class="count">3</span></div>
+                            <div class="bar-wrap"><div class="bar-fill" style="width:17%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Row: Peak Times + Student Retention -->
+            <div class="charts-grid two-col">
+
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>⏰ Peak Booking Times</h2>
+                        <span class="badge">by hour</span>
+                    </div>
+                    <div class="peak-times">
+                        <div class="peak-item"><span class="peak-label">9 AM</span><span class="peak-bar" style="width:30%;"></span><span class="peak-value">6</span></div>
+                        <div class="peak-item"><span class="peak-label">10 AM</span><span class="peak-bar" style="width:55%;"></span><span class="peak-value">11</span></div>
+                        <div class="peak-item"><span class="peak-label">11 AM</span><span class="peak-bar" style="width:45%;"></span><span class="peak-value">9</span></div>
+                        <div class="peak-item"><span class="peak-label">12 PM</span><span class="peak-bar" style="width:25%;"></span><span class="peak-value">5</span></div>
+                        <div class="peak-item"><span class="peak-label">1 PM</span><span class="peak-bar" style="width:40%;"></span><span class="peak-value">8</span></div>
+                        <div class="peak-item"><span class="peak-label">2 PM</span><span class="peak-bar" style="width:70%;"></span><span class="peak-value">14</span></div>
+                        <div class="peak-item"><span class="peak-label">3 PM</span><span class="peak-bar" style="width:80%;"></span><span class="peak-value">16</span></div>
+                        <div class="peak-item"><span class="peak-label">4 PM</span><span class="peak-bar" style="width:60%;"></span><span class="peak-value">12</span></div>
+                        <div class="peak-item"><span class="peak-label">5 PM</span><span class="peak-bar" style="width:35%;"></span><span class="peak-value">7</span></div>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>🔄 Student Retention</h2>
+                        <span class="badge">by month</span>
+                    </div>
+                    <div class="retention-list">
+                        <div class="retention-item">
+                            <span class="retention-label">New students</span>
+                            <span class="retention-value">12</span>
+                            <span class="retention-change up">↑ 3</span>
+                        </div>
+                        <div class="retention-item">
+                            <span class="retention-label">Returning students</span>
+                            <span class="retention-value">18</span>
+                            <span class="retention-change up">↑ 5</span>
+                        </div>
+                        <div class="retention-item">
+                            <span class="retention-label">Retention rate</span>
+                            <span class="retention-value">86%</span>
+                            <span class="retention-change up">↑ 4%</span>
+                        </div>
+                        <div class="retention-item">
+                            <span class="retention-label">Avg. sessions/student</span>
+                            <span class="retention-value">4.2</span>
+                            <span class="retention-change up">↑ 0.3</span>
+                        </div>
+                    </div>
+                    <div style="margin-top:12px;padding:12px;background:#f8f9fb;border-radius:8px;border:1px solid #e1ecf7;">
+                        <p style="font-size:0.8rem;color:#64748b;text-align:center;">📊 Overall student satisfaction: <strong style="color:#71a5de;">4.9 / 5.0</strong></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+        window.showToast = showToast;
+    </script>
+
+</body>
+</html>

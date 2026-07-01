@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Reviews</title>
+    <link rel="stylesheet" href="reviews.css" />
+</head>
+<body>
+
+    <div class="app">
+
+                   <!--Redirecting issues-->
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html">
+                    <span class="nav-icon">📊</span> Main Menu
+                </a>
+                <a href="booking-statistics.html">
+                    <span class="nav-icon">📈</span> Booking Stats
+                </a>
+                <a href="#" class="active">
+                    <span class="nav-icon">⭐</span> Reviews
+                </a>
+                <a href="#">
+                    <span class="nav-icon">👥</span> Students
+                </a>
+                <a href="#">
+                    <span class="nav-icon">📝</span> Sessions
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar">JD</div>
+                    <div>
+                        <p class="tutor-name">Jane Doe</p>
+                        <p class="tutor-role">Math Tutor</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ====== MAIN ====== -->
+        <main class="main">
+
+            <header class="main-header">
+                <div>
+                    <h1>⭐ Reviews</h1>
+                    <p class="greeting">Read and reply to student feedback</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='index.html'">← Back to Dashboard</button>
+                    <span class="rating-summary">⭐ 4.9 · 28 reviews</span>
+                </div>
+            </header>
+
+            <!-- Review Filters -->
+            <div class="filter-bar">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">5 ★</button>
+                <button class="filter-btn">4 ★</button>
+                <button class="filter-btn">3 ★</button>
+                <button class="filter-btn">2 ★</button>
+                <button class="filter-btn">1 ★</button>
+                <button class="filter-btn">Unreplied</button>
+            </div>
+
+            <!-- Reviews List -->
+            <div class="reviews-list">
+
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <span class="reviewer-avatar">EW</span>
+                            <div>
+                                <span class="reviewer-name">Student A</span>
+                                <span class="reviewer-course">Algebra II</span>
+                            </div>
+                        </div>
+                        <div class="review-meta">
+                            <span class="review-rating">★★★★★</span>
+                            <span class="review-date">3 days ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Jane is an incredible tutor! She explains complex concepts in a way that's easy to understand. My grades have improved significantly since I started working with her."</p>
+                    <div class="review-reply">
+                        <p class="reply-text"><strong>Your reply:</strong> Thank you so much for the kind words, Student A! It's been a pleasure working with you. Keep up the great work!</p>
+                    </div>
+                    <div class="reply-input">
+                        <input type="text" placeholder="Write a reply..." />
+                        <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <span class="reviewer-avatar" style="background:#e9f5db;color:#718355;">MC</span>
+                            <div>
+                                <span class="reviewer-name">Student B</span>
+                                <span class="reviewer-course">Calculus I</span>
+                            </div>
+                        </div>
+                        <div class="review-meta">
+                            <span class="review-rating">★★★★★</span>
+                            <span class="review-date">1 week ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"I was struggling with Calculus until I found Jane. She's patient, knowledgeable, and really cares about her students. Highly recommend!"</p>
+                    <div class="review-reply unreplied">
+                        <p class="reply-text"><em>No reply yet.</em></p>
+                    </div>
+                    <div class="reply-input">
+                        <input type="text" placeholder="Write a reply..." />
+                        <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <span class="reviewer-avatar" style="background:#e1ecf7;color:#71a5de;">SP</span>
+                            <div>
+                                <span class="reviewer-name">Student C</span>
+                                <span class="reviewer-course">Geometry</span>
+                            </div>
+                        </div>
+                        <div class="review-meta">
+                            <span class="review-rating">★★★★☆</span>
+                            <span class="review-date">2 weeks ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Great tutor! Very clear explanations. Only reason I didn't give 5 stars is because sometimes sessions run a bit over time, but overall excellent."</p>
+                    <div class="review-reply">
+                        <p class="reply-text"><strong>Your reply:</strong> Thank you for the feedback, Student C! I'll work on keeping sessions more tightly timed.</p>
+                    </div>
+                    <div class="reply-input">
+                        <input type="text" placeholder="Write a reply..." />
+                        <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <span class="reviewer-avatar" style="background:#fef3c7;color:#92400e;">JR</span>
+                            <div>
+                                <span class="reviewer-name">Student D</span>
+                                <span class="reviewer-course">Trigonometry</span>
+                            </div>
+                        </div>
+                        <div class="review-meta">
+                            <span class="review-rating">★★★★★</span>
+                            <span class="review-date">3 weeks ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Jane is the best math tutor I've ever had. She makes trigonometry fun and actually interesting. My test scores went from C's to A's!"</p>
+                    <div class="review-reply">
+                        <p class="reply-text"><strong>Your reply:</strong> That's amazing to hear, Student D! So proud of your progress!</p>
+                    </div>
+                    <div class="reply-input">
+                        <input type="text" placeholder="Write a reply..." />
+                        <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <span class="reviewer-avatar" style="background:#fce4ec;color:#b71c1c;">OK</span>
+                            <div>
+                                <span class="reviewer-name">Student E</span>
+                                <span class="reviewer-course">Statistics</span>
+                            </div>
+                        </div>
+                        <div class="review-meta">
+                            <span class="review-rating">★★★★☆</span>
+                            <span class="review-date">1 month ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Very knowledgeable tutor. Helped my grades AND mental health"</p>
+                    <div class="review-reply unreplied">
+                        <p class="reply-text"><em>No reply yet.</em></p>
+                    </div>
+                    <div class="reply-input">
+                        <input type="text" placeholder="Write a reply..." />
+                        <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function replyToReview(btn) {
+            const input = btn.previousElementSibling;
+            const text = input.value.trim();
+            if (!text) return showToast('Please enter a reply.');
+            const card = btn.closest('.review-card');
+            const replyDiv = card.querySelector('.review-reply');
+            replyDiv.classList.remove('unreplied');
+            replyDiv.innerHTML = `<p class="reply-text"><strong>Your reply:</strong> ${text}</p>`;
+            input.value = '';
+            showToast('✅ Reply sent!');
+        }
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                showToast('🔍 Filtered: ' + this.textContent);
+            });
+        });
+
+        window.replyToReview = replyToReview;
+        window.showToast = showToast;
+    </script>
+
+</body>
+</html>

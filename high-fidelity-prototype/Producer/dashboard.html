@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+            <!--Redirecting issues-->
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="booking-stats.html"><span class="nav-icon">📈</span> Booking Stats</a>
+                <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+               
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar">JD</div>
+                    <div><p class="tutor-name">Jane Doe</p><p class="tutor-role">Math Tutor</p></div>
+                </div>
+                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="main-header">
+                <div><h1>Dashboard</h1><p class="greeting">Welcome back, Jane 👋</p></div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="saveProfile()">💾 Save Profile</button>
+                    <button class="btn btn-ghost" onclick="resetProfile()">Reset</button>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-number">24</div><span class="stat-change up">↑ 12%</span></div>
+                <div class="stat-card"><div class="stat-label">Weekly Sessions</div><div class="stat-number">14</div><span class="stat-change up">↑ 3</span></div>
+                <div class="stat-card"><div class="stat-label">Hours Taught</div><div class="stat-number">42</div><span class="stat-change up">↑ 8%</span></div>
+                <div class="stat-card"><div class="stat-label">Rating</div><div class="stat-number">⭐ 4.9</div><span class="stat-change up">↑ 0.2</span></div>
+            </section>
+
+            <div class="dashboard-grid">
+                <div class="left-col">
+                    <div class="card">
+                        <div class="card-header"><h2>👤 Profile</h2><span class="badge">basic info</span></div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="fullName">Full name</label><input type="text" id="fullName" value="Jane Doe" /></div>
+                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" value="jane@studyhub.me" /></div>
+                        </div>
+                        <div class="form-group"><label for="bio">Bio</label><textarea id="bio">Mathematics tutor 
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>📚 Courses taught</h2><span class="badge">add / remove</span></div>
+                        <div class="course-input-row"><input type="text" id="courseInput" placeholder="e.g. Calculus I" /><button class="btn btn-primary btn-sm" onclick="addCourse()">Add</button></div>
+                        <div id="courseList" class="tag-list"></div>
+                    </div>
+
+                    <div class="card calendar-card">
+                        <div class="card-header">
+                            <h2>📅 Weekly Availability</h2>
+                            <div class="week-nav"><button onclick="changeWeek(-1)">‹</button><span id="weekLabel">June 30 – July 4, 2026</span><button onclick="changeWeek(1)">›</button></div>
+                        </div>
+                        <div class="card-body"><div id="weeklyCalendarContainer"></div><p class="calendar-hint">Click an empty slot to add · Click a block to remove</p></div>
+                    </div>
+                </div>
+
+                <div class="right-col">
+                    <div class="card">
+                        <div class="card-header"><h2>📊 Booking Statistics</h2><span class="badge">last 30 days</span></div>
+                        <div class="stat-row">
+                            <div class="stat-box"><div class="num" id="statTotal">47</div><div class="lbl">Total bookings</div></div>
+                            <div class="stat-box"><div class="num" id="statAvg">3.9</div><div class="lbl">Avg. per day</div></div>
+                        </div>
+                        <div class="stat-meta"><span>Peak day</span><span id="statPeakDay">Tuesday</span></div>
+                        <div class="stat-meta"><span>Most booked course</span><span id="statTopCourse">Calculus I</span></div>
+                        <hr /><h3>Demand by course</h3>
+                        <div id="demandList" class="demand-list"></div>
+                        <div style="margin-top:12px;"><a href="booking-stats.html" class="btn btn-sm btn-primary">View Full Statistics →</a></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>⭐ Recent Reviews</h2><span class="badge">4.9 avg</span></div>
+                        <div id="reviewList">
+                            <div class="review-item"><div><span class="reviewer-name">Student A</span><span class="review-rating">★★★★★</span></div><span class="review-text">"Amazing tutor! Explained everything perfectly."</span></div>
+                            <div class="review-item"><div><span class="reviewer-name">Student B</span><span class="review-rating">★★★★★</span></div><span class="review-text">"Very helpful and patient. Highly recommend."</span></div>
+                            <div class="review-item"><div><span class="reviewer-name">Student C</span><span class="review-rating">★★★★☆</span></div><span class="review-text">"Great explanations, sessions ran a bit long."</span></div>
+                        </div>
+                        <div class="review-actions"><a href="reviews.html" class="btn btn-sm btn-primary">View All Reviews →</a></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>👨‍🎓 Recent Students</h2><span class="badge">active</span></div>
+                        <div id="studentList"></div>
+                        <div class="student-actions"><button class="btn btn-sm" onclick="showToast('📋 All students loaded')">View all</button></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // --- Data ---
+        let courses = ['Algebra I', 'Algebra II', 'Calculus I', 'Calculus II', 'Geometry', 'Trigonometry', 'Statistics', 'Linear Algebra'];
+        const availMap = new Map();
+        const students = [
+            { name: 'Student A', course: 'Algebra II', level: 'Freshman' },
+            { name: 'Student B', course: 'Calculus I', level: 'Freshman' },
+            { name: 'Student C', course: 'Geometry', level: 'Sophomore' },
+            { name: 'Student D', course: 'Trigonometry', level: 'Junior' },
+            { name: 'Student E', course: 'Statistics', level: 'Senior' }
+        ];
+        const demandData = [{ course: 'Calculus I', count: 18 }, { course: 'Algebra II', count: 12 }, { course: 'Statistics', count: 9 }, { course: 'Geometry', count: 5 }, { course: 'Trigonometry', count: 3 }];
+        const maxDemand = Math.max(...demandData.map(d => d.count));
+        const ALL_SLOTS = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30'];
+        let currentDate = new Date();
+
+        function fmtDate(y,m,d){ return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); }
+        function formatDateStr(date){ return fmtDate(date.getFullYear(), date.getMonth(), date.getDate()); }
+        function isSameDay(d1,d2){ return d1.getFullYear()===d2.getFullYear() && d1.getMonth()===d2.getMonth() && d1.getDate()===d2.getDate(); }
+        function getMonday(date){ const d=new Date(date); const day=d.getDay(); const diff=d.getDate()-day+(day===0?-6:1); d.setDate(diff); return d; }
+        function getSlots(dateStr){ return availMap.get(dateStr)||new Set(); }
+
+        function getAvailabilityBlocks(dateStr){
+            const slots=getSlots(dateStr); if(!slots.size) return [];
+            const hours=[]; slots.forEach(t=>{ const h=parseInt(t); if(h>=9&&h<=17) hours.push(h); }); hours.sort((a,b)=>a-b);
+            if(!hours.length) return []; const blocks=[]; let s=hours[0], e=hours[0]+1;
+            for(let i=1;i<hours.length;i++){ if(hours[i]===e){ e=hours[i]+1; }else{ blocks.push({start:s,end:e}); s=hours[i]; e=hours[i]+1; } }
+            blocks.push({start:s,end:e}); return blocks;
+        }
+        function toggleAvailability(dateStr,hour){ const t=String(hour).padStart(2,'0')+':00'; if(!availMap.has(dateStr)) availMap.set(dateStr,new Set()); const s=availMap.get(dateStr); s.has(t)?s.delete(t):s.add(t); if(!s.size) availMap.delete(dateStr); saveToLocalStorage(); renderWeeklyCalendar(); }
+
+        function getStartClass(h){ const map={9:'start-9',10:'start-10',11:'start-11',12:'start-12'}; return map[h]||'start-'+(h-12); }
+        function getEndClass(h){ const map={10:'end-10',11:'end-11',12:'end-12'}; return map[h]||'end-'+(h-12); }
+        function getTimeLabel(h){ return h===12?'12 PM':h>12?(h-12)+' PM':h+' AM'; }
+
+        function renderWeeklyCalendar(){
+            const container=document.getElementById('weeklyCalendarContainer'); if(!container) return;
+            const start=getMonday(currentDate), days=['Mon','Tue','Wed','Thu','Fri'];
+            let html='<div class="calendar"><div class="timeline"><div class="spacer"></div>';
+            for(let i=9;i<=18;i++) html+=`<div class="time-marker">${getTimeLabel(i)}</div>`;
+            html+='</div><div class="days">';
+            for(let i=0;i<5;i++){ const d=new Date(start); d.setDate(start.getDate()+i); const ds=formatDateStr(d), blocks=getAvailabilityBlocks(ds), today=isSameDay(d,new Date());
+                html+=`<div class="day ${['mon','tue','wed','thu','fri'][i]}"><div class="date ${today?'today':''}"><span class="date-num">${d.getDate()}</span><span class="date-day">${days[i]}</span></div><div class="events">`;
+                let idx=0; for(let h=9;h<=17;h++){ const b=blocks[idx]; if(b&&h===b.start){ html+=`<div class="event ${getStartClass(h)} ${getEndClass(b.end)}" onclick="toggleAvailability('${ds}',${h})"><span class="title">Available</span><span class="time">${getTimeLabel(h)} – ${getTimeLabel(b.end)}</span></div>`; idx++; } else if(!b||h<b.start){ html+=`<div class="empty-slot" onclick="toggleAvailability('${ds}',${h})"></div>`; } }
+                html+='</div></div>';
+            }
+            html+='</div></div>'; container.innerHTML=html;
+            const m=getMonday(currentDate), f=new Date(m); f.setDate(m.getDate()+4); const opts={month:'short',day:'numeric'};
+            document.getElementById('weekLabel').textContent=`${m.toLocaleDateString('en-US',opts)} – ${f.toLocaleDateString('en-US',opts)}, ${f.getFullYear()}`;
+        }
+        function changeWeek(delta){ currentDate.setDate(currentDate.getDate()+delta*7); renderWeeklyCalendar(); }
+
+        function renderCourses(){ const c=document.getElementById('courseList'); c.innerHTML=courses.length?courses.map(c=>`<span class="tag">${c} <span class="remove" onclick="removeCourse('${c.replace(/'/g,"\\'")}')">✕</span></span>`).join(''):'<span class="text-muted">No courses added.</span>'; }
+        function renderStudents(){ const c=document.getElementById('studentList'); c.innerHTML=students.length?students.map(s=>`<div class="student-item"><span class="name">${s.name}</span><span class="detail">${s.course} · ${s.level}</span></div>`).join(''):'<span class="text-muted">No students yet.</span>'; }
+        function renderDemand(){ const c=document.getElementById('demandList'); c.innerHTML=demandData.length?demandData.map(d=>{const pct=(d.count/maxDemand)*100; return `<div><div class="demand-item"><span class="course">${d.course}</span><span class="count">${d.count} bookings</span></div><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;"></div></div></div>`;}).join(''):'<span class="text-muted">No demand data.</span>'; }
+        function updateStats(){ const total=demandData.reduce((s,d)=>s+d.count,0); document.getElementById('statTotal').textContent=total; document.getElementById('statAvg').textContent=(total/30).toFixed(1); const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; document.getElementById('statPeakDay').textContent=days[Math.floor(Math.random()*days.length)]; if(demandData.length){ const top=demandData.reduce((a,b)=>a.count>b.count?a:b); document.getElementById('statTopCourse').textContent=top.course; } }
+
+        function addCourse(){ const i=document.getElementById('courseInput'), v=i.value.trim(); if(!v) return showToast('Enter a course name.'); if(courses.includes(v)) return showToast('Course already added.'); courses.push(v); renderCourses(); i.value=''; saveToLocalStorage(); showToast('➕ Added: '+v); }
+        function removeCourse(name){ courses=courses.filter(c=>c!==name); renderCourses(); saveToLocalStorage(); showToast('✖ Removed: '+name); }
+        function saveProfile(){ saveToLocalStorage(); showToast('✅ Profile saved!'); }
+        function resetProfile(){ if(!confirm('Reset all data to defaults?')) return; courses=['Algebra I','Algebra II','Calculus I','Calculus II','Geometry','Trigonometry','Statistics','Linear Algebra']; availMap.clear(); generateRandomAvailability(); document.getElementById('fullName').value='Jane Doe'; document.getElementById('email').value='jane@studyhub.me'; document.getElementById('bio').value='Mathematics tutor with 6 years of experience. Specializing in calculus, algebra, and test prep.'; document.getElementById('hourlyRate').value='45'; document.getElementById('timezone').value='GMT'; document.getElementById('courseInput').value=''; renderCourses(); renderWeeklyCalendar(); saveToLocalStorage(); showToast('🔄 Reset to defaults'); }
+
+        function saveToLocalStorage(){ try{ const data={courses, availability:Array.from(availMap.entries()).map(([k,v])=>[k,Array.from(v)]), profile:{name:document.getElementById('fullName').value, email:document.getElementById('email').value, bio:document.getElementById('bio').value, rate:document.getElementById('hourlyRate').value, timezone:document.getElementById('timezone').value}}; localStorage.setItem('studyHubData',JSON.stringify(data)); }catch(_){} }
+        function loadFromLocalStorage(){ try{ const raw=localStorage.getItem('studyHubData'); if(!raw) return false; const data=JSON.parse(raw); if(data.courses) courses=data.courses; if(data.availability){ availMap.clear(); data.availability.forEach(([k,v])=>{ if(v.length) availMap.set(k,new Set(v)); }); } if(data.profile){ if(data.profile.name) document.getElementById('fullName').value=data.profile.name; if(data.profile.email) document.getElementById('email').value=data.profile.email; if(data.profile.bio) document.getElementById('bio').value=data.profile.bio; if(data.profile.rate) document.getElementById('hourlyRate').value=data.profile.rate; if(data.profile.timezone) document.getElementById('timezone').value=data.profile.timezone; } return true; }catch(_){ return false; } }
+
+        function generateRandomAvailability(){ const today=new Date(), start=getMonday(today); for(let i=0;i<5;i++){ const d=new Date(start); d.setDate(start.getDate()+i); const ds=formatDateStr(d); if(Math.random()<0.6){ const slots=new Set(); const count=2+Math.floor(Math.random()*4); for(let j=0;j<count;j++){ const hour=9+Math.floor(Math.random()*8); slots.add(String(hour).padStart(2,'0')+':00'); } if(slots.size) availMap.set(ds,slots); } } const todayStr=formatDateStr(today); if(!availMap.has(todayStr)) availMap.set(todayStr,new Set(['09:00','10:00','11:00','14:00','15:00'])); }
+
+        function showToast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
+
+        function init(){ const loaded=loadFromLocalStorage(); if(!loaded) generateRandomAvailability(); renderCourses(); renderStudents(); renderDemand(); updateStats(); renderWeeklyCalendar(); window.addCourse=addCourse; window.removeCourse=removeCourse; window.toggleAvailability=toggleAvailability; window.changeWeek=changeWeek; window.saveProfile=saveProfile; window.resetProfile=resetProfile; window.showToast=showToast; }
+        init();
+    </script>
+
+</body>
+</html>
