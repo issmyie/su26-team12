@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Student Profile</title>
+    <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="customer-dashboard.html">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+                <a href="profile.html" class="active">
+                    <span class="nav-icon">👤</span> Profile
+                </a>
+                <a href="resources.html">
+                    <span class="nav-icon">📚</span> Resources
+                </a>
+                <a href="appointments.html">
+                    <span class="nav-icon">📅</span> Appointments
+                </a>
+                <a href="reviews.html">
+                    <span class="nav-icon">⭐</span> Reviews
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="student-card">
+                    <div class="avatar">AC</div>
+                    <div>
+                        <p class="student-name">Alex Carter</p>
+                        <p class="student-role">Student</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <header class="main-header">
+                <div>
+                    <h1>Student Profile</h1>
+                    <p class="greeting">Update your information and study preferences.</p>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='customer-dashboard.html'">← Back to Dashboard</button>
+                    <button class="btn btn-primary" onclick="showToast('✅ Profile saved!')">Save Profile</button>
+                </div>
+            </header>
+
+            <div class="profile-grid">
+
+                <div class="left-col">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>👤 Basic Information</h2>
+                            <span class="badge">student info</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" value="Alex Carter">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="alex@student.edu">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Year</label>
+                                <select>
+                                    <option>Freshman</option>
+                                    <option selected>Sophomore</option>
+                                    <option>Junior</option>
+                                    <option>Senior</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Session Type</label>
+                                <select>
+                                    <option selected>In Person</option>
+                                    <option>Online</option>
+                                    <option>Either</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Study Goal</label>
+                            <textarea>Improve grades and prepare for upcoming exams.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📚 Current Courses</h2>
+                            <span class="badge">this semester</span>
+                        </div>
+
+                        <div class="tag-list">
+                            <span class="tag">Biology 101</span>
+                            <span class="tag">English Composition</span>
+                            <span class="tag">Calculus I</span>
+                        </div>
+
+                        <div class="form-group add-course">
+                            <label>Add Course</label>
+                            <div class="course-row">
+                                <input type="text" placeholder="e.g. Chemistry 101">
+                                <button class="btn btn-primary" onclick="showToast('➕ Course added!')">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-col">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>⭐ Study Preferences</h2>
+                            <span class="badge">help us match you</span>
+                        </div>
+
+                        <div class="preference-item">
+                            <span>Preferred Time</span>
+                            <strong>Afternoon</strong>
+                        </div>
+
+                        <div class="preference-item">
+                            <span>Learning Style</span>
+                            <strong>Practice Problems</strong>
+                        </div>
+
+                        <div class="preference-item">
+                            <span>Subjects Needed</span>
+                            <strong>Biology, Calculus</strong>
+                        </div>
+
+                        <div class="preference-item">
+                            <span>Session Length</span>
+                            <strong>60 minutes</strong>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📌 Account Summary</h2>
+                            <span class="badge">overview</span>
+                        </div>
+
+                        <p><strong>Member Since:</strong> Spring 2026</p>
+                        <p><strong>Completed Sessions:</strong> 12</p>
+                        <p><strong>Saved Resources:</strong> 8</p>
+                        <p><strong>Reviews Given:</strong> 5</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+    </script>
+
+</body>
+</html>

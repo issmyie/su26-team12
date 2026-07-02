@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Resources</title>
+    <link rel="stylesheet" href="resources.css" />
+</head>
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="customer-dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+                <a href="resources.html" class="active"><span class="nav-icon">📚</span> Resources</a>
+                <a href="appointments.html"><span class="nav-icon">📅</span> Appointments</a>
+                <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="student-card">
+                    <div class="avatar">AC</div>
+                    <div>
+                        <p class="student-name">Alex Carter</p>
+                        <p class="student-role">Student</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <header class="main-header">
+                <div>
+                    <h1>Study Resources</h1>
+                    <p class="greeting">Find notes, guides, and practice material for your classes.</p>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='customer-dashboard.html'">← Back to Dashboard</button>
+                    <button class="btn btn-primary" onclick="showToast('📚 Resource saved!')">Saved Resource</button>
+                </div>
+            </header>
+
+            <div class="search-card">
+                <input type="text" placeholder="Search resources by subject or keyword..." />
+                <button class="btn btn-primary" onclick="showToast('🔍 Search results updated!')">Search</button>
+            </div>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Available Resources</div>
+                    <div class="stat-number">24</div>
+                    <span class="stat-change">updated weekly</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Saved Items</div>
+                    <div class="stat-number">8</div>
+                    <span class="stat-change">in your list</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Recommended</div>
+                    <div class="stat-number">6</div>
+                    <span class="stat-change">based on courses</span>
+                </div>
+            </section>
+
+            <div class="resource-grid">
+
+                <div class="card resource-card">
+                    <div class="resource-icon">🧬</div>
+                    <h2>Biology 101 Study Guide</h2>
+                    <p>Review important vocabulary, diagrams, and chapter summaries.</p>
+                    <span class="badge">Biology</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened Biology 101 Study Guide')">Open</button>
+                </div>
+
+                <div class="card resource-card">
+                    <div class="resource-icon">📝</div>
+                    <h2>Essay Writing Tips</h2>
+                    <p>Practice thesis statements, essay structure, and revision strategies.</p>
+                    <span class="badge">Writing</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened Essay Writing Tips')">Open</button>
+                </div>
+
+                <div class="card resource-card">
+                    <div class="resource-icon">📐</div>
+                    <h2>Calculus I Practice Problems</h2>
+                    <p>Work through limits, derivatives, and basic graphing problems.</p>
+                    <span class="badge">Math</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened Calculus Practice Problems')">Open</button>
+                </div>
+
+                <div class="card resource-card">
+                    <div class="resource-icon">🔬</div>
+                    <h2>Chemistry Review Notes</h2>
+                    <p>Review formulas, lab safety, and common reaction examples.</p>
+                    <span class="badge">Science</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened Chemistry Review Notes')">Open</button>
+                </div>
+
+                <div class="card resource-card">
+                    <div class="resource-icon">🌎</div>
+                    <h2>World History Timeline</h2>
+                    <p>Study major events, dates, and key historical figures.</p>
+                    <span class="badge">History</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened History Timeline')">Open</button>
+                </div>
+
+                <div class="card resource-card">
+                    <div class="resource-icon">💬</div>
+                    <h2>Public Speaking Checklist</h2>
+                    <p>Prepare for presentations with speaking and organization tips.</p>
+                    <span class="badge">Communication</span>
+                    <button class="btn btn-primary" onclick="showToast('Opened Speaking Checklist')">Open</button>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Appointments</title>
+    <link rel="stylesheet" href="appointments.css" />
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">📘</span>
+            <span>StudyHub</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="customer-dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+            <a href="resources.html"><span class="nav-icon">📚</span> Resources</a>
+            <a href="appointments.html" class="active"><span class="nav-icon">📅</span> Appointments</a>
+            <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="student-card">
+                <div class="avatar">AC</div>
+                <div>
+                    <p class="student-name">Alex Carter</p>
+                    <p class="student-role">Student</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-header">
+            <div>
+                <h1>Appointments</h1>
+                <p class="greeting">Book, view, and cancel tutoring sessions.</p>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="window.location.href='customer-dashboard.html'">← Back to Dashboard</button>
+                <button class="btn btn-primary" onclick="showToast('📅 New session booked!')">Book New Session</button>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Upcoming</div>
+                <div class="stat-number">2</div>
+                <span class="stat-change">this week</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Completed</div>
+                <div class="stat-number">12</div>
+                <span class="stat-change">total sessions</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Canceled</div>
+                <div class="stat-number">1</div>
+                <span class="stat-change">last month</span>
+            </div>
+        </section>
+
+        <div class="appointments-grid">
+
+            <div class="left-col">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>📅 Upcoming Sessions</h2>
+                        <span class="badge">scheduled</span>
+                    </div>
+
+                    <div class="appointment-card">
+                        <div>
+                            <h3>Biology 101 Tutoring</h3>
+                            <p>Emily Wilson · Thursday, July 9 · 2:00 PM</p>
+                            <span class="status confirmed">Confirmed</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="showToast('❌ Appointment canceled')">Cancel</button>
+                    </div>
+
+                    <div class="appointment-card">
+                        <div>
+                            <h3>English Composition Help</h3>
+                            <p>Michael Brown · Friday, July 10 · 11:00 AM</p>
+                            <span class="status pending">Pending</span>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="showToast('❌ Appointment canceled')">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>👨‍🏫 Available Tutors</h2>
+                        <span class="badge">book a session</span>
+                    </div>
+
+                    <div class="tutor-list">
+                        <div class="tutor-row">
+                            <div>
+                                <h3>Emily Wilson</h3>
+                                <p>Biology Tutor · ⭐ 4.9</p>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="showToast('📅 Biology session booked!')">Book</button>
+                        </div>
+
+                        <div class="tutor-row">
+                            <div>
+                                <h3>Michael Brown</h3>
+                                <p>Writing Tutor · ⭐ 4.8</p>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="showToast('📅 Writing session booked!')">Book</button>
+                        </div>
+
+                        <div class="tutor-row">
+                            <div>
+                                <h3>Sophia Lee</h3>
+                                <p>Calculus Tutor · ⭐ 4.7</p>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="showToast('📅 Calculus session booked!')">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right-col">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>📝 Book a Session</h2>
+                        <span class="badge">request form</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Course</label>
+                        <select>
+                            <option>Biology 101</option>
+                            <option>English Composition</option>
+                            <option>Calculus I</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tutor</label>
+                        <select>
+                            <option>Emily Wilson</option>
+                            <option>Michael Brown</option>
+                            <option>Sophia Lee</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time">
+                    </div>
+
+                    <button class="btn btn-primary btn-block" onclick="showToast('✅ Session request submitted!')">Submit Request</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(el._t);
+        el._t = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+</script>
+
+</body>
+</html>
