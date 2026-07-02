@@ -10,8 +10,7 @@
 
     <div class="app">
 
-                  <!--Redirecting issues-->
-
+        <!-- ====== SIDEBAR ====== -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <span class="brand-icon">📘</span>
@@ -26,7 +25,12 @@
                 </a>
                 <a href="reviews.html">
                     <span class="nav-icon">⭐</span> Reviews
-
+                </a>
+                <a href="#">
+                    <span class="nav-icon">👥</span> Students
+                </a>
+                <a href="#">
+                    <span class="nav-icon">📝</span> Sessions
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -40,7 +44,7 @@
             </div>
         </aside>
 
-      
+        <!-- ====== MAIN ====== -->
         <main class="main">
 
             <header class="main-header">
@@ -49,7 +53,7 @@
                     <p class="greeting">Detailed analytics for your tutoring business</p>
                 </div>
                 <div class="header-actions">
-                    <button class="btn btn-outline" onclick="window.location.href='index.html'">← Back to Dashboard</button>
+                    <a href="dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
                     <button class="btn btn-primary" onclick="showToast('📊 Report exported!')">Export Report</button>
                 </div>
             </header>
@@ -60,6 +64,11 @@
                     <div class="stat-label">Total Bookings</div>
                     <div class="stat-number">342</div>
                     <span class="stat-change up">↑ 18%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Revenue</div>
+                    <div class="stat-number">$12,840</div>
+                    <span class="stat-change up">↑ 22%</span>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Avg. Session Length</div>
