@@ -18,13 +18,17 @@
 
 
 **Glossary** Terms used in the project
-- **Term 1:** A user who receives tutoring and uses study resources.
-- **Term 2:** A user who provides tutoring services and manages appointments.
+- **Student:** Person receiving tutoring services and study resources. 
+- **System Admin:** Admins are in control of the system and manage services. 
+- **Tutor:** Person providing tutoring services and study resources
+- **Profile:** A collection of information about a user, including grade level and subjects of interest
+- **Tutoring Session:** Meeting between tutors and students to help students with specific learning outcomes and requests.
+- **Study Resources** Study guides and practice problems provided by tutors for students to use.
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** —Manage a profile, access study resources, book tutoring appointments, and leave reviews.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
-- **SysAdmin (optional)** — 1 line goal statement.
+ **Customer (Students)** Students can create an account, access study guides and find a tutor.
+- **Provider (Tutors (TA's and Lab assistants))** Tutors can create an account, post study guides and tutor.
+- **SysAdmin** — Admins can moderate the platform and ensure appropriate usage and behaviors. 
 
 **Scope (this semester).**
 - Student, Tutor, and System Administrator prototypes
