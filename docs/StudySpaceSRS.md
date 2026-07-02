@@ -1,8 +1,8 @@
 
 # Requirements – Starter Template
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
+**Project Name:** StudySpace \
+**Team:** Eman Dweik (Producer) Shafath Moreano (System Admin) Abdullah Khan (Customer)\
 **Course:** CSC 340\
 **Version:** 1.0\
 **Date:** 2026-06-25
@@ -10,25 +10,29 @@
 ---
 
 ## 1. Overview
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** University students can find Campus-aligned tutoring from official helpers. The system allows tutors to sign up, choose their areas of expertise, and post study resources. Students can sign up, choose the subjects that they need help with, and access the resources. Admins moderate the platform to ensure that tutors and students behave appropriately and that the platform runs as planned. 
 
 **Glossary** Terms used in the project
-- **Term 1:** description.
-- **Term 2:** description
+- **Student:** Person receiving tutoring services and study resources. 
+- **System Admin:** Admins are in control of the system and manage services. 
+- **Tutor:** Person providing tutoring services and study resources
+- **Profile:** A collection of information about a user, including grade level and subjects of interest
+- **Tutoring Session:** Meeting between tutors and students to help students with specific learning outcomes and requests.
+- **Study Resources** Study guides and practice problems provided by tutors for students to use.
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
-- **SysAdmin (optional)** — 1 line goal statement.
+- **Customer (Students)** Students can create an account, access study guides and find a tutor.
+- **Provider (Tutors (TA's and Lab assistants))** Tutors can create an account, post study guides and tutor.
+- **SysAdmin** — Admins can moderate the platform and ensure appropriate usage and behaviors. 
 
 **Scope (this semester).**
-- <capability 1>
-- <capability 2>
-- <capability 3>
+- User profiles
+- Booking and canceling tutoring sessions
+- Viewing booking and user statistics 
 
 **Out of scope (deferred).**
-- <deferred 1>
-- <deferred 2>
+- Private messages between tutors and students. 
+- Tailored learning plans and tracked student outcomes. 
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
