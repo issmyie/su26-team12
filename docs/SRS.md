@@ -5,7 +5,7 @@
 
 **Team:** - Eman – Provider (Tutor)<br>
           - Abdullah Khan – Customer (Student)<br>
-          - Shafath – System Administrator
+          - Shafath – System Administrator<br>
 
 **Course:** CSC 340\
 **Version:** 1.0\
@@ -107,38 +107,42 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```
 
 ### 2.3 SysAdmin Stories
-- **US‑30 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
+- **US-30 — View Platform User Data**
+  Story: As a sysadmin, I want to view student and tutor account information so that I can monitor platform activity and help manage users.
+  Acceptance:
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
+  Scenario: Sysadmin views user data from the dashboard
+  Given the sysadmin is logged into the StudySpace system
+  When the sysadmin opens the admin dashboard
+  Then the system displays a list of users with basic account information
+  '''
 
-- **US‑31 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
+- **US-31 — Manage User Access**
+  Story: As a sysadmin, I want to manage user access so that I can help keep the system organized and secure.
+  Acceptance:
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
+  Scenario: Sysadmin updates a user's access level
+  Given the sysadmin is logged into the StudySpace system
+  When the sysadmin selects a user and changes the user's access level
+  Then the system updates the user's role and shows a confirmation message
+  '''
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** description 
-- **Availability/Reliability:** description
-- **Security/Privacy:** description
-- **Usability:** description
+- **Performance: The main pages should load in less than 3 seconds on a normal internet connection**
+- **Availability/Reliability: The prototype should be available through the GitHub repository and should open without broken page links.**
+- **Security/Privacy: Only the sysadmin role should have access to admin dashboard features in the final system. Private user information should not be shown publicly.**
+- **Usability: The website should be easy to read, use clear labels, and allow users to reach important pages from the navigation menu.**
 
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- list any rules, policies, assumptions, etc.
+- The project is a course prototype and does not need to be a fully finished production system.
+- The high-fidelity prototype may use static HTML, CSS, and JavaScript before the backend is fully connected.
+- Student, tutor, and sysadmin roles are expected to have different views.
+- User stories should be tracked through GitHub issues.
+- Major project changes should be discussed by the team before being added.
+- The system should avoid displaying sensitive personal information unless it is required for the user role.
 
 ---
 
