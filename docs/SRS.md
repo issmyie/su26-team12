@@ -1,34 +1,40 @@
 
 # Requirements – Starter Template
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
+**Project Name:** StudySpace
+
+**Team:** - Eman – Provider (Tutor)<br>
+          - Abdullah Khan – Customer (Student)<br>
+          - Shafath – System Administrator
+
 **Course:** CSC 340\
 **Version:** 1.0\
-**Date:** 2026-06-25
+**Date:** 2026-07-02
 
 ---
 
 ## 1. Overview
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** StudySpace is a tutoring platform designed to help students connect with tutors. Students can manage their profiles, access study resources, schedule tutoring appointments, and leave reviews. Tutors and system administrators have their own dashboards to manage tutoring services and users.
+
 
 **Glossary** Terms used in the project
-- **Term 1:** description.
-- **Term 2:** description
+- **Term 1:** A user who receives tutoring and uses study resources.
+- **Term 2:** A user who provides tutoring services and manages appointments.
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
+- **Customer (e.g., Student/Patient/Pet Owner/etc. )** —Manage a profile, access study resources, book tutoring appointments, and leave reviews.
 - **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
 - **SysAdmin (optional)** — 1 line goal statement.
 
 **Scope (this semester).**
-- <capability 1>
-- <capability 2>
-- <capability 3>
+- Student, Tutor, and System Administrator prototypes
+- User profile management
+- Study resources, appointments, and reviews
 
 **Out of scope (deferred).**
-- <deferred 1>
-- <deferred 2>
+- Online payment processing
+- Video tutoring sessions
+
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
@@ -38,26 +44,47 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑1 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑1 — Manage Student Profile**  
+  _Story:_ As a student, I want to manage my profile so that I can keep my personal and academic information up to date. 
+ 
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: View and update profile
+    Given I am logged into the system
+    When  I open my profile page
+    Then  I can view and update my profile information
   ```
 
-- **US‑2 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑2 — View Study Resources**  
+  _Story:_ As a student, I want to view study resources so that I can access helpful learning materials.
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Browse resources
+    Given I am logged into the system
+    When  I open the Resources page
+    Then  available study resources are displayed
   ```
 
+- **US-3 — Book and Cancel Appointments**  
+  _Story:_ As a student, I want to book and cancel tutoring appointments so that I can manage my tutoring schedule.  
+
+  _Acceptance:_
+  ```gherkin
+  Scenario: Manage appointments
+    Given I am logged into the system
+    When I book or cancel a tutoring appointment
+    Then my appointment list is updated
+  ```
+- **US-4 — Leave Reviews**  
+  _Story:_ As a student, I want to leave reviews after tutoring sessions so that I can provide feedback to tutors.  
+
+  _Acceptance:_
+  ```gherkin
+  Scenario: Submit a review
+    Given I have completed a tutoring session
+    When I submit a rating and review
+    Then my review is displayed in the Reviews page
+  ```
 ### 2.2 Provider Stories
 - **US-20 — <short title>**  
   _Story:_ As a provider, I want … so that …  
