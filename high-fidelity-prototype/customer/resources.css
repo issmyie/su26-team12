@@ -6,7 +6,6 @@
     --blue-400: #1d4ed8;
     --blue-500: #2563eb;
     --green-100: #e9f5db;
-    --green-500: #87986a;
     --green-600: #718355;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
@@ -64,10 +63,6 @@ button {
     margin-bottom: 36px;
 }
 
-.brand-icon {
-    font-size: 1.4rem;
-}
-
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -81,8 +76,8 @@ button {
     gap: 12px;
     padding: 10px 14px;
     border-radius: var(--radius-sm);
-    font-weight: 500;
     font-size: 0.9rem;
+    font-weight: 500;
     color: var(--text-secondary);
     text-decoration: none;
     transition: var(--transition);
@@ -92,11 +87,6 @@ button {
 .sidebar-nav a.active {
     background: var(--blue-100);
     color: var(--blue-500);
-}
-
-.nav-icon {
-    width: 24px;
-    text-align: center;
 }
 
 .sidebar-footer {
@@ -138,7 +128,7 @@ button {
 .main {
     flex: 1;
     padding: 28px 32px 40px;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     width: 100%;
 }
@@ -147,7 +137,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     gap: 12px;
     flex-wrap: wrap;
 }
@@ -195,16 +185,36 @@ button {
     border-color: var(--blue-100);
 }
 
-.btn-sm {
-    padding: 4px 14px;
-    font-size: 0.8rem;
+.search-card {
+    background: var(--white);
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 16px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.search-card input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+}
+
+.search-card input:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
 .stat-card {
@@ -240,10 +250,10 @@ button {
     margin-top: 6px;
 }
 
-.dashboard-grid {
+.resource-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
 }
 
 .card {
@@ -251,71 +261,67 @@ button {
     border-radius: var(--radius);
     border: 1px solid var(--blue-100);
     box-shadow: var(--shadow-sm);
-    padding: 20px 24px 24px;
-    margin-bottom: 24px;
+    padding: 22px;
+    transition: var(--transition);
 }
 
 .card:hover {
     box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
 }
 
-.card-header {
+.resource-card {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.card-header h2 {
+.resource-icon {
+    font-size: 2rem;
+}
+
+.resource-card h2 {
     font-size: 1rem;
 }
 
+.resource-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
 .badge {
+    width: fit-content;
     font-size: 0.7rem;
     color: var(--text-secondary);
     background: var(--bg);
     padding: 2px 12px;
     border-radius: 20px;
     border: 1px solid var(--blue-100);
-}
-
-.appointment-item,
-.resource-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--bg);
-    padding: 12px 0;
-    gap: 12px;
-}
-
-.appointment-item h3 {
-    font-size: 0.95rem;
-}
-
-.appointment-item p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.resource-item span {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.review-text {
-    color: var(--text-primary);
     margin-bottom: 8px;
 }
 
-.review-rating {
-    color: #f59e0b;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--text-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-md);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.35s ease;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 @media (max-width: 900px) {
-    .dashboard-grid,
+    .resource-grid,
     .stats-grid {
         grid-template-columns: 1fr;
     }
@@ -328,5 +334,9 @@ button {
         width: 100%;
         height: auto;
         position: static;
+    }
+
+    .search-card {
+        flex-direction: column;
     }
 }

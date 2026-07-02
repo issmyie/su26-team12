@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Student Reviews</title>
+    <link rel="stylesheet" href="reviews.css" />
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">📘</span>
+            <span>StudyHub</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="customer-dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+            <a href="resources.html"><span class="nav-icon">📚</span> Resources</a>
+            <a href="appointments.html"><span class="nav-icon">📅</span> Appointments</a>
+            <a href="reviews.html" class="active"><span class="nav-icon">⭐</span> Reviews</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="student-card">
+                <div class="avatar">AC</div>
+                <div>
+                    <p class="student-name">Alex Carter</p>
+                    <p class="student-role">Student</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-header">
+            <div>
+                <h1>Reviews</h1>
+                <p class="greeting">Leave feedback for completed tutoring sessions.</p>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="window.location.href='customer-dashboard.html'">← Back to Dashboard</button>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Reviews Given</div>
+                <div class="stat-number">5</div>
+                <span class="stat-change">active user</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Completed Sessions</div>
+                <div class="stat-number">12</div>
+                <span class="stat-change">ready to review</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Average Rating</div>
+                <div class="stat-number">4.8</div>
+                <span class="stat-change">student feedback</span>
+            </div>
+        </section>
+
+        <div class="reviews-grid">
+
+            <div class="left-col">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>📝 Write a Review</h2>
+                        <span class="badge">new feedback</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Completed Session</label>
+                        <select>
+                            <option>Biology 101 Tutoring Session</option>
+                            <option>English Composition with Michael Brown</option>
+                            <option>Calculus I with Sophia Lee</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <select>
+                            <option>★★★★★ - Excellent</option>
+                            <option>★★★★☆ - Good</option>
+                            <option>★★★☆☆ - Okay</option>
+                            <option>★★☆☆☆ - Needs Improvement</option>
+                            <option>★☆☆☆☆ - Poor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Review Comment</label>
+                        <textarea placeholder="Write your feedback here..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="showToast('✅ Review submitted!')">Submit Review</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>✅ Completed Sessions</h2>
+                        <span class="badge">available to review</span>
+                    </div>
+
+                    <div class="session-item">
+                        <div>
+                            <h3>Biology 101 Tutoring</h3>
+                            <p>Emily Wilson · July 2, 2026</p>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="showToast('Selected Biology session')">Review</button>
+                    </div>
+
+                    <div class="session-item">
+                        <div>
+                            <h3>English Composition Help</h3>
+                            <p>Michael Brown · June 28, 2026</p>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="showToast('Selected English session')">Review</button>
+                    </div>
+
+                    <div class="session-item">
+                        <div>
+                            <h3>Calculus I Practice</h3>
+                            <p>Sophia Lee · June 20, 2026</p>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="showToast('Selected Calculus session')">Review</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right-col">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>⭐ My Recent Reviews</h2>
+                        <span class="badge">history</span>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-top">
+                            <strong>Emily Wilson</strong>
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <p>She explained the Biology topic clearly and helped me understand the study material.</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-top">
+                            <strong>Michael Brown</strong>
+                            <span class="stars">★★★★☆</span>
+                        </div>
+                        <p>The writing session helped me organize my essay better.</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-top">
+                            <strong>Sophia Lee</strong>
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <p>The Calculus practice problems were helpful before my quiz.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(el._t);
+        el._t = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+</script>
+
+</body>
+</html>

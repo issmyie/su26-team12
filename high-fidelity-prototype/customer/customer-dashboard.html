@@ -1,43 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>StudySpace Customer Dashboard</title>
-    <link rel="stylesheet" href="customer-dashboard.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyHub · Student Dashboard</title>
+    <link rel="stylesheet" href="customer-dashboard.css" />
 </head>
 <body>
-    <header>
-        <h1>StudySpace</h1>
-        <p>How do you want to study?</p>
-        </header>
 
-    
-    </header>
+    <div class="app">
 
-    <main>
-        <section class="card">
-            <h2>My Profile</h2>
-            <p>Create or update student information, courses, and tutoring needs.</p>
-            <button>Edit Profile</button>
-        </section>
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudyHub</span>
+            </div>
 
-        <section class="card">
-            <h2>Study Resources</h2>
-            <p>Browse study resources shared by tutors, TAs, and Lab Assistants.</p>
-            <button>View Resources</button>
-        </section>
+            <nav class="sidebar-nav">
+                <a href="customer-dashboard.html" class="active">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+                <a href="profile.html">
+                    <span class="nav-icon">👤</span> Profile
+                </a>
+                <a href="resources.html">
+                    <span class="nav-icon">📚</span> Resources
+                </a>
+                <a href="appointments.html">
+                    <span class="nav-icon">📅</span> Appointments
+                </a>
+                <a href="reviews.html">
+                    <span class="nav-icon">⭐</span> Reviews
+                </a>
+            </nav>
 
-        <section class="card">
-            <h2>Book a Tutoring Session</h2>
-            <p>Schedule a tutoring session with an available tutor or TA.</p>
-            <button>Book Session</button>
-        </section>
+            <div class="sidebar-footer">
+                <div class="student-card">
+                    <div class="avatar">AC</div>
+                    <div>
+                        <p class="student-name">Alex Carter</p>
+                        <p class="student-role">Student</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
-        <section class="card">
-            <h2>My reviews</h2>
-            <p>Write reviews and ratings after attending a tutoring session.</p>
-            <button>Write Review</button>
-        </section>
-    </main>
+        <main class="main">
+
+            <header class="main-header">
+                <div>
+                    <h1>Student Dashboard</h1>
+                    <p class="greeting">Welcome back, Alex 👋</p>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='profile.html'">Edit Profile</button>
+                    <button class="btn btn-primary" onclick="window.location.href='appointments.html'">Book Session</button>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Upcoming Sessions</div>
+                    <div class="stat-number">2</div>
+                    <span class="stat-change">this week</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Saved Resources</div>
+                    <div class="stat-number">8</div>
+                    <span class="stat-change">+3 new</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Completed Sessions</div>
+                    <div class="stat-number">12</div>
+                    <span class="stat-change">good progress</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Reviews Given</div>
+                    <div class="stat-number">5</div>
+                    <span class="stat-change">active user</span>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+
+                <div class="left-col">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📅 Upcoming Appointments</h2>
+                            <span class="badge">next sessions</span>
+                        </div>
+
+                        <div class="appointment-item">
+                            <div>
+                                <h3>Biology 101 Tutoring</h3>
+                                <p>With Emily Wilson · Thursday, 2:00 PM</p>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='appointments.html'">View</button>
+                        </div>
+
+                        <div class="appointment-item">
+                            <div>
+                                <h3>English Composition Help</h3>
+                                <p>With Michael Brown · Friday, 11:00 AM</p>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='appointments.html'">View</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📚 Recommended Resources</h2>
+                            <span class="badge">for you</span>
+                        </div>
+
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <span>Biology 101 Study Guide</span>
+                                <button class="btn btn-sm" onclick="window.location.href='resources.html'">Open</button>
+                            </div>
+
+                            <div class="resource-item">
+                                <span>Essay Writing Tips</span>
+                                <button class="btn btn-sm" onclick="window.location.href='resources.html'">Open</button>
+                            </div>
+
+                            <div class="resource-item">
+                                <span>Calculus I Practice Problems</span>
+                                <button class="btn btn-sm" onclick="window.location.href='resources.html'">Open</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-col">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>👤 Profile Summary</h2>
+                            <span class="badge">student info</span>
+                        </div>
+
+                        <p><strong>Name:</strong> Alex Carter</p>
+                        <p><strong>Role:</strong> Student</p>
+                        <p><strong>Courses:</strong> Biology 101, English Composition, Calculus I</p>
+                        <p><strong>Goal:</strong> Improve study skills and connect with tutors.</p>
+
+                        <button class="btn btn-primary" onclick="window.location.href='profile.html'">Update Profile</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>⭐ Recent Review</h2>
+                            <span class="badge">feedback</span>
+                        </div>
+
+                        <p class="review-text">
+                            “The Biology tutoring session was very helpful. The tutor explained everything clearly.”
+                        </p>
+                        <p class="review-rating">★★★★★</p>
+
+                        <button class="btn btn-primary" onclick="window.location.href='reviews.html'">Write Review</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
 </body>
 </html>
