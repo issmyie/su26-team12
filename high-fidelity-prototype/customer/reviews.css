@@ -1,10 +1,10 @@
 :root {
     --bg: #f8f9fb;
     --white: #ffffff;
-    --blue-100: #e1ecf7;
+    --blue-100: #dbeafe;
     --blue-300: #aecbeb;
-    --blue-400: #83b0e1;
-    --blue-500: #71a5de;
+    --blue-400: #1d4ed8;
+    --blue-500: #2563eb;
     --green-100: #e9f5db;
     --green-600: #718355;
     --text-primary: #1e293b;
@@ -301,7 +301,7 @@ select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--blue-500);
-    box-shadow: 0 0 0 3px rgba(113, 165, 222, 0.12);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .session-item {
