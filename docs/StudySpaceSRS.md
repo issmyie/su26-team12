@@ -26,7 +26,7 @@
 - **Study Resources** Study guides and practice problems provided by tutors for students to use.
 
 **Primary Users / Roles.**
- **Customer (Students)** Students can create an account, access study guides and find a tutor.
+- **Customer (Students)** Students can create an account, access study guides and find a tutor.
 - **Provider (Tutors (TA's and Lab assistants))** Tutors can create an account, post study guides and tutor.
 - **SysAdmin** — Admins can moderate the platform and ensure appropriate usage and behaviors. 
 
