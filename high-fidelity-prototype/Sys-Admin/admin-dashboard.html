@@ -2,45 +2,135 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>StudySpace Admin Dashboard</title>
+    <title>StudyHub Admin Dashboard</title>
     <link rel="stylesheet" href="admin-dashboard.css">
 </head>
 <body>
-    <header>
-        <h1>StudyHub Admin Dashboard</h1>
-        <p>Admin prototype for managing users, reviewing content, and viewing platform activities.</p>
-    </header>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudySpace</span>
+            </div>
 
-    <main>
-        <section class="card">
-            <h2>Manage Users</h2>
-            <p>View students, tutors, TAs, and Lab Assistants.</p>
-            <button>View Users</button>
-        </section>
+            <nav class="sidebar-nav">
+                <a href="#" class="active"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="#"><span class="nav-icon">👥</span> Users</a>
+                <a href="#"><span class="nav-icon">🧑‍🏫</span> Profiles</a>
+                <a href="#"><span class="nav-icon">📚</span> Resources</a>
+                <a href="#"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="#"><span class="nav-icon">📈</span> Statistics</a>
+            </nav>
 
-        <section class="card">
-            <h2>Moderate Profiles</h2>
-            <p>Review tutor profiles and approve official helpers.</p>
-            <button>Review Profiles</button>
-        </section>
+            <div class="sidebar-footer">
+                <div class="admin-card">
+                    <div class="avatar">SM</div>
+                    <div>
+                        <div class="admin-name">Shafath Moreano</div>
+                        <div class="admin-role">SysAdmin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
-        <section class="card">
-            <h2>Moderate Resources</h2>
-            <p>Review posted study guides and learning resources</p>
-            <button>Review Resources</button>
-        </section>
+        <main class="main">
+            <header class="main-header">
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p class="greeting">Welcome back, Shafath 👋</p>
+                </div>
 
-        <section class="card"> 
-            <h2>Moderate Reviews</h2>
-            <p>Review students comments, tutor replies, and reported feedback</p>
-            <button>Review Reviews</button>
-        </section>
+                <div class="header-actions">
+                    <button class="btn">View Reports</button>
+                    <button class="btn btn-primary">Manage Users</button>
+                </div>
+            </header>
 
-        <section class="card">
-            <h2>Usage Statistics</h2>
-            <p>View active users, tutoring sessions, and popular courses.</p>
-            <button>View Statistics</button>
-        </section>
-    </main>
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Pending Profiles</div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-change">needs review</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Active Users</div>
+                    <div class="stat-number">36</div>
+                    <div class="stat-change">students and tutors</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Reported Reviews</div>
+                    <div class="stat-number">2</div>
+                    <div class="stat-change">open reports</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Posted Resources</div>
+                    <div class="stat-number">15</div>
+                    <div class="stat-change">study materials</div>
+                </div>
+            </section>
+
+            <section class="dashboard-grid">
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>👥 Manage Users</h2>
+                            <span class="badge">admin access</span>
+                        </div>
+                        <p>View students, tutors, TAs, and Lab Assistants. Admins can manage user roles and give approved users admin access.</p>
+                        <button class="btn btn-primary">View Users</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>🧑‍🏫 Moderate Profiles</h2>
+                            <span class="badge">profile review</span>
+                        </div>
+                        <p>Review tutor profiles and approve official helpers before they appear as available tutors.</p>
+                        <button class="btn btn-primary">Review Profiles</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📚 Moderate Resources</h2>
+                            <span class="badge">study content</span>
+                        </div>
+                        <p>Review posted study guides and learning resources to make sure they are appropriate for students.</p>
+                        <button class="btn btn-primary">Review Resources</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>⭐ Moderate Reviews</h2>
+                            <span class="badge">feedback</span>
+                        </div>
+                        <p>Review student comments, tutor replies, and reported feedback.</p>
+                        <button class="btn btn-primary">Review Reviews</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>📈 Usage Statistics</h2>
+                            <span class="badge">platform activity</span>
+                        </div>
+                        <p>View active users, tutoring sessions, popular courses, and resource activity.</p>
+                        <button class="btn btn-primary">View Statistics</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Admin Summary</h2>
+                            <span class="badge">SysAdmin</span>
+                        </div>
+                        <p>This dashboard demonstrates the SysAdmin use-cases for managing users, moderating platform content, and viewing basic platform activity.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
