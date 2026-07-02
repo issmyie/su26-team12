@@ -115,7 +115,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Given the sysadmin is logged into the StudySpace system
   When the sysadmin opens the admin dashboard
   Then the system displays a list of users with basic account information
-  '''
+  
 
 - **US-31 — Manage User Access**
   Story: As a sysadmin, I want to manage user access so that I can help keep the system organized and secure.
@@ -125,7 +125,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Given the sysadmin is logged into the StudySpace system
   When the sysadmin selects a user and changes the user's access level
   Then the system updates the user's role and shows a confirmation message
-  '''
+  
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
