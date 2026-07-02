@@ -90,25 +90,72 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then my review is displayed in the Reviews page
   ```
 ### 2.2 Provider Stories
-- **US-20 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
+- **US-13 — Vewing Statistics  
+  _Story:_ As a tutor I want to be able to look at my metrics and trends
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Look at my metrics
+    Given I want to look at how many students have booked me overall
+    When  I open my dashboard 
+    Then  I am able to look at my statistics and metrics
   ```
 
-- **US-21 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
+- **US-11 — Editing the calendar and availability 
+  _Story:_  As a tutor I want to be able to cancel and view my bookings.
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: I want to cancel a booking 
+    Given I am logged in as a tutor
+    When  I select "cancel" or edit my calendar
+    Then  the appointment is cancelled
+
+    Scenario: I want to view my bookings
+    Given I am logged in as a tutor
+    When  I am looking at my calendar
+    Then  I can view and edit my calendar
   ```
+
+  - **US-5 — Responding to reviews  
+  _Story:_ As a tutor I want to be able to respond to reviews
+  _Acceptance:_
+  ```gherkin
+  Scenario: I want to respind to reviews
+    Given a student has written me a review 
+    When  I am viewing my reviews 
+    Then  I can type out a reply to the review
+  ```
+
+  
+  - **US-14 — Sign-up and log-in
+  _Story:_  As a user I want to be able to log in and log out and sign in and out.
+  _Acceptance:_
+  ```gherkin
+  Scenario: 
+    Given I am a user of this website
+    When  when I hit sign up or log in
+    Then  I am signed up or logged in 
+  ```
+
+  - **US-7 — Posting study resources
+  _Story:_  As a tutor I want to be able to post study resources.
+  _Acceptance:_
+  ```gherkin
+  Scenario: I want to post a study resource
+    Given I am logged in as tutor
+    When  I click on the subject on the homepage and post the material
+    Then  the material is posted and now available to students 
+  ```
+
+  - **US-1 — PMaking a profile
+  _Story:_  As a user I want to be able to make/edit a profile
+  _Acceptance:_
+  ```gherkin
+  Scenario: I am a user
+    Given I am logged in as a user
+    When  I look at my dashboard, I should be able to see my profile information and edit it
+    Then  The new information is saved
+  ```
+
 
 ### 2.3 SysAdmin Stories
 - **US-30 — View Platform User Data**
