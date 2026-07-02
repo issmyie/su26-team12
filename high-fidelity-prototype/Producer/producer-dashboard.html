@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutor Dashboard</title>
+
+    <!--really simple and ugly-->
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid #e2e8f0;">
+            <div>
+                <h1 style="font-size:1.4rem;font-weight:600;color:#0f172a;">Tutor Dashboard</h1>
+                <span style="font-size:0.85rem;color:#64748b;">Manage your profile &amp; view statistics</span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="saveProfile()">💾 Save Profile</button>
+                <button class="btn btn-danger" onclick="resetProfile()">Reset</button>
+            </div>
+        </div>
+
+                <div class="grid-2">
+
+            <div>
+
+                 <div class="card">
+                    <div class="card-header">
+                        <h2>👤 Profile</h2>
+                        <span class="sub">basic information</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full name</label>
+                            <input type="text" id="fullName" value="Jane Doe" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="jane@tutor.me" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio / about</label>
+                        <textarea id="bio"> Years of experience, role at university, classes that the tutor teaches</textarea>.</textarea>
+                    </div>
+
+                     <div class="card">
+                    <div class="card-header">
+                        <h2>📚 Courses taught</h2>
+                        <span class="sub">add or remove</span>
+                    </div>
+                    <div class="form-group-inline" style="margin-bottom:12px;">
+                        <input type="text" id="courseInput" placeholder="e.g. Calculus I" style="flex:1;min-width:140px;" />
+                        <button class="btn btn-primary btn-sm" onclick="addCourse()">Add</button>
+                    </div>
+                    <div id="courseList" class="tag-list">
+
+                          </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>📅 Availability</h2>
+                        <span class="sub">click a day to toggle slots</span>
+                    </div>
+                    <div class="calendar-mini" id="calendarMini">
+
+                        </div>
+                    <div id="slotSection" style="margin-top:16px;padding-top:16px;border-top:1px solid #e2e8f0;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:6px;">
+                            <span style="font-weight:500;font-size:0.9rem;" id="slotDateLabel">Select a date</span>
+                            <span style="font-size:0.7rem;color:#64748b;">click to toggle</span>
+                        </div>
+                        <div id="slotGrid" class="slot-grid">
+
+                              </div>
+                    </div>
+                </div>
+
+            </div>
