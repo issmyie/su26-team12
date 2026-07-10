@@ -40,10 +40,26 @@ public class ResourceService {
             resource.setDescription(updatedResource.getDescription());
             resource.setCategory(updatedResource.getCategory());
             resource.setResourceType(updatedResource.getResourceType());
+            resource.setStatus(updatedResource.getStatus());
 
             return resourceRepository.save(resource);
         } else {
             throw new RuntimeException("Resource not found with id: " + id);
+        }
+    }
+
+    // Admin use case: update resource moderation status
+    public Resource updateResourceStatus(Long id, String status) {
+        Optional<Resource> existingResource = resourceRepository.findById(id);
+
+        if (existingResource.isPresent()) {
+        Resource resource = existingResource.get();
+
+        resource.setStatus(status);
+
+        return resourceRepository.save(resource);
+        } else {
+        throw new RuntimeException("Resource not found with id: " + id);
         }
     }
 
