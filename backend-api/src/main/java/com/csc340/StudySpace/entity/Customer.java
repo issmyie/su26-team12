@@ -27,8 +27,6 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String phoneNumber;
-
     @Column(nullable = false)
     private String password;
 
@@ -43,7 +41,6 @@ public class Customer {
 
     public Customer(String name,
                     String email,
-                    String phoneNumber,
                     String password,
                     String accountStatus,
                     String major,
@@ -52,7 +49,6 @@ public class Customer {
 
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.password = password;
         this.accountStatus = accountStatus;
         this.major = major;

@@ -43,7 +43,6 @@ public class CustomerService {
 
             customer.setName(updatedCustomer.getName());
             customer.setEmail(updatedCustomer.getEmail());
-            customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
             customer.setPassword(updatedCustomer.getPassword());
             customer.setAccountStatus(updatedCustomer.getAccountStatus());
             customer.setMajor(updatedCustomer.getMajor());
@@ -72,10 +71,6 @@ public class CustomerService {
 
             if (updatedCustomer.getEmail() != null) {
                 customer.setEmail(updatedCustomer.getEmail());
-            }
-
-            if (updatedCustomer.getPhoneNumber() != null) {
-                customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
             }
 
             if (updatedCustomer.getMajor() != null) {
