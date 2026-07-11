@@ -347,4 +347,18 @@ DELETE /api/reviews/{id}
 
 ## Administrator Endpoints
 
-(To be completed by Shafat.)
+These endpoints are for the SysAdmin/Admin part of StudySpace. The admin features focus on managing user access, moderating resources, moderating reviews, and viewing basic platform usage statistics.
+
+### Admin Use Case Mapping
+
+| Admin Use Case | Endpoint | Description |
+|---|---|---|
+| Manage user access | `PUT /api/customers/{id}/status` | Updates a customer/user account status |
+| Moderate resources | `PUT /api/resources/{id}/status` | Updates the moderation status for a resource |
+| Moderate reviews | `PUT /api/reviews/{id}/status` | Updates the moderation status for a review |
+| View usage statistics | `GET /api/admin/statistics` | Shows basic totals for customers, resources, reviews, and appointments |
+
+### Update Customer Account Status
+
+```http
+PUT /api/customers/{id}/status
