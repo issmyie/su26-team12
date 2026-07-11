@@ -86,6 +86,28 @@ public class CustomerApiController {
         }
     }
 
+    @PutMapping("/{id}/role")
+    public ResponseEntity<Customer> updateCustomerRole(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        try {
+        Customer customer = customerService.updateCustomerRole(id, request.get("role"));
+        return ResponseEntity.ok(customer);
+        } catch (RuntimeException e) {
+        return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/profile-status")
+    public ResponseEntity<Customer> updateProfileStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
+         try {
+        Customer customer = customerService.updateProfileStatus(id, request.get("profileStatus"));
+        return ResponseEntity.ok(customer);
+         } catch (RuntimeException e) {
+             return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
