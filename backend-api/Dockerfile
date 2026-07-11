@@ -2,13 +2,15 @@ FROM eclipse-temurin:25-jdk-alpine AS build
 
 WORKDIR /app
 
-COPY . .
+RUN apk add --no-cache maven
 
-RUN chmod +x mvnw
+COPY pom.xml .
+COPY src ./src
 
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 
+# Stage 2: Run the application
 FROM eclipse-temurin:25-jre-alpine
 
 WORKDIR /app
