@@ -92,9 +92,22 @@ public class CustomerService {
         }
     }
 
+    // Admin use case: update customer account status
+    public Customer updateAccountStatus(Long id, String accountStatus) {
+
+        Optional<Customer> existingCustomer = customerRepository.findById(id);
+
+        if (existingCustomer.isPresent()) {
+            Customer customer = existingCustomer.get();
+            customer.setAccountStatus(accountStatus);
+            return customerRepository.save(customer);
+        } else {
+            throw new RuntimeException("Customer not found with id: " + id);
+        }
+    }
     // Delete customer
     public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+    customerRepository.deleteById(id);
     }
 
     // Find customer by email

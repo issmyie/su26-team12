@@ -2,6 +2,7 @@ package com.csc340.StudySpace.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,16 @@ public class ReviewController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Review> updateReviewStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
+         try {
+            Review review = reviewService.updateReviewStatus(id, request.get("status"));
+             return ResponseEntity.ok(review);
+        } catch (RuntimeException e) {
+        return ResponseEntity.notFound().build();
+         }
     }
 
     @DeleteMapping("/{id}")

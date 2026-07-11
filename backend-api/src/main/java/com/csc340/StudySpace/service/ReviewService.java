@@ -40,6 +40,22 @@ public class ReviewService {
             review.setTutorName(updatedReview.getTutorName());
             review.setRating(updatedReview.getRating());
             review.setComment(updatedReview.getComment());
+            review.setStatus(updatedReview.getStatus());
+
+            return reviewRepository.save(review);
+        } else {
+            throw new RuntimeException("Review not found with id: " + id);
+        }
+    }
+
+    // Admin use case: update review moderation status
+    public Review updateReviewStatus(Long id, String status) {
+         Optional<Review> existingReview = reviewRepository.findById(id);
+
+         if (existingReview.isPresent()) {
+            Review review = existingReview.get();
+
+            review.setStatus(status);
 
             return reviewRepository.save(review);
         } else {

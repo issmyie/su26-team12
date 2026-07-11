@@ -2,12 +2,14 @@ package com.csc340.StudySpace.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.csc340.StudySpace.entity.Customer;
 import com.csc340.StudySpace.service.CustomerService;
+
 
 @RestController
 @RequestMapping("/api/customers")
@@ -68,6 +70,16 @@ public class CustomerApiController {
     public ResponseEntity<Customer> updateProfile(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
         try {
             Customer customer = customerService.updateProfile(id, updatedCustomer);
+            return ResponseEntity.ok(customer);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Customer> updateAccountStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        try {
+            Customer customer = customerService.updateAccountStatus(id, request.get("accountStatus"));
             return ResponseEntity.ok(customer);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

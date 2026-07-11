@@ -2,6 +2,7 @@ package com.csc340.StudySpace.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,16 @@ public class ResourceController {
     public ResponseEntity<Resource> updateResource(@PathVariable Long id, @RequestBody Resource updatedResource) {
         try {
             Resource resource = resourceService.updateResource(id, updatedResource);
+            return ResponseEntity.ok(resource);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Resource> updateResourceStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        try {
+            Resource resource = resourceService.updateResourceStatus(id, request.get("status"));
             return ResponseEntity.ok(resource);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

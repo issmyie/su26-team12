@@ -26,4 +26,6 @@ public class Resource {
     private String category;
 
     private String resourceType;
+
+    private String status;
 }

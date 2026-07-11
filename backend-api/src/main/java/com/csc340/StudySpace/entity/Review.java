@@ -27,4 +27,6 @@ public class Review {
     private Integer rating;
 
     private String comment;
+    
+    private String status;
 }
