@@ -10,7 +10,7 @@ http://localhost:8080
 
 Production:
 ```
-(Render URL)
+https://su26-team12.onrender.com
 ```
 
 ---
