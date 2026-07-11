@@ -33,6 +33,11 @@ public class Customer {
     @Column(nullable = false)
     private String accountStatus;
 
+    @Column(nullable = false)
+    private String role = "CUSTOMER";
+
+    private String profileStatus = "APPROVED";
+
     private String major;
 
     private String academicLevel;
