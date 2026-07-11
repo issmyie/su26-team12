@@ -1,7 +1,5 @@
 # StudySpace Backend API
 
-**Version:** 1.0  
-**Last Updated:** July 10, 2026
 
 ## Base URL
 
@@ -38,7 +36,7 @@ The StudySpace backend exposes a RESTful API for the StudySpace tutoring platfor
 
 # 2. UML Class Diagram
 
-
+![StudySpace UML](UML.png)
 
 ---
 
@@ -343,10 +341,10 @@ DELETE /api/reviews/{id}
 
 ## Provider Endpoints
 
-(To be completed by Provider team.)
+(To be completed by Eman.)
 
 ---
 
 ## Administrator Endpoints
 
-(To be completed by Administrator team.)
+(To be completed by Shafat.)
