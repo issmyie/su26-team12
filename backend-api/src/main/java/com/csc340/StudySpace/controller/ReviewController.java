@@ -5,7 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.csc340.StudySpace.entity.Review;
 import com.csc340.StudySpace.service.ReviewService;
@@ -23,12 +30,7 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<List<Review>> getAllReviews() {
         List<Review> reviews = reviewService.getAllReviews();
-
-        if (reviews.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
-
-        return ResponseEntity.ok(reviews);
+        return reviews.isEmpty() ? ResponseEntity.ok(Collections.emptyList()) : ResponseEntity.ok(reviews);
     }
 
     @GetMapping("/{id}")
@@ -56,13 +58,14 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Review> updateReviewStatus(@PathVariable Long id, @RequestBody Map<String, String> request) {
-         try {
+    public ResponseEntity<Review> updateReviewStatus(@PathVariable Long id,
+                                                     @RequestBody Map<String, String> request) {
+        try {
             Review review = reviewService.updateReviewStatus(id, request.get("status"));
-             return ResponseEntity.ok(review);
+            return ResponseEntity.ok(review);
         } catch (RuntimeException e) {
-        return ResponseEntity.notFound().build();
-         }
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -84,5 +87,16 @@ public class ReviewController {
     @GetMapping("/tutor/{tutorName}")
     public ResponseEntity<List<Review>> getReviewsByTutorName(@PathVariable String tutorName) {
         return ResponseEntity.ok(reviewService.getReviewsByTutorName(tutorName));
+    }
+
+    @PutMapping("/{id}/reply")
+    public ResponseEntity<Review> replyToReview(@PathVariable Long id,
+                                                @RequestBody Map<String, String> request) {
+        try {
+            Review review = reviewService.replyToReview(id, request.get("reply"));
+            return ResponseEntity.ok(review);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.csc340.StudySpace.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,37 +31,22 @@ public class ReviewService {
     }
 
     public Review updateReview(Long id, Review updatedReview) {
-        Optional<Review> existingReview = reviewRepository.findById(id);
-
-        if (existingReview.isPresent()) {
-            Review review = existingReview.get();
-
-            review.setCustomerId(updatedReview.getCustomerId());
-            review.setAppointmentId(updatedReview.getAppointmentId());
-            review.setTutorName(updatedReview.getTutorName());
-            review.setRating(updatedReview.getRating());
-            review.setComment(updatedReview.getComment());
-            review.setStatus(updatedReview.getStatus());
-
-            return reviewRepository.save(review);
-        } else {
-            throw new RuntimeException("Review not found with id: " + id);
-        }
+        Review existing = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        existing.setCustomerId(updatedReview.getCustomerId());
+        existing.setAppointmentId(updatedReview.getAppointmentId());
+        existing.setTutorName(updatedReview.getTutorName());
+        existing.setRating(updatedReview.getRating());
+        existing.setComment(updatedReview.getComment());
+        existing.setStatus(updatedReview.getStatus());
+        return reviewRepository.save(existing);
     }
 
-    // Admin use case: update review moderation status
     public Review updateReviewStatus(Long id, String status) {
-         Optional<Review> existingReview = reviewRepository.findById(id);
-
-         if (existingReview.isPresent()) {
-            Review review = existingReview.get();
-
-            review.setStatus(status);
-
-            return reviewRepository.save(review);
-        } else {
-            throw new RuntimeException("Review not found with id: " + id);
-        }
+        Review existing = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        existing.setStatus(status);
+        return reviewRepository.save(existing);
     }
 
     public void deleteReview(Long id) {
@@ -77,5 +63,14 @@ public class ReviewService {
 
     public List<Review> getReviewsByTutorName(String tutorName) {
         return reviewRepository.findByTutorName(tutorName);
+    }
+
+    // Provider use case: reply to a review
+    public Review replyToReview(Long id, String reply) {
+        Review review = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        review.setReply(reply);
+        review.setRepliedAt(LocalDateTime.now());
+        return reviewRepository.save(review);
     }
 }
