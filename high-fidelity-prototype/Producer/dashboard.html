@@ -18,6 +18,7 @@
                 <a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Dashboard</a>
                 <a href="booking-statistics.html"><span class="nav-icon">📈</span> Booking Stats</a>
                 <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="services.html"><span class="nav-icon">📋</span> Services</a>
                 <a href="math-resources.html"><span class="nav-icon">📚</span> Resources</a>
             </nav>
             <div class="sidebar-footer">
@@ -34,7 +35,7 @@
 
         <main class="main">
             <header class="main-header">
-                <div><h1>Dashboard</h1><p class="greeting">Welcome back, Jane 👋</p></div>
+                <div><h1>Dashboard</h1><p class="greeting">Welcome back, <span id="greetingName">Jane</span> 👋</p></div>
                 <div class="header-actions">
                     <button class="btn btn-primary" onclick="saveProfile()">💾 Save Profile</button>
                     <button class="btn btn-ghost" onclick="resetProfile()">Reset</button>
@@ -43,7 +44,7 @@
 
             <section class="stats-grid">
                 <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-number">5</div><span class="stat-change up">↑ 2</span></div>
-                <div class="stat-card"><div class="stat-label">Weekly Sessions</div><div class="stat-number">14</div><span class="stat-change up">↑ 3</span></div>
+                <div class="stat-card"><div class="stat-label">Services</div><div class="stat-number" id="serviceCount">0</div><span class="stat-change up">↑ 1</span></div>
                 <div class="stat-card"><div class="stat-label">Hours Taught</div><div class="stat-number">42</div><span class="stat-change up">↑ 8%</span></div>
                 <div class="stat-card"><div class="stat-label">Rating</div><div class="stat-number">⭐ 4.9</div><span class="stat-change up">↑ 0.2</span></div>
             </section>
@@ -53,10 +54,10 @@
                     <div class="card">
                         <div class="card-header"><h2>👤 Profile</h2><span class="badge">basic info</span></div>
                         <div class="form-row">
-                            <div class="form-group"><label for="fullName">Full name</label><input type="text" id="fullName" value="Jane Doe" /></div>
-                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" value="jane@studyspace.me" /></div>
+                            <div class="form-group"><label for="fullName">Full name</label><input type="text" id="fullName" /></div>
+                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" /></div>
                         </div>
-                        <div class="form-group"><label for="bio">Bio</label><textarea id="bio">Mathematics tutor with 6 years of experience. Specializing in calculus, algebra, and test prep.</textarea></div>
+                        <div class="form-group"><label for="bio">Bio</label><textarea id="bio"></textarea></div>
                     </div>
 
                     <div class="card">
@@ -127,8 +128,7 @@
 
                     <div class="card">
                         <div class="card-header"><h2>⭐ Recent Reviews</h2><span class="badge">4.9 avg</span></div>
-                        <div class="review-item"><span class="reviewer-name">Student A</span><span class="review-rating">★★★★★</span><span class="review-text">"Amazing tutor!"</span></div>
-                        <div class="review-item"><span class="reviewer-name">Student B</span><span class="review-rating">★★★★★</span><span class="review-text">"Very helpful and patient."</span></div>
+                        <div id="reviewsPreview"></div>
                         <a href="reviews.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;margin-top:8px;">View All Reviews →</a>
                     </div>
 
@@ -146,7 +146,15 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // View all students
+        // ================================================================
+        // API CONFIGURATION
+        // ================================================================
+        const API_BASE = 'http://localhost:8080/api';
+        const PROVIDER_ID = 1; // In real app, get from login session
+
+        // ================================================================
+        // VIEW ALL STUDENTS (demo)
+        // ================================================================
         document.getElementById('viewAllStudents').addEventListener('click', function(e) {
             e.preventDefault();
             const studentId = prompt('Enter student ID (1-5):', '1');
@@ -157,7 +165,9 @@
             }
         });
 
-        // Data
+        // ================================================================
+        // DATA (Courses, Availability, Students, Sessions – demo)
+        // ================================================================
         let courses = ['Algebra I', 'Algebra II', 'Calculus I', 'Calculus II', 'Geometry', 'Trigonometry', 'Statistics', 'Linear Algebra'];
         const availMap = new Map();
         const students = [
@@ -176,11 +186,12 @@
             { student: 'Student E', subject: 'Statistics', date: '2026-07-05', time: '16:00', status: 'upcoming' }
         ];
 
-        const demandData = [{ course: 'Calculus I', count: 18 }, { course: 'Algebra II', count: 12 }, { course: 'Statistics', count: 9 }, { course: 'Geometry', count: 5 }, { course: 'Trigonometry', count: 3 }];
-        const maxDemand = Math.max(...demandData.map(d => d.count));
         const ALL_SLOTS = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30'];
         let currentDate = new Date();
 
+        // ================================================================
+        // CALENDAR & SESSIONS (unchanged – demo)
+        // ================================================================
         function fmtDate(y,m,d){ return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); }
         function formatDateStr(date){ return fmtDate(date.getFullYear(), date.getMonth(), date.getDate()); }
         function isSameDay(d1,d2){ return d1.getFullYear()===d2.getFullYear() && d1.getMonth()===d2.getMonth() && d1.getDate()===d2.getDate(); }
@@ -194,7 +205,7 @@
             for(let i=1;i<hours.length;i++){ if(hours[i]===e){ e=hours[i]+1; }else{ blocks.push({start:s,end:e}); s=hours[i]; e=hours[i]+1; } }
             blocks.push({start:s,end:e}); return blocks;
         }
-        function toggleAvailability(dateStr,hour){ const t=String(hour).padStart(2,'0')+':00'; if(!availMap.has(dateStr)) availMap.set(dateStr,new Set()); const s=availMap.get(dateStr); s.has(t)?s.delete(t):s.add(t); if(!s.size) availMap.delete(dateStr); saveToLocalStorage(); renderWeeklyCalendar(); }
+        function toggleAvailability(dateStr,hour){ const t=String(hour).padStart(2,'0')+':00'; if(!availMap.has(dateStr)) availMap.set(dateStr,new Set()); const s=availMap.get(dateStr); s.has(t)?s.delete(t):s.add(t); if(!s.size) availMap.delete(dateStr); saveCoursesAndAvailability(); renderWeeklyCalendar(); }
 
         function getStartClass(h){ const map={9:'start-9',10:'start-10',11:'start-11',12:'start-12'}; return map[h]||'start-'+(h-12); }
         function getEndClass(h){ const map={10:'end-10',11:'end-11',12:'end-12'}; return map[h]||'end-'+(h-12); }
@@ -274,7 +285,20 @@
             }).join('');
         }
 
+        // ================================================================
+        // COURSES (stored in localStorage – demo)
+        // ================================================================
         function renderCourses(){ const c=document.getElementById('courseList'); c.innerHTML=courses.length?courses.map(c=>`<span class="tag">${c} <span class="remove" onclick="removeCourse('${c.replace(/'/g,"\\'")}')">✕</span></span>`).join(''):'<span class="text-muted">No courses added.</span>'; }
+        function addCourse(){ const i=document.getElementById('courseInput'), v=i.value.trim(); if(!v) return showToast('Enter a course name.'); if(courses.includes(v)) return showToast('Course already added.'); courses.push(v); renderCourses(); i.value=''; saveCoursesAndAvailability(); showToast('➕ Added: '+v); }
+        function removeCourse(name){ courses=courses.filter(c=>c!==name); renderCourses(); saveCoursesAndAvailability(); showToast('✖ Removed: '+name); }
+
+        function saveCoursesAndAvailability(){ try{ const data={courses, availability:Array.from(availMap.entries()).map(([k,v])=>[k,Array.from(v)])}; localStorage.setItem('studySpaceCoursesAvail',JSON.stringify(data)); }catch(_){} }
+        function loadCoursesAndAvailability(){ try{ const raw=localStorage.getItem('studySpaceCoursesAvail'); if(!raw) return false; const data=JSON.parse(raw); if(data.courses) courses=data.courses; if(data.availability){ availMap.clear(); data.availability.forEach(([k,v])=>{ if(v.length) availMap.set(k,new Set(v)); }); } return true; }catch(_){ return false; } }
+        function generateRandomAvailability(){ const today=new Date(), start=getMonday(today); for(let i=0;i<5;i++){ const d=new Date(start); d.setDate(start.getDate()+i); const ds=formatDateStr(d); if(Math.random()<0.6){ const slots=new Set(); const count=2+Math.floor(Math.random()*4); for(let j=0;j<count;j++){ const hour=9+Math.floor(Math.random()*8); slots.add(String(hour).padStart(2,'0')+':00'); } if(slots.size) availMap.set(ds,slots); } } const todayStr=formatDateStr(today); if(!availMap.has(todayStr)) availMap.set(todayStr,new Set(['09:00','10:00','11:00','14:00','15:00'])); }
+
+        // ================================================================
+        // STUDENTS (demo)
+        // ================================================================
         function renderStudents(){
             const c=document.getElementById('studentList');
             c.innerHTML=students.map(s=>
@@ -285,23 +309,138 @@
             ).join('');
         }
 
-        function addCourse(){ const i=document.getElementById('courseInput'), v=i.value.trim(); if(!v) return showToast('Enter a course name.'); if(courses.includes(v)) return showToast('Course already added.'); courses.push(v); renderCourses(); i.value=''; saveToLocalStorage(); showToast('➕ Added: '+v); }
-        function removeCourse(name){ courses=courses.filter(c=>c!==name); renderCourses(); saveToLocalStorage(); showToast('✖ Removed: '+name); }
-        function saveProfile(){ saveToLocalStorage(); showToast('✅ Profile saved!'); }
-        function resetProfile(){ if(!confirm('Reset all data to defaults?')) return; courses=['Algebra I','Algebra II','Calculus I','Calculus II','Geometry','Trigonometry','Statistics','Linear Algebra']; availMap.clear(); generateRandomAvailability(); document.getElementById('fullName').value='Jane Doe'; document.getElementById('email').value='jane@studyspace.me'; document.getElementById('bio').value='Mathematics tutor with 6 years of experience. Specializing in calculus, algebra, and test prep.'; document.getElementById('courseInput').value=''; renderCourses(); renderWeeklyCalendar(); saveToLocalStorage(); showToast('🔄 Reset to defaults'); }
+        // ================================================================
+        // PROFILE – API calls
+        // ================================================================
+        async function loadProfile() {
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}`);
+                if (!res.ok) throw new Error('Failed to load profile');
+                const profile = await res.json();
+                document.getElementById('fullName').value = profile.name || '';
+                document.getElementById('email').value = profile.email || '';
+                document.getElementById('bio').value = profile.bio || '';
+                document.getElementById('greetingName').textContent = profile.name || 'Jane';
+            } catch (err) {
+                showToast('Error loading profile');
+                console.error(err);
+            }
+        }
 
-        function saveToLocalStorage(){ try{ const data={courses, availability:Array.from(availMap.entries()).map(([k,v])=>[k,Array.from(v)]), profile:{name:document.getElementById('fullName').value, email:document.getElementById('email').value, bio:document.getElementById('bio').value}}; localStorage.setItem('studySpaceData',JSON.stringify(data)); }catch(_){} }
-        function loadFromLocalStorage(){ try{ const raw=localStorage.getItem('studySpaceData'); if(!raw) return false; const data=JSON.parse(raw); if(data.courses) courses=data.courses; if(data.availability){ availMap.clear(); data.availability.forEach(([k,v])=>{ if(v.length) availMap.set(k,new Set(v)); }); } if(data.profile){ if(data.profile.name) document.getElementById('fullName').value=data.profile.name; if(data.profile.email) document.getElementById('email').value=data.profile.email; if(data.profile.bio) document.getElementById('bio').value=data.profile.bio; } return true; }catch(_){ return false; } }
+        async function saveProfile() {
+            const updated = {
+                name: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                bio: document.getElementById('bio').value.trim()
+            };
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/profile`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updated)
+                });
+                if (!res.ok) throw new Error('Save failed');
+                showToast('✅ Profile saved!');
+                await loadProfile(); // refresh
+            } catch (err) {
+                showToast('❌ Error saving profile');
+                console.error(err);
+            }
+        }
 
-        function generateRandomAvailability(){ const today=new Date(), start=getMonday(today); for(let i=0;i<5;i++){ const d=new Date(start); d.setDate(start.getDate()+i); const ds=formatDateStr(d); if(Math.random()<0.6){ const slots=new Set(); const count=2+Math.floor(Math.random()*4); for(let j=0;j<count;j++){ const hour=9+Math.floor(Math.random()*8); slots.add(String(hour).padStart(2,'0')+':00'); } if(slots.size) availMap.set(ds,slots); } } const todayStr=formatDateStr(today); if(!availMap.has(todayStr)) availMap.set(todayStr,new Set(['09:00','10:00','11:00','14:00','15:00'])); }
+        async function resetProfile() {
+            if (!confirm('Reset all data to defaults?')) return;
+            // Reset courses and availability (local)
+            courses = ['Algebra I', 'Algebra II', 'Calculus I', 'Calculus II', 'Geometry', 'Trigonometry', 'Statistics', 'Linear Algebra'];
+            availMap.clear();
+            generateRandomAvailability();
+            document.getElementById('courseInput').value = '';
+            renderCourses();
+            renderWeeklyCalendar();
+            saveCoursesAndAvailability();
+            // Reload profile from API (which has default data from DataLoader)
+            await loadProfile();
+            showToast('🔄 Reset to defaults');
+        }
 
+        // ================================================================
+        // LOAD SERVICES FOR PREVIEW (service count)
+        // ================================================================
+        async function loadServiceCount() {
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/services`);
+                if (!res.ok) throw new Error('Failed to load services');
+                const services = await res.json();
+                document.getElementById('serviceCount').textContent = services.length;
+            } catch (err) {
+                document.getElementById('serviceCount').textContent = '0';
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // LOAD REVIEWS FOR PREVIEW
+        // ================================================================
+        async function loadReviewsPreview() {
+            const container = document.getElementById('reviewsPreview');
+            try {
+                // Use the tutor name from the profile (default: Jane Doe)
+                const tutorName = document.getElementById('fullName').value || 'Jane Doe';
+                const res = await fetch(`${API_BASE}/reviews/tutor/${encodeURIComponent(tutorName)}`);
+                if (!res.ok) throw new Error('Failed to load reviews');
+                let reviews = await res.json();
+                if (!reviews.length) {
+                    container.innerHTML = '<p class="text-muted" style="padding:8px 0;">No reviews yet.</p>';
+                    return;
+                }
+                // Show latest 2
+                reviews = reviews.slice(-2).reverse();
+                container.innerHTML = reviews.map(r =>
+                    `<div class="review-item">
+                        <span class="reviewer-name">${r.student || 'Anonymous'}</span>
+                        <span class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+                        <span class="review-text">"${(r.comment || '').substring(0, 60)}${(r.comment || '').length > 60 ? '...' : ''}"</span>
+                    </div>`
+                ).join('');
+            } catch (err) {
+                container.innerHTML = '<p class="text-muted" style="padding:8px 0;">No reviews yet.</p>';
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // TOAST
+        // ================================================================
         function showToast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
 
-        function init(){
-            const loaded=loadFromLocalStorage(); if(!loaded) generateRandomAvailability();
-            renderCourses(); renderStudents(); renderUpcomingSessions(); renderWeeklyCalendar();
-            window.addCourse=addCourse; window.removeCourse=removeCourse; window.toggleAvailability=toggleAvailability; window.changeWeek=changeWeek; window.saveProfile=saveProfile; window.resetProfile=resetProfile; window.showToast=showToast; window.cancelSession=cancelSession; window.cancelSessionFromCalendar=cancelSessionFromCalendar;
+        // ================================================================
+        // INIT
+        // ================================================================
+        async function init(){
+            // Load courses & availability
+            const loaded = loadCoursesAndAvailability();
+            if (!loaded) generateRandomAvailability();
+            renderCourses();
+            renderStudents();
+            renderUpcomingSessions();
+            renderWeeklyCalendar();
+            // Load data from API
+            await loadProfile();
+            await loadServiceCount();
+            await loadReviewsPreview();
+
+            // Expose functions to global scope
+            window.addCourse = addCourse;
+            window.removeCourse = removeCourse;
+            window.toggleAvailability = toggleAvailability;
+            window.changeWeek = changeWeek;
+            window.saveProfile = saveProfile;
+            window.resetProfile = resetProfile;
+            window.showToast = showToast;
+            window.cancelSession = cancelSession;
+            window.cancelSessionFromCalendar = cancelSessionFromCalendar;
         }
+
         init();
     </script>
 

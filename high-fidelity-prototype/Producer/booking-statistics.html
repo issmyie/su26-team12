@@ -1,38 +1,25 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StudyHub · Booking Statistics</title>
-    <link rel="stylesheet" href="booking-statistics.css" />
+    <title>StudySpace · Booking Stats</title>
+    <link rel="stylesheet" href="booking-stats.css" />
 </head>
 <body>
 
     <div class="app">
-
-        <!-- ====== SIDEBAR ====== -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <span class="brand-icon">📘</span>
-                <span>StudyHub</span>
+                <span>StudySpace</span>
             </div>
             <nav class="sidebar-nav">
-                <a href="index.html">
-                    <span class="nav-icon">📊</span> Main Menu
-                </a>
-                <a href="#" class="active">
-                    <span class="nav-icon">📈</span> Booking Stats
-                </a>
-                <a href="reviews.html">
-                    <span class="nav-icon">⭐</span> Reviews
-                </a>
-                <a href="#">
-                    <span class="nav-icon">👥</span> Students
-                </a>
-                <a href="#">
-                    <span class="nav-icon">📝</span> Sessions
-                </a>
+                <a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="booking-statistics.html" class="active"><span class="nav-icon">📈</span> Booking Stats</a>
+                <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="services.html"><span class="nav-icon">📋</span> Services</a>
+                <a href="math-resources.html"><span class="nav-icon">📚</span> Resources</a>
             </nav>
             <div class="sidebar-footer">
                 <div class="tutor-card">
@@ -42,16 +29,15 @@
                         <p class="tutor-role">Math Tutor</p>
                     </div>
                 </div>
+                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
             </div>
         </aside>
 
-        <!-- ====== MAIN ====== -->
         <main class="main">
-
             <header class="main-header">
                 <div>
                     <h1>📈 Booking Statistics</h1>
-                    <p class="greeting">Detailed analytics for your tutoring business</p>
+                    <p class="greeting">Service-level analytics</p>
                 </div>
                 <div class="header-actions">
                     <a href="dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
@@ -59,168 +45,98 @@
                 </div>
             </header>
 
-            <!-- Stats Grid -->
+            <!-- Overall Stats (dummy) -->
             <section class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Bookings</div>
-                    <div class="stat-number">342</div>
-                    <span class="stat-change up">↑ 18%</span>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Avg. Session Length</div>
-                    <div class="stat-number">1.5 hrs</div>
-                    <span class="stat-change up">↑ 0.2</span>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Cancellation Rate</div>
-                    <div class="stat-number">4.2%</div>
-                    <span class="stat-change down">↓ 1.1%</span>
-                </div>
+                <div class="stat-card"><div class="stat-label">Total Bookings</div><div class="stat-number">342</div><span class="stat-change up">↑ 18%</span></div>
+                <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-number">$12,840</div><span class="stat-change up">↑ 22%</span></div>
+                <div class="stat-card"><div class="stat-label">Avg. Session Length</div><div class="stat-number">1.5 hrs</div><span class="stat-change up">↑ 0.2</span></div>
+                <div class="stat-card"><div class="stat-label">Cancellation Rate</div><div class="stat-number">4.2%</div><span class="stat-change down">↓ 1.1%</span></div>
             </section>
 
-            <!-- Charts Row -->
+            <!-- Statistics per Service -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📊 Statistics per Service</h2>
+                    <span class="badge">GET /providers/{id}/statistics</span>
+                </div>
+                <div id="serviceStats">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Charts (dummy) -->
             <div class="charts-grid">
-
-                <!-- Weekly Bookings Chart -->
                 <div class="card chart-card">
-                    <div class="card-header">
-                        <h2>📅 Weekly Bookings</h2>
-                        <span class="badge">last 7 days</span>
-                    </div>
+                    <div class="card-header"><h2>📅 Weekly Bookings</h2><span class="badge">last 7 days</span></div>
                     <div class="chart-bars">
-                        <div class="bar-item">
-                            <span class="bar-label">Mon</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:65%;"></div></div>
-                            <span class="bar-value">13</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Tue</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:85%;"></div></div>
-                            <span class="bar-value">17</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Wed</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:55%;"></div></div>
-                            <span class="bar-value">11</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Thu</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:70%;"></div></div>
-                            <span class="bar-value">14</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Fri</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:90%;"></div></div>
-                            <span class="bar-value">18</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Sat</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:40%;"></div></div>
-                            <span class="bar-value">8</span>
-                        </div>
-                        <div class="bar-item">
-                            <span class="bar-label">Sun</span>
-                            <div class="bar-track"><div class="bar-fill" style="height:25%;"></div></div>
-                            <span class="bar-value">5</span>
-                        </div>
+                        <div class="bar-item"><span class="bar-label">Mon</span><div class="bar-track"><div class="bar-fill" style="height:65%;"></div></div><span class="bar-value">13</span></div>
+                        <div class="bar-item"><span class="bar-label">Tue</span><div class="bar-track"><div class="bar-fill" style="height:85%;"></div></div><span class="bar-value">17</span></div>
+                        <div class="bar-item"><span class="bar-label">Wed</span><div class="bar-track"><div class="bar-fill" style="height:55%;"></div></div><span class="bar-value">11</span></div>
+                        <div class="bar-item"><span class="bar-label">Thu</span><div class="bar-track"><div class="bar-fill" style="height:70%;"></div></div><span class="bar-value">14</span></div>
+                        <div class="bar-item"><span class="bar-label">Fri</span><div class="bar-track"><div class="bar-fill" style="height:90%;"></div></div><span class="bar-value">18</span></div>
+                        <div class="bar-item"><span class="bar-label">Sat</span><div class="bar-track"><div class="bar-fill" style="height:40%;"></div></div><span class="bar-value">8</span></div>
+                        <div class="bar-item"><span class="bar-label">Sun</span><div class="bar-track"><div class="bar-fill" style="height:25%;"></div></div><span class="bar-value">5</span></div>
                     </div>
                 </div>
-
-                <!-- Demand by Course -->
                 <div class="card chart-card">
-                    <div class="card-header">
-                        <h2>📚 Demand by Course</h2>
-                        <span class="badge">top 5</span>
-                    </div>
+                    <div class="card-header"><h2>📚 Demand by Course</h2><span class="badge">top 5</span></div>
                     <div class="demand-list">
-                        <div>
-                            <div class="demand-item"><span class="course">Calculus I</span><span class="count">18</span></div>
-                            <div class="bar-wrap"><div class="bar-fill" style="width:100%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="demand-item"><span class="course">Algebra II</span><span class="count">12</span></div>
-                            <div class="bar-wrap"><div class="bar-fill" style="width:67%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="demand-item"><span class="course">Statistics</span><span class="count">9</span></div>
-                            <div class="bar-wrap"><div class="bar-fill" style="width:50%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="demand-item"><span class="course">Geometry</span><span class="count">5</span></div>
-                            <div class="bar-wrap"><div class="bar-fill" style="width:28%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="demand-item"><span class="course">Trigonometry</span><span class="count">3</span></div>
-                            <div class="bar-wrap"><div class="bar-fill" style="width:17%;"></div></div>
-                        </div>
+                        <div><div class="demand-item"><span class="course">Calculus I</span><span class="count">18</span></div><div class="bar-wrap"><div class="bar-fill" style="width:100%;"></div></div></div>
+                        <div><div class="demand-item"><span class="course">Algebra II</span><span class="count">12</span></div><div class="bar-wrap"><div class="bar-fill" style="width:67%;"></div></div></div>
+                        <div><div class="demand-item"><span class="course">Statistics</span><span class="count">9</span></div><div class="bar-wrap"><div class="bar-fill" style="width:50%;"></div></div></div>
+                        <div><div class="demand-item"><span class="course">Geometry</span><span class="count">5</span></div><div class="bar-wrap"><div class="bar-fill" style="width:28%;"></div></div></div>
+                        <div><div class="demand-item"><span class="course">Trigonometry</span><span class="count">3</span></div><div class="bar-wrap"><div class="bar-fill" style="width:17%;"></div></div></div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Bottom Row: Peak Times + Student Retention -->
-            <div class="charts-grid two-col">
-
-                <div class="card chart-card">
-                    <div class="card-header">
-                        <h2>⏰ Peak Booking Times</h2>
-                        <span class="badge">by hour</span>
-                    </div>
-                    <div class="peak-times">
-                        <div class="peak-item"><span class="peak-label">9 AM</span><span class="peak-bar" style="width:30%;"></span><span class="peak-value">6</span></div>
-                        <div class="peak-item"><span class="peak-label">10 AM</span><span class="peak-bar" style="width:55%;"></span><span class="peak-value">11</span></div>
-                        <div class="peak-item"><span class="peak-label">11 AM</span><span class="peak-bar" style="width:45%;"></span><span class="peak-value">9</span></div>
-                        <div class="peak-item"><span class="peak-label">12 PM</span><span class="peak-bar" style="width:25%;"></span><span class="peak-value">5</span></div>
-                        <div class="peak-item"><span class="peak-label">1 PM</span><span class="peak-bar" style="width:40%;"></span><span class="peak-value">8</span></div>
-                        <div class="peak-item"><span class="peak-label">2 PM</span><span class="peak-bar" style="width:70%;"></span><span class="peak-value">14</span></div>
-                        <div class="peak-item"><span class="peak-label">3 PM</span><span class="peak-bar" style="width:80%;"></span><span class="peak-value">16</span></div>
-                        <div class="peak-item"><span class="peak-label">4 PM</span><span class="peak-bar" style="width:60%;"></span><span class="peak-value">12</span></div>
-                        <div class="peak-item"><span class="peak-label">5 PM</span><span class="peak-bar" style="width:35%;"></span><span class="peak-value">7</span></div>
-                    </div>
-                </div>
-
-                <div class="card chart-card">
-                    <div class="card-header">
-                        <h2>🔄 Student Retention</h2>
-                        <span class="badge">by month</span>
-                    </div>
-                    <div class="retention-list">
-                        <div class="retention-item">
-                            <span class="retention-label">New students</span>
-                            <span class="retention-value">12</span>
-                            <span class="retention-change up">↑ 3</span>
-                        </div>
-                        <div class="retention-item">
-                            <span class="retention-label">Returning students</span>
-                            <span class="retention-value">18</span>
-                            <span class="retention-change up">↑ 5</span>
-                        </div>
-                        <div class="retention-item">
-                            <span class="retention-label">Retention rate</span>
-                            <span class="retention-value">86%</span>
-                            <span class="retention-change up">↑ 4%</span>
-                        </div>
-                        <div class="retention-item">
-                            <span class="retention-label">Avg. sessions/student</span>
-                            <span class="retention-value">4.2</span>
-                            <span class="retention-change up">↑ 0.3</span>
-                        </div>
-                    </div>
-                    <div style="margin-top:12px;padding:12px;background:#f8f9fb;border-radius:8px;border:1px solid #e1ecf7;">
-                        <p style="font-size:0.8rem;color:#64748b;text-align:center;">📊 Overall student satisfaction: <strong style="color:#71a5de;">4.9 / 5.0</strong></p>
-                    </div>
-                </div>
-
-            </div>
-
         </main>
-
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
+        // ================================================================
+        // API CONFIG
+        // ================================================================
+        const API_BASE = 'http://localhost:8080/api';
+        const PROVIDER_ID = 1;
+
+        // ================================================================
+        // LOAD STATISTICS
+        // ================================================================
+        async function loadStats() {
+            const container = document.getElementById('serviceStats');
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/statistics`);
+                if (!res.ok) throw new Error('Failed to load stats');
+                const stats = await res.json();
+                if (!stats.length) {
+                    container.innerHTML = '<p class="text-muted" style="text-align:center;padding:20px 0;">No services or bookings yet.</p>';
+                    return;
+                }
+                let html = '<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;">';
+                stats.forEach(stat => {
+                    html += `
+                        <div class="stat-box" style="text-align:left; padding:12px; background:var(--bg); border:1px solid var(--blue-100); border-radius:8px;">
+                            <strong>${stat.serviceName}</strong>
+                            <div style="font-size:0.8rem; margin-top:4px; color:var(--text-secondary);">
+                                <div>📅 ${stat.bookings} bookings</div>
+                                <div>💰 $${stat.revenue.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+            } catch (err) {
+                container.innerHTML = '<p class="text-muted" style="text-align:center;padding:20px 0;">Error loading statistics.</p>';
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // TOAST
+        // ================================================================
         function showToast(msg) {
             const el = document.getElementById('toast');
             el.textContent = msg;
@@ -228,6 +144,12 @@
             clearTimeout(el._t);
             el._t = setTimeout(() => el.classList.remove('show'), 2600);
         }
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        loadStats();
+
         window.showToast = showToast;
     </script>
 
