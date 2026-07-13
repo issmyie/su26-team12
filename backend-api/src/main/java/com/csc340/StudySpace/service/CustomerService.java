@@ -32,6 +32,34 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    // Admin use case: give or update user role/admin access
+    public Customer updateCustomerRole(Long id, String role) {
+
+        Optional<Customer> existingCustomer = customerRepository.findById(id);
+
+             if (existingCustomer.isPresent()) {
+                  Customer customer = existingCustomer.get();
+                    customer.setRole(role);
+                    return customerRepository.save(customer);
+            } else {
+                 throw new RuntimeException("Customer not found with id: " + id);
+      }       
+    }
+
+        // Admin use case: moderate customer profile
+    public Customer updateProfileStatus(Long id, String profileStatus) {
+
+        Optional<Customer> existingCustomer = customerRepository.findById(id);
+
+         if (existingCustomer.isPresent()) {
+            Customer customer = existingCustomer.get();
+             customer.setProfileStatus(profileStatus);
+                return customerRepository.save(customer);
+         } else {
+             throw new RuntimeException("Customer not found with id: " + id);
+        }
+    }
+
     // Update all customer information
     public Customer updateCustomer(Long id, Customer updatedCustomer) {
 
@@ -45,6 +73,8 @@ public class CustomerService {
             customer.setEmail(updatedCustomer.getEmail());
             customer.setPassword(updatedCustomer.getPassword());
             customer.setAccountStatus(updatedCustomer.getAccountStatus());
+            customer.setRole(updatedCustomer.getRole());
+            customer.setProfileStatus(updatedCustomer.getProfileStatus());
             customer.setMajor(updatedCustomer.getMajor());
             customer.setAcademicLevel(updatedCustomer.getAcademicLevel());
             customer.setPreferredStudyTime(updatedCustomer.getPreferredStudyTime());
