@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StudySpace · Booking Stats</title>
-    <link rel="stylesheet" href="booking-stats.css" />
+    <link rel="stylesheet" href="booking-statistics.css" />
 </head>
 <body>
 
@@ -48,7 +48,6 @@
             <!-- Overall Stats (dummy) -->
             <section class="stats-grid">
                 <div class="stat-card"><div class="stat-label">Total Bookings</div><div class="stat-number">342</div><span class="stat-change up">↑ 18%</span></div>
-                <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-number">$12,840</div><span class="stat-change up">↑ 22%</span></div>
                 <div class="stat-card"><div class="stat-label">Avg. Session Length</div><div class="stat-number">1.5 hrs</div><span class="stat-change up">↑ 0.2</span></div>
                 <div class="stat-card"><div class="stat-label">Cancellation Rate</div><div class="stat-number">4.2%</div><span class="stat-change down">↓ 1.1%</span></div>
             </section>
@@ -120,9 +119,7 @@ const API_BASE = '/api';
                         <div class="stat-box" style="text-align:left; padding:12px; background:var(--bg); border:1px solid var(--blue-100); border-radius:8px;">
                             <strong>${stat.serviceName}</strong>
                             <div style="font-size:0.8rem; margin-top:4px; color:var(--text-secondary);">
-                                <div>📅 ${stat.bookings} bookings</div>
-                                <div>💰 $${stat.revenue.toFixed(2)}</div>
-                            </div>
+                                <div>📅 ${stat.bookings} bookings</div>                            </div>
                         </div>
                     `;
                 });
