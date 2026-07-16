@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Resources</title>
+    <link rel="stylesheet" href="admin-resources.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudySpace</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+
+                <a href="#">
+                    <span class="nav-icon">👥</span> Users
+                </a>
+
+                <a href="#">
+                    <span class="nav-icon">🧑‍🏫</span> Profiles
+                </a>
+
+                <a href="#" class="active">
+                    <span class="nav-icon">📚</span> Resources
+                </a>
+
+                <a href="#">
+                    <span class="nav-icon">⭐</span> Reviews
+                </a>
+
+                <a href="#">
+                    <span class="nav-icon">📈</span> Statistics
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="resources-section">
+
+                <div class="section-header">
+                    <div>
+                        <h1>Moderate Resources</h1>
+                        <p>
+                            Review posted study resources and update their
+                            moderation status.
+                        </p>
+                    </div>
+
+                    <a href="admin-dashboard.html"
+                       class="btn secondary-btn">
+                        Back to Dashboard
+                    </a>
+                </div>
+
+                <div class="resource-list">
+
+                    <article class="resource-card">
+                        <div class="resource-info">
+                            <h3>Calculus Study Guide</h3>
+                            <p><strong>Subject:</strong> Mathematics</p>
+                            <p><strong>Type:</strong> Study Guide</p>
+                            <p><strong>Status:</strong> Pending</p>
+                        </div>
+
+                        <div class="resource-actions">
+                            <button class="btn approve-btn">
+                                Approve
+                            </button>
+
+                            <button class="btn remove-btn">
+                                Remove
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <div class="resource-info">
+                            <h3>Java Review Notes</h3>
+                            <p>
+                                <strong>Subject:</strong>
+                                Computer Science
+                            </p>
+                            <p><strong>Type:</strong> Notes</p>
+                            <p><strong>Status:</strong> Approved</p>
+                        </div>
+
+                        <div class="resource-actions">
+                            <button class="btn approve-btn">
+                                Approve
+                            </button>
+
+                            <button class="btn remove-btn">
+                                Remove
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>
