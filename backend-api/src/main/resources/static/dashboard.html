@@ -9,7 +9,6 @@
 <body>
 
     <div class="app">
-        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <span class="brand-icon">📘</span>
@@ -33,6 +32,7 @@
         </aside>
 
         <main class="main">
+            <!-- Main header -->
             <header class="main-header">
                 <div><h1>Dashboard</h1><p class="greeting">Welcome back, <span id="greetingName">Jane</span> 👋</p></div>
                 <div class="header-actions">
@@ -41,6 +41,7 @@
                 </div>
             </header>
 
+            <!-- Stats Cards -->
             <section class="stats-grid">
                 <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-number" id="totalStudents">0</div><span class="stat-change up">↑ 2</span></div>
                 <div class="stat-card"><div class="stat-label">Services</div><div class="stat-number" id="serviceCount">0</div><span class="stat-change up">↑ 1</span></div>
@@ -49,7 +50,9 @@
             </section>
 
             <div class="dashboard-grid">
+                <!-- LEFT COLUMN -->
                 <div class="left-col">
+                    <!-- Profile Card -->
                     <div class="card">
                         <div class="card-header"><h2>👤 Profile</h2><span class="badge">basic info</span></div>
                         <div class="form-row">
@@ -59,12 +62,14 @@
                         <div class="form-group"><label for="bio">Bio</label><textarea id="bio"></textarea></div>
                     </div>
 
+                    <!-- Courses taught (local storage) -->
                     <div class="card">
                         <div class="card-header"><h2>📚 Courses taught</h2><span class="badge">add / remove</span></div>
                         <div class="course-input-row"><input type="text" id="courseInput" placeholder="e.g. Calculus I" /><button class="btn btn-primary btn-sm" onclick="addCourse()">Add</button></div>
                         <div id="courseList" class="tag-list"></div>
                     </div>
 
+                    <!-- Calendar -->
                     <div class="card calendar-card">
                         <div class="card-header">
                             <h2>📅 Weekly Schedule</h2>
@@ -77,12 +82,19 @@
                     </div>
                 </div>
 
+                <!-- RIGHT COLUMN -->
                 <div class="right-col">
+                    <!-- Upcoming Sessions = Services List -->
                     <div class="card">
-                        <div class="card-header"><h2>📋 Upcoming Sessions</h2><span class="badge">next 7 days</span></div>
-                        <div id="upcomingSessions"></div>
+                        <div class="card-header">
+                            <h2>📋 Services Offered</h2>
+                            <span class="badge">your sessions</span>
+                        </div>
+                        <div id="upcomingSessions">
+                        </div>
                     </div>
 
+                    <!-- Recent Students -->
                     <div class="card">
                         <div class="card-header"><h2>👨‍🎓 Recent Students</h2><span class="badge">active</span></div>
                         <div id="studentList"></div>
@@ -91,6 +103,7 @@
                         </div>
                     </div>
 
+                    <!-- Booking Stats Preview -->
                     <div class="card">
                         <div class="card-header"><h2>📊 Booking Stats</h2><span class="badge">this week</span></div>
                         <div class="stat-row">
@@ -99,12 +112,14 @@
                         <a href="booking-statistics.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;">View Full Statistics →</a>
                     </div>
 
+                    <!-- Reviews Preview -->
                     <div class="card">
                         <div class="card-header"><h2>⭐ Recent Reviews</h2><span class="badge">4.9 avg</span></div>
                         <div id="reviewsPreview"></div>
                         <a href="reviews.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;margin-top:8px;">View All Reviews →</a>
                     </div>
 
+                    <!-- Resources Preview -->
                     <div class="card">
                         <div class="card-header"><h2>📚 Study Resources</h2><span class="badge">latest</span></div>
                         <div class="review-item"><span class="reviewer-name">Calculus Practice</span><span class="review-rating">📐</span><span class="review-text">"50 practice problems with solutions"</span></div>
@@ -124,20 +139,19 @@
         // ================================================================
         const API_BASE = '/api';
         const PROVIDER_ID = 1;
-        const TUTOR_NAME = 'Jane Doe';  // Must match tutor name in DB
+        const TUTOR_NAME = 'Jane Doe';
 
         // ================================================================
         // STATE
         // ================================================================
         let allAppointments = [];
         let allReviews = [];
+        let services = [];            
         let courses = [];
         let availMap = new Map();
         let currentDate = new Date();
 
-        // ================================================================
-        // DOM REFS
-        // ================================================================
+   
         const fullNameInput = document.getElementById('fullName');
         const emailInput = document.getElementById('email');
         const bioTextarea = document.getElementById('bio');
@@ -223,22 +237,46 @@
         }
 
         // ================================================================
-        // 3. SERVICES COUNT
+        // 3. SERVICES (from backend) – now used for "Upcoming Sessions"
         // ================================================================
-        async function loadServiceCount() {
+        async function loadServices() {
             try {
                 const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/services`);
                 if (!res.ok) throw new Error('Failed to load services');
-                const services = await res.json();
+                services = await res.json();
                 serviceCountSpan.textContent = services.length;
+                renderServices();  // new function to display services
             } catch (err) {
+                services = [];
                 serviceCountSpan.textContent = '0';
                 console.error(err);
             }
         }
 
         // ================================================================
-        // 4. APPOINTMENTS
+        // 4. RENDER SERVICES (Upcoming Sessions card)
+        // ================================================================
+        function renderServices() {
+            if (!services.length) {
+                upcomingSessionsDiv.innerHTML = '<p class="text-muted" style="text-align:center;padding:16px 0;">No services offered yet.</p>';
+                return;
+            }
+            // Show all services, or limit to e.g. 4
+            const list = services.slice(0, 4);
+            upcomingSessionsDiv.innerHTML = list.map(s =>
+                `<div class="session-preview">
+                    <div class="session-info">
+                        <span class="session-student">${s.name}</span>
+                        <span class="session-subject">${s.category || 'General'} · $${s.price}/hr</span>
+                    </div>
+                    <span class="session-time">${s.duration} min</span>
+                    <button class="btn btn-sm btn-primary" onclick="showToast('📅 Booking for ${s.name} coming soon!')">Book</button>
+                </div>`
+            ).join('');
+        }
+
+        // ================================================================
+        // 5. APPOINTMENTS (for calendar and stats)
         // ================================================================
         async function loadAppointments() {
             try {
@@ -261,8 +299,7 @@
                 weekBookingsSpan.textContent = thisWeek.length;
 
                 renderCalendar();
-                renderUpcomingSessions();
-                loadRecentStudents();
+                loadRecentStudents();  // from appointments
             } catch (err) {
                 showToast('Error loading appointments');
                 console.error(err);
@@ -270,7 +307,7 @@
         }
 
         // ================================================================
-        // 5. REVIEWS
+        // 6. REVIEWS
         // ================================================================
         async function loadReviews() {
             try {
@@ -291,9 +328,6 @@
             }
         }
 
-        // ================================================================
-        // 6. RENDER REVIEWS PREVIEW
-        // ================================================================
         function renderReviewsPreview() {
             if (!allReviews.length) {
                 reviewsPreviewDiv.innerHTML = '<p class="text-muted" style="padding:8px 0;">No reviews yet.</p>';
@@ -310,7 +344,7 @@
         }
 
         // ================================================================
-        // 7. RECENT STUDENTS
+        // 7. RECENT STUDENTS (from appointments)
         // ================================================================
         function loadRecentStudents() {
             if (!allAppointments.length) {
@@ -425,33 +459,7 @@
         }
 
         // ================================================================
-        // 11. UPCOMING SESSIONS
-        // ================================================================
-        function renderUpcomingSessions() {
-            const upcoming = allAppointments.filter(a => a.status !== 'Cancelled');
-            if (!upcoming.length) {
-                upcomingSessionsDiv.innerHTML = '<p class="text-muted" style="text-align:center;padding:16px 0;">No upcoming sessions</p>';
-                return;
-            }
-            upcoming.sort((a, b) => a.appointmentDate.localeCompare(b.appointmentDate) || a.appointmentTime.localeCompare(b.appointmentTime));
-            const next = upcoming.slice(0, 4);
-            upcomingSessionsDiv.innerHTML = next.map(a => {
-                const date = new Date(a.appointmentDate + 'T' + a.appointmentTime);
-                const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-                const dateStr = new Date(a.appointmentDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-                return `<div class="session-preview">
-                    <div class="session-info">
-                        <span class="session-student">${a.customerId ? 'Student ' + a.customerId : 'Unknown'}</span>
-                        <span class="session-subject">${a.course || 'General'}</span>
-                    </div>
-                    <span class="session-time">${dateStr} · ${timeStr}</span>
-                    <button class="btn btn-sm btn-danger" onclick="cancelAppointment('${a.id}')">Cancel</button>
-                </div>`;
-            }).join('');
-        }
-
-        // ================================================================
-        // 12. COURSES (localStorage)
+        // 11. COURSES (localStorage)
         // ================================================================
         function loadCourses() {
             try {
@@ -526,7 +534,7 @@
         }
 
         // ================================================================
-        // 13. CHANGE WEEK
+        // 12. CHANGE WEEK
         // ================================================================
         function changeWeek(delta) {
             currentDate.setDate(currentDate.getDate() + delta * 7);
@@ -534,7 +542,7 @@
         }
 
         // ================================================================
-        // 14. RESET
+        // 13. RESET
         // ================================================================
         async function resetProfile() {
             if (!confirm('Reset all local data?')) return;
@@ -564,7 +572,7 @@
         }
 
         // ================================================================
-        // 15. VIEW ALL STUDENTS
+        // 14. VIEW ALL STUDENTS
         // ================================================================
         document.getElementById('viewAllStudents').addEventListener('click', function(e) {
             e.preventDefault();
@@ -575,7 +583,7 @@
         });
 
         // ================================================================
-        // 16. TOAST
+        // 15. TOAST
         // ================================================================
         function showToast(msg) {
             const el = document.getElementById('toast');
@@ -586,16 +594,17 @@
         }
 
         // ================================================================
-        // 17. INIT
+        // 16. INIT
         // ================================================================
         async function init() {
             loadCourses();
             await loadProfile();
-            await loadServiceCount();
-            await loadAppointments();
+            await loadServices();        // Now loads services and renders them in "Upcoming Sessions"
+            await loadAppointments();    // Still loads appointments for calendar and stats
             await loadReviews();
         }
 
+        // Expose functions
         window.saveProfile = saveProfile;
         window.resetProfile = resetProfile;
         window.addCourse = addCourse;
