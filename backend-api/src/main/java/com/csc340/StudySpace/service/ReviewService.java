@@ -86,12 +86,13 @@ public class ReviewService {
         dto.setReply(review.getReply());
         dto.setRepliedAt(review.getRepliedAt());
 
-        // Fetch customer name
+        // Fetch customer name from Customer table using customerId
         if (review.getCustomerId() != null) {
             Optional<Customer> customer = customerRepository.findById(review.getCustomerId());
-            dto.setStudentName(customer.map(Customer::getName).orElse("Anonymous"));
+            dto.setStudentName(customer.map(Customer::getName)
+                    .orElse("Unknown Student"));   // never "Anonymous"
         } else {
-            dto.setStudentName("Anonymous");
+            dto.setStudentName("Unknown Student");
         }
 
         // Set course (default for now; can be fetched from appointment later)

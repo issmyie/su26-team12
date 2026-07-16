@@ -77,18 +77,16 @@
                 if (!res.ok) throw new Error('Failed to load reviews');
                 const data = await res.json();
 
-                // Map API response to our display format
-                allReviews = data.map(r => ({
-                    id: r.id,
-                    studentName: r.customerId ? `Student ${r.customerId}` : 'Anonymous',
-                    initials: r.customerId ? `S${r.customerId}` : '??',
-                    course: r.course || 'General',
-                    rating: r.rating,
-                    comment: r.comment || '',
-                    reply: r.reply || null,
-                    createdAt: r.createdAt || new Date().toISOString().split('T')[0]
-                }));
-
+              allReviews = data.map(r => ({
+    id: r.id,
+    studentName: r.studentName || 'Unknown Student',   // use the DTO field
+    initials: r.studentName ? r.studentName.split(' ').map(n => n[0]).join('').toUpperCase() : '??',
+    course: r.course || 'General',
+    rating: r.rating,
+    comment: r.comment || '',
+    reply: r.reply || null,
+    createdAt: r.createdAt || new Date().toISOString().split('T')[0]
+}));
                 updateSummary();
                 renderReviews('all');
             } catch (err) {
