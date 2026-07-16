@@ -53,6 +53,8 @@ public class AppointmentService {
         appointmentRepository.deleteById(id);
     }
 
+    
+
     public List<Appointment> getAppointmentsByCustomerId(Long customerId) {
         return appointmentRepository.findByCustomerId(customerId);
     }

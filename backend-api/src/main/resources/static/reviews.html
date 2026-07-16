@@ -18,14 +18,12 @@
                 <a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
                 <a href="booking-statistics.html"><span class="nav-icon">📈</span> Booking Stats</a>
                 <a href="reviews.html" class="active"><span class="nav-icon">⭐</span> Reviews</a>
-                <a href="services.html"><span class="nav-icon">📋</span> Services</a>
-                <a href="math-resources.html"><span class="nav-icon">📚</span> Resources</a>
             </nav>
             <div class="sidebar-footer">
                 <div class="tutor-card">
-                    <div class="avatar">JD</div>
+                    <div class="avatar" id="sidebarAvatar">JD</div>
                     <div>
-                        <p class="tutor-name">Jane Doe</p>
+                        <p class="tutor-name" id="sidebarName">Jane Doe</p>
                         <p class="tutor-role">Math Tutor</p>
                     </div>
                 </div>
@@ -41,7 +39,7 @@
                 </div>
                 <div class="header-actions">
                     <a href="dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
-                    <span class="rating-summary">⭐ 4.9 · 28 reviews</span>
+                    <span class="rating-summary" id="ratingSummary">⭐ 0.0 · 0 reviews</span>
                 </div>
             </header>
 
@@ -58,6 +56,7 @@
 
             <!-- Reviews List -->
             <div class="reviews-list" id="reviewsList">
+                <!-- Rendered by JS -->
             </div>
         </main>
     </div>
@@ -65,33 +64,54 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ================================================================
-        // API CONFIG
-        // ================================================================
-const API_BASE = '/api';
-        const TUTOR_NAME = 'Jane Doe'; 
+        // 1. API Configuration
+        const API_BASE = '/api';
+        const TUTOR_NAME = 'Jane Doe'; // Must match the tutor name stored in the database
 
         let allReviews = [];
 
-        // ================================================================
-        // LOAD REVIEWS
-        // ================================================================
+        // 2. Load reviews from the backend (Neon database)
         async function loadReviews() {
             try {
                 const res = await fetch(`${API_BASE}/reviews/tutor/${encodeURIComponent(TUTOR_NAME)}`);
                 if (!res.ok) throw new Error('Failed to load reviews');
-                allReviews = await res.json();
+                const data = await res.json();
+
+                // Map API response to our display format
+                allReviews = data.map(r => ({
+                    id: r.id,
+                    studentName: r.customerId ? `Student ${r.customerId}` : 'Anonymous',
+                    initials: r.customerId ? `S${r.customerId}` : '??',
+                    course: r.course || 'General',
+                    rating: r.rating,
+                    comment: r.comment || '',
+                    reply: r.reply || null,
+                    createdAt: r.createdAt || new Date().toISOString().split('T')[0]
+                }));
+
+                updateSummary();
                 renderReviews('all');
             } catch (err) {
-                showToast('Error loading reviews');
-                console.error(err);
+                console.error('Error loading reviews:', err);
+                showToast('Error loading reviews from database');
+                // Show empty state
+                allReviews = [];
+                updateSummary();
+                renderReviews('all');
             }
         }
 
+        // 3. Update summary
+        function updateSummary() {
+            const count = allReviews.length;
+            const avg = count ? (allReviews.reduce((s, r) => s + r.rating, 0) / count).toFixed(1) : '0.0';
+            document.getElementById('ratingSummary').textContent = `⭐ ${avg} · ${count} reviews`;
+        }
+
+        // 4. Render reviews with filter
         function renderReviews(filter) {
             const container = document.getElementById('reviewsList');
             let filtered = allReviews;
-
             if (filter === 'unreplied') {
                 filtered = allReviews.filter(r => !r.reply || r.reply.trim() === '');
             } else if (filter !== 'all') {
@@ -108,24 +128,38 @@ const API_BASE = '/api';
             filtered.forEach(r => {
                 const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
                 const hasReply = r.reply && r.reply.trim() !== '';
+                const dateStr = r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A';
+                // Simple "days ago" formatting
+                let dateDisplay = dateStr;
+                if (r.createdAt) {
+                    const days = Math.floor((new Date() - new Date(r.createdAt)) / (1000*60*60*24));
+                    if (days === 0) dateDisplay = 'Today';
+                    else if (days === 1) dateDisplay = '1 day ago';
+                    else if (days < 7) dateDisplay = `${days} days ago`;
+                    else dateDisplay = dateStr;
+                }
+
                 html += `
                     <div class="review-card" data-id="${r.id}">
                         <div class="review-header">
                             <div class="reviewer">
-                                <span class="reviewer-avatar">${(r.student || '?').charAt(0)}</span>
+                                <span class="reviewer-avatar">${r.initials || '??'}</span>
                                 <div>
-                                    <span class="reviewer-name">${r.student || 'Anonymous'}</span>
+                                    <span class="reviewer-name">${r.studentName || 'Anonymous'}</span>
                                     <span class="reviewer-course">${r.course || 'General'}</span>
                                 </div>
                             </div>
                             <div class="review-meta">
                                 <span class="review-rating">${stars}</span>
-                                <span class="review-date">${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : 'N/A'}</span>
+                                <span class="review-date">${dateDisplay}</span>
                             </div>
                         </div>
                         <p class="review-text">"${r.comment || ''}"</p>
                         <div class="review-reply ${hasReply ? '' : 'unreplied'}">
-                            <p class="reply-text">${hasReply ? `<strong>Your reply:</strong> ${r.reply}` : '<em>No reply yet.</em>'}</p>
+                            <p class="reply-text">
+                                ${hasReply ? `<strong>Your reply:</strong> ${r.reply}` : '<em>No reply yet.</em>'}
+                                ${hasReply ? `<button class="btn btn-sm btn-danger" onclick="deleteReply(${r.id})" style="margin-left:8px;">🗑️ Delete</button>` : ''}
+                            </p>
                         </div>
                         <div class="reply-input">
                             <input type="text" placeholder="Write a reply..." data-id="${r.id}" />
@@ -134,23 +168,18 @@ const API_BASE = '/api';
                     </div>
                 `;
             });
-
             container.innerHTML = html;
         }
 
-        // ================================================================
-        // REPLY TO REVIEW
-        // ================================================================
+        // 5. Reply to a review (PUT)
         async function replyToReview(btn) {
             const input = btn.previousElementSibling;
             const replyText = input.value.trim();
             const reviewId = parseInt(input.dataset.id);
-
             if (!replyText) {
                 showToast('Please enter a reply.');
                 return;
             }
-
             try {
                 const res = await fetch(`${API_BASE}/reviews/${reviewId}/reply`, {
                     method: 'PUT',
@@ -160,16 +189,31 @@ const API_BASE = '/api';
                 if (!res.ok) throw new Error('Reply failed');
                 showToast('✅ Reply posted!');
                 input.value = '';
-                loadReviews(); // refresh
+                // Refresh the list to show the updated reply
+                await loadReviews();
             } catch (err) {
                 showToast('❌ Error posting reply');
                 console.error(err);
             }
         }
 
-        // ================================================================
-        // FILTER BUTTONS
-        // ================================================================
+        // 6. Delete reply (DELETE)
+        async function deleteReply(reviewId) {
+            if (!confirm('Delete your reply?')) return;
+            try {
+                const res = await fetch(`${API_BASE}/reviews/${reviewId}/reply`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Delete failed');
+                showToast('🗑️ Reply deleted');
+                await loadReviews();
+            } catch (err) {
+                showToast('❌ Error deleting reply');
+                console.error(err);
+            }
+        }
+
+        // 7. Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -178,9 +222,7 @@ const API_BASE = '/api';
             });
         });
 
-        // ================================================================
-        // TOAST
-        // ================================================================
+        // 8. Toast
         function showToast(msg) {
             const el = document.getElementById('toast');
             el.textContent = msg;
@@ -189,12 +231,11 @@ const API_BASE = '/api';
             el._t = setTimeout(() => el.classList.remove('show'), 2600);
         }
 
-        // ================================================================
-        // INIT
-        // ================================================================
+        // 9. Initialize
         loadReviews();
 
         window.replyToReview = replyToReview;
+        window.deleteReply = deleteReply;
         window.showToast = showToast;
     </script>
 

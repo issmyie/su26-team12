@@ -18,19 +18,18 @@
                 <a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Dashboard</a>
                 <a href="booking-statistics.html"><span class="nav-icon">📈</span> Booking Stats</a>
                 <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
-                <a href="services.html"><span class="nav-icon">📋</span> Services</a>
                 <a href="math-resources.html"><span class="nav-icon">📚</span> Resources</a>
             </nav>
-            <div class="sidebar-footer">
-                <div class="tutor-card">
-                    <div class="avatar">JD</div>
-                    <div>
-                        <p class="tutor-name">Jane Doe</p>
-                        <p class="tutor-role">Math Tutor</p>
-                    </div>
-                </div>
-                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
-            </div>
+          <div class="sidebar-footer">
+    <div class="tutor-card">
+        <div class="avatar" id="sidebarAvatar">JD</div>
+        <div>
+            <p class="tutor-name" id="sidebarName">Jane Doe</p>
+            <p class="tutor-role">Math Tutor</p>
+        </div>
+    </div>
+    <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
+</div>
         </aside>
 
         <main class="main">
@@ -321,6 +320,11 @@ const API_BASE = '/api';
                 document.getElementById('email').value = profile.email || '';
                 document.getElementById('bio').value = profile.bio || '';
                 document.getElementById('greetingName').textContent = profile.name || 'Jane';
+                // Update sidebar name and avatar
+document.getElementById('sidebarName').textContent = profile.name || 'Jane Doe';
+const nameParts = (profile.name || 'Jane Doe').split(' ');
+const initials = nameParts.map(p => p.charAt(0)).join('').toUpperCase();
+document.getElementById('sidebarAvatar').textContent = initials || 'JD';
             } catch (err) {
                 showToast('Error loading profile');
                 console.error(err);
