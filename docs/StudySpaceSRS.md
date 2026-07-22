@@ -92,6 +92,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ### 2.2 Provider Stories
 - **US-13 — Vewing Statistics  
   _Story:_ As a tutor I want to be able to look at my metrics and trends
+  
   _Acceptance:_
   ```gherkin
   Scenario: Look at my metrics
@@ -102,6 +103,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
 - **US-11 — Editing the calendar and availability 
   _Story:_  As a tutor I want to be able to cancel and view my bookings.
+  
   _Acceptance:_
   ```gherkin
   Scenario: I want to cancel a booking 
@@ -117,6 +119,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
   - **US-5 — Responding to reviews  
   _Story:_ As a tutor I want to be able to respond to reviews
+
   _Acceptance:_
   ```gherkin
   Scenario: I want to respind to reviews
@@ -128,6 +131,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   
   - **US-14 — Sign-up and log-in
   _Story:_  As a user I want to be able to log in and log out and sign in and out.
+
   _Acceptance:_
   ```gherkin
   Scenario: 
@@ -138,6 +142,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
   - **US-7 — Posting study resources
   _Story:_  As a tutor I want to be able to post study resources.
+
   _Acceptance:_
   ```gherkin
   Scenario: I want to post a study resource
@@ -148,6 +153,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
   - **US-1 — PMaking a profile
   _Story:_  As a user I want to be able to make/edit a profile
+
   _Acceptance:_
   ```gherkin
   Scenario: I am a user
