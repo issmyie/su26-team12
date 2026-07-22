@@ -1,10 +1,10 @@
-**Project Name:**   
-**Version:** 
-**Date:**  
+**Project Name:**   StudySpace
+**Version:** 1.0
+**Date:**  07/22/2026
 **Purpose:** 
 
 ## Actors
-- Provider P:
+- Provider P: Eman Dweik
 - Customer C:
 - Service S:
 
