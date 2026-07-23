@@ -58,7 +58,7 @@
                 <div class="avatar">AC</div>
 
                 <div>
-                    <p class="student-name">Alex Carter</p>
+                    <p class="student-name">${review.customerName}</p>
                     <p class="student-role">Student</p>
                 </div>
 
