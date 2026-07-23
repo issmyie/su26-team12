@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudySpace · Study Resources</title>
+    <link rel="stylesheet" href="study-resources.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-icon">📘</span> StudySpace
+            </a>
+            <button class="nav-toggle" onclick="toggleNav()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html#resources">Study</a>
+                <a href="index.html#events">Events</a>
+                <a href="index.html#about">About</a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+            <div class="nav-actions" id="navActions">
+                <!-- populated by JS -->
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>📚 Study Materials</h1>
+            <p>Explore and share study resources for any subject.</p>
+        </div>
+    </section>
+
+    <!-- Post Section – always visible for demo -->
+    <section class="post-section" id="postSection">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>📤 Post a Study Resource</h2>
+                    <span class="badge">Demo – anyone can post</span>
+                </div>
+                <form id="studyForm" onsubmit="postStudy(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studyTitle">Title *</label>
+                            <input type="text" id="studyTitle" placeholder="e.g. Calculus Cheat Sheet" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="studySubject">Subject</label>
+                            <input type="text" id="studySubject" placeholder="e.g. Mathematics, Physics, History" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studyDesc">Description</label>
+                        <textarea id="studyDesc" rows="3" placeholder="Describe the resource..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studyLink">Link (optional)</label>
+                            <input type="text" id="studyLink" placeholder="https://example.com/resource" />
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:flex-end;">
+                            <button type="submit" class="btn btn-primary">📤 Post Resource</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="studies-list">
+        <div class="container">
+            <div class="section-header">
+                <h2>📋 All Study Resources</h2>
+                <span class="badge" id="studyCount">0 resources</span>
+            </div>
+            <div id="studyContainer">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container"><p>&copy; 2026 <a href="index.html">StudySpace</a>. All rights reserved.</p></div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================================================================
+        // API CONFIG
+        // ================================================================
+        const API_BASE = '/api';
+        let currentUser = null;
+
+        // ================================================================
+        // GET USER INFO (from sessionStorage)
+        // ================================================================
+        function getUser() {
+            const id = sessionStorage.getItem('userId');
+            const role = sessionStorage.getItem('role');
+            return id ? { id: parseInt(id), role } : null;
+        }
+
+        // ================================================================
+        // TOGGLE NAV
+        // ================================================================
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // ================================================================
+        // TOAST
+        // ================================================================
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+
+        // ================================================================
+        // LOAD STUDIES
+        // ================================================================
+        async function loadStudies() {
+            try {
+                const res = await fetch(`${API_BASE}/studies`);
+                if (!res.ok) throw new Error('Failed to load studies');
+                const studies = await res.json();
+                renderStudies(studies);
+            } catch (err) {
+                showToast('Error loading studies');
+                console.error(err);
+            }
+        }
+
+        function renderStudies(studies) {
+            const container = document.getElementById('studyContainer');
+            const count = document.getElementById('studyCount');
+            if (!studies.length) {
+                container.innerHTML = '<p class="text-muted" style="text-align:center;padding:40px 0;">No study resources yet. Be the first to share! 📚</p>';
+                count.textContent = '0 resources';
+                return;
+            }
+            let html = '';
+            // Delete button visible only if logged in as tutor
+            const isTutor = currentUser && currentUser.role === 'PROVIDER';
+            studies.forEach(s => {
+                html += `
+                    <div class="study-item card">
+                        <div class="study-header">
+                            <div>
+                                <h3>${s.title}</h3>
+                                <span class="subject-tag">${s.subject || 'General'}</span>
+                            </div>
+                            <div class="study-meta">
+                                <span class="posted-by">👤 ${s.postedBy || 'Tutor'}</span>
+                                <span class="posted-date">${s.createdAt ? new Date(s.createdAt).toLocaleDateString() : 'N/A'}</span>
+                                ${isTutor ? `<button class="btn btn-sm btn-danger" onclick="deleteStudy(${s.id})">🗑️ Delete</button>` : ''}
+                            </div>
+                        </div>
+                        <p class="study-desc">${s.description || 'No description'}</p>
+                        ${s.link ? `<a href="${s.link}" target="_blank" class="study-link">🔗 View Resource</a>` : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            count.textContent = studies.length + ' resources';
+        }
+
+        // ================================================================
+        // POST STUDY
+        // ================================================================
+        async function postStudy(e) {
+            e.preventDefault();
+            const title = document.getElementById('studyTitle').value.trim();
+            const subject = document.getElementById('studySubject').value.trim();
+            const description = document.getElementById('studyDesc').value.trim();
+            const link = document.getElementById('studyLink').value.trim();
+
+            if (!title) {
+                showToast('Please enter a title.');
+                return;
+            }
+
+            const newStudy = {
+                title,
+                subject,
+                description,
+                link,
+                postedBy: 'Demo Tutor' // You can change this
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/studies`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newStudy)
+                });
+                if (!res.ok) throw new Error('Post failed');
+                showToast('✅ Resource posted!');
+                document.getElementById('studyForm').reset();
+                loadStudies();
+            } catch (err) {
+                showToast('❌ Error posting resource');
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // DELETE STUDY
+        // ================================================================
+        async function deleteStudy(id) {
+            // Only allow if tutor (frontend check)
+            if (!currentUser || currentUser.role !== 'PROVIDER') {
+                showToast('Only tutors can delete resources.');
+                return;
+            }
+            if (!confirm('Delete this resource?')) return;
+            try {
+                const res = await fetch(`${API_BASE}/studies/${id}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Delete failed');
+                showToast('🗑️ Resource deleted');
+                loadStudies();
+            } catch (err) {
+                showToast('❌ Error deleting resource');
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // UPDATE NAV ACTIONS
+        // ================================================================
+        function updateNav() {
+            const actions = document.getElementById('navActions');
+            if (currentUser) {
+                actions.innerHTML = `
+                    <span style="font-size:0.8rem;color:var(--text-secondary);margin-right:8px;">👤 ${currentUser.role === 'PROVIDER' ? 'Tutor' : 'Student'}</span>
+                    <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+                    <a href="index.html" class="btn btn-logout" onclick="logout()">Log Out</a>
+                `;
+            } else {
+                actions.innerHTML = `
+                    <a href="login.html" class="btn btn-outline">Log In</a>
+                    <a href="register.html" class="btn btn-primary">Sign Up</a>
+                `;
+            }
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        function init() {
+            currentUser = getUser();
+            updateNav();
+            loadStudies();
+
+            // Post section is always visible (we removed the conditional hide)
+            // If you want to restrict it, you can uncomment:
+            // const postSection = document.getElementById('postSection');
+            // if (currentUser && currentUser.role === 'PROVIDER') {
+            //     postSection.style.display = 'block';
+            // } else {
+            //     postSection.style.display = 'none';
+            // }
+            // For now, it's always shown.
+        }
+
+        window.toggleNav = toggleNav;
+        window.postStudy = postStudy;
+        window.deleteStudy = deleteStudy;
+        window.showToast = showToast;
+
+        init();
+    </script>
+
+</body>
+</html>

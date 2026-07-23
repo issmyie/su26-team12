@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudySpace · Booking Stats</title>
+    <link rel="stylesheet" href="booking-statistics.css" />
+</head>
+<body>
+
+    <div class="app">
+     
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudySpace</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="booking-statistics.html" class="active"><span class="nav-icon">📈</span> Booking Stats</a>
+                <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="study-resources.html"><span class="nav-icon">📚</span> Resources</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar">JD</div>
+                    <div>
+                        <p class="tutor-name">Jane Doe</p>
+                        <p class="tutor-role">Math Tutor</p>
+                    </div>
+                </div>
+                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="main-header">
+                <div>
+                    <h1>📈 Booking Statistics</h1>
+                    <p class="greeting">Real data from your tutoring sessions</p>
+                </div>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
+                    <button class="btn btn-primary" onclick="showToast('📊 Report exported!')">Export Report</button>
+                </div>
+            </header>
+
+            <!-- Overall Stats -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Bookings</div>
+                    <div class="stat-number" id="totalBookings">0</div>
+                    <span class="stat-change up" id="bookingChange">↑ 0%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg. Session Length</div>
+                    <div class="stat-number" id="avgLength">0 hrs</div>
+                    <span class="stat-change up" id="lengthChange">↑ 0.0</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Cancellation Rate</div>
+                    <div class="stat-number" id="cancelRate">0%</div>
+                    <span class="stat-change down" id="cancelChange">↓ 0%</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Students</div>
+                    <div class="stat-number" id="activeStudents">0</div>
+                    <span class="stat-change up" id="studentChange">↑ 0</span>
+                </div>
+            </section>
+
+            <!-- Statistics per Service -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📊 Statistics per Service</h2>
+                    <span class="badge">from API</span>
+                </div>
+                <div id="serviceStats">
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <!-- Weekly Bookings Chart (dynamic) -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>📅 Weekly Bookings</h2>
+                        <span class="badge">last 7 days</span>
+                    </div>
+                    <div class="chart-bars" id="weeklyBookings">
+                    </div>
+                </div>
+
+                <!-- Demand by Course (dynamic) -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2>📚 Demand by Course</h2>
+                        <span class="badge">top 5</span>
+                    </div>
+                    <div class="demand-list" id="demandList">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================================================================
+        // API CONFIG
+        // ================================================================
+        const API_BASE = '/api';
+        const PROVIDER_ID = 1;
+        const TUTOR_NAME = 'Jane Doe';
+
+        // ================================================================
+        // UTILITY
+        // ================================================================
+        function getDateStr(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function getDayName(date) {
+            return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][date.getDay()];
+        }
+
+        // ================================================================
+        // LOAD STATISTICS
+        // ================================================================
+        async function loadStats() {
+            try {
+                // 1. Fetch all appointments for this tutor
+                const appointmentsRes = await fetch(`${API_BASE}/appointments/tutor/${encodeURIComponent(TUTOR_NAME)}`);
+                if (!appointmentsRes.ok) throw new Error('Failed to load appointments');
+                const appointments = await appointmentsRes.json();
+
+                // 2. Compute overall stats
+                const total = appointments.length;
+                const cancelled = appointments.filter(a => a.status === 'Cancelled').length;
+                const cancelRate = total > 0 ? (cancelled / total * 100) : 0;
+                const uniqueStudents = new Set(appointments.map(a => a.customerId));
+                const activeStudents = uniqueStudents.size;
+                const avgLength = total > 0 ? 1.5 : 0;
+
+                document.getElementById('totalBookings').textContent = total;
+                document.getElementById('avgLength').textContent = avgLength.toFixed(1) + ' hrs';
+                document.getElementById('cancelRate').textContent = cancelRate.toFixed(1) + '%';
+                document.getElementById('activeStudents').textContent = activeStudents;
+
+                document.getElementById('bookingChange').textContent = `↑ ${total > 0 ? (total / 10).toFixed(0) : 0}%`;
+                document.getElementById('lengthChange').textContent = `↑ ${avgLength > 0 ? 0.1 : 0.0}`;
+                document.getElementById('cancelChange').textContent = `↓ ${cancelRate > 0 ? 1.2 : 0}%`;
+                document.getElementById('studentChange').textContent = `↑ ${activeStudents > 0 ? 2 : 0}`;
+
+                // 3. Render weekly bookings chart (last 7 days)
+                renderWeeklyBookings(appointments);
+
+                // 4. Render demand by course (top 5)
+                renderDemandByCourse(appointments);
+
+                // 5. Load service statistics (per service)
+                await loadServiceStats(appointments);
+
+            } catch (err) {
+                console.error('Error loading stats:', err);
+                showToast('Error loading statistics');
+            }
+        }
+
+        // ================================================================
+        // RENDER WEEKLY BOOKINGS
+        // ================================================================
+        function renderWeeklyBookings(appointments) {
+            const container = document.getElementById('weeklyBookings');
+
+            // Get today and last 7 days (including today)
+            const today = new Date();
+            const days = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(today);
+                d.setDate(today.getDate() - i);
+                days.push(d);
+            }
+
+            // Count bookings per day
+            const counts = days.map(d => {
+                const dateStr = getDateStr(d);
+                return appointments.filter(a => a.appointmentDate === dateStr).length;
+            });
+
+            const max = Math.max(...counts, 1); 
+
+            let html = '';
+            days.forEach((d, i) => {
+                const pct = (counts[i] / max) * 100;
+                const barHeight = Math.max(pct, 5);
+                html += `
+                    <div class="bar-item">
+                        <span class="bar-label">${getDayName(d)}</span>
+                        <div class="bar-track"><div class="bar-fill" style="height:${barHeight}%;"></div></div>
+                        <span class="bar-value">${counts[i]}</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // RENDER DEMAND BY COURSE (top 5 from appointments)
+        // ================================================================
+        function renderDemandByCourse(appointments) {
+            const container = document.getElementById('demandList');
+
+            const courseCounts = {};
+            appointments.forEach(a => {
+                const course = a.course || 'Unknown';
+                courseCounts[course] = (courseCounts[course] || 0) + 1;
+            });
+
+            const sorted = Object.entries(courseCounts)
+                .map(([course, count]) => ({ course, count }))
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 5);
+
+            if (!sorted.length) {
+                container.innerHTML = '<div class="demand-item"><span class="course">No bookings yet</span><span class="count">0</span></div>';
+                return;
+            }
+
+            const max = sorted[0].count;
+            container.innerHTML = sorted.map(({ course, count }) => {
+                const pct = (count / max) * 100;
+                return `<div>
+                    <div class="demand-item"><span class="course">${course}</span><span class="count">${count}</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;"></div></div>
+                </div>`;
+            }).join('');
+        }
+
+        // ================================================================
+        // LOAD SERVICE STATISTICS (per service)
+        // ================================================================
+        async function loadServiceStats(appointments) {
+            const container = document.getElementById('serviceStats');
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/statistics`);
+                if (!res.ok) throw new Error('Failed to load service stats');
+                const stats = await res.json();
+
+                if (!stats || stats.length === 0) {
+                    container.innerHTML = '<p class="text-muted" style="text-align:center;padding:20px 0;">No services created yet.</p>';
+                    return;
+                }
+
+                let html = '<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;">';
+                stats.forEach(stat => {
+                    html += `
+                        <div class="stat-box" style="text-align:left; padding:12px; background:var(--bg); border:1px solid var(--blue-100); border-radius:8px;">
+                            <strong>${stat.serviceName}</strong>
+                            <div style="font-size:0.8rem; margin-top:4px; color:var(--text-secondary);">
+                                <div>📅 ${stat.bookings} bookings</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+
+            } catch (err) {
+                console.error('Error loading service stats:', err);
+                container.innerHTML = '<p class="text-muted" style="text-align:center;padding:20px 0;">Error loading service statistics.</p>';
+            }
+        }
+
+        // ================================================================
+        // TOAST
+        // ================================================================
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        loadStats();
+
+        window.showToast = showToast;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudySpace · Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudySpace</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="booking-statistics.html"><span class="nav-icon">📈</span> Booking Stats</a>
+                <a href="reviews.html"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="study-resources.html"><span class="nav-icon">📚</span> Resources</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar" id="sidebarAvatar">JD</div>
+                    <div>
+                        <p class="tutor-name" id="sidebarName">Jane Doe</p>
+                        <p class="tutor-role">Math Tutor</p>
+                    </div>
+                </div>
+                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="main-header">
+                <div><h1>Dashboard</h1><p class="greeting">Welcome back, <span id="greetingName">Jane</span> 👋</p></div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="saveProfile()">💾 Save Profile</button>
+                    <button class="btn btn-ghost" onclick="resetProfile()">Reset</button>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-number" id="totalStudents">0</div><span class="stat-change up">↑ 2</span></div>
+                <div class="stat-card"><div class="stat-label">Services</div><div class="stat-number" id="serviceCount">0</div><span class="stat-change up">↑ 1</span></div>
+                <div class="stat-card"><div class="stat-label">Appointments</div><div class="stat-number" id="totalAppointments">0</div><span class="stat-change up">↑ 3</span></div>
+                <div class="stat-card"><div class="stat-label">Rating</div><div class="stat-number" id="avgRating">⭐ 0.0</div><span class="stat-change up">↑ 0.0</span></div>
+            </section>
+
+            <div class="dashboard-grid">
+                <div class="left-col">
+                    <div class="card">
+                        <div class="card-header"><h2>👤 Profile</h2><span class="badge">basic info</span></div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="fullName">Full name</label><input type="text" id="fullName" /></div>
+                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" /></div>
+                        </div>
+                        <div class="form-group"><label for="bio">Bio</label><textarea id="bio"></textarea></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>📚 Courses taught</h2><span class="badge">add / remove</span></div>
+                        <div class="course-input-row"><input type="text" id="courseInput" placeholder="e.g. Calculus I" /><button class="btn btn-primary btn-sm" onclick="addCourse()">Add</button></div>
+                        <div id="courseList" class="tag-list"></div>
+                    </div>
+
+                    <div class="card calendar-card">
+                        <div class="card-header">
+                            <h2>📅 Weekly Schedule</h2>
+                            <div class="week-nav"><button onclick="changeWeek(-1)">‹</button><span id="weekLabel"></span><button onclick="changeWeek(1)">›</button></div>
+                        </div>
+                        <div class="card-body">
+                            <div id="weeklyCalendarContainer"></div>
+                            <p class="calendar-hint">Click a session to cancel · Click empty slot to add availability</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-col">
+                    <div class="card">
+                        <div class="card-header"><h2>📋 Upcoming Sessions</h2><span class="badge">next 7 days</span></div>
+                        <div id="upcomingSessions"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>👨‍🎓 Recent Students</h2><span class="badge">active</span></div>
+                        <div id="studentList"></div>
+                        <div class="student-actions">
+                            <a href="#" id="viewAllStudents" class="btn btn-sm btn-primary">View All Students →</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>📊 Booking Stats</h2><span class="badge">this week</span></div>
+                        <div class="stat-row">
+                            <div class="stat-box"><div class="num" id="weekBookings">0</div><div class="lbl">This week</div></div>
+                            <div class="stat-box"><div class="num" id="totalHours">0</div><div class="lbl">Total hours</div></div>
+                        </div>
+                        <a href="booking-statistics.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;">View Full Statistics →</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>⭐ Recent Reviews</h2><span class="badge">4.9 avg</span></div>
+                        <div id="reviewsPreview"></div>
+                        <a href="reviews.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;margin-top:8px;">View All Reviews →</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><h2>📚 Study Resources</h2><span class="badge">latest</span></div>
+                        <div id="resourcesPreview"></div>
+                        <a href="study-resources.html" class="btn btn-sm btn-primary" style="width:100%;text-align:center;display:block;margin-top:8px;">View All Resources →</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================================================================
+        // API CONFIG
+        // ================================================================
+        const API_BASE = '/api';
+        const PROVIDER_ID = 1;
+        const TUTOR_NAME = 'Jane Doe';
+
+        // ================================================================
+        // STATE
+        // ================================================================
+        let allAppointments = [];
+        let allReviews = [];
+        let allStudies = [];
+        let courses = [];
+        let availMap = new Map();
+        let currentDate = new Date();
+
+        // ================================================================
+        // DOM REFS
+        // ================================================================
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const bioTextarea = document.getElementById('bio');
+        const greetingName = document.getElementById('greetingName');
+        const totalStudentsSpan = document.getElementById('totalStudents');
+        const serviceCountSpan = document.getElementById('serviceCount');
+        const totalAppointmentsSpan = document.getElementById('totalAppointments');
+        const avgRatingSpan = document.getElementById('avgRating');
+        const weekBookingsSpan = document.getElementById('weekBookings');
+        const totalHoursSpan = document.getElementById('totalHours');
+        const courseListDiv = document.getElementById('courseList');
+        const studentListDiv = document.getElementById('studentList');
+        const reviewsPreviewDiv = document.getElementById('reviewsPreview');
+        const resourcesPreviewDiv = document.getElementById('resourcesPreview');
+        const upcomingSessionsDiv = document.getElementById('upcomingSessions');
+        const calendarContainer = document.getElementById('weeklyCalendarContainer');
+        const weekLabel = document.getElementById('weekLabel');
+        const sidebarAvatar = document.getElementById('sidebarAvatar');
+        const sidebarName = document.getElementById('sidebarName');
+
+        // ================================================================
+        // UTILITY
+        // ================================================================
+        function formatDateStr(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            d.setDate(diff);
+            return d;
+        }
+        function getTimeLabel(h) {
+            if (h === 12) return '12 PM';
+            if (h > 12) return (h - 12) + ' PM';
+            return h + ' AM';
+        }
+        function getDateFromStr(dateStr) {
+            const parts = dateStr.split('-');
+            return new Date(parts[0], parts[1]-1, parts[2]);
+        }
+
+        // ================================================================
+        // 1. PROFILE
+        // ================================================================
+        async function loadProfile() {
+            console.log('[Profile] Fetching provider ID:', PROVIDER_ID);
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}`);
+                console.log('[Profile] Response status:', res.status);
+                if (!res.ok) throw new Error('Profile not found (status: ' + res.status + ')');
+                const profile = await res.json();
+                console.log('[Profile] Data:', profile);
+                fullNameInput.value = profile.name || '';
+                emailInput.value = profile.email || '';
+                bioTextarea.value = profile.bio || '';
+                greetingName.textContent = profile.name || 'Jane';
+                sidebarName.textContent = profile.name || 'Jane Doe';
+                const nameParts = (profile.name || 'Jane Doe').split(' ');
+                const initials = nameParts.map(p => p.charAt(0)).join('').toUpperCase();
+                sidebarAvatar.textContent = initials || 'JD';
+            } catch (err) {
+                console.error('[Profile] Error:', err);
+                fullNameInput.value = 'Jane Doe';
+                emailInput.value = 'jane@studyspace.me';
+                bioTextarea.value = 'Mathematics tutor with 6 years of experience.';
+                greetingName.textContent = 'Jane';
+                sidebarName.textContent = 'Jane Doe';
+                sidebarAvatar.textContent = 'JD';
+                showToast('Could not load profile – using default');
+            }
+        }
+
+        async function saveProfile() {
+            const updated = {
+                name: fullNameInput.value.trim(),
+                email: emailInput.value.trim(),
+                bio: bioTextarea.value.trim()
+            };
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/profile`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updated)
+                });
+                if (!res.ok) throw new Error('Save failed');
+                showToast('✅ Profile saved!');
+                await loadProfile();
+            } catch (err) {
+                showToast('❌ Error saving profile: ' + err.message);
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // 2. SERVICES
+        // ================================================================
+        async function loadServiceCount() {
+            try {
+                const res = await fetch(`${API_BASE}/providers/${PROVIDER_ID}/services`);
+                if (!res.ok) throw new Error('Failed to load services');
+                const services = await res.json();
+                serviceCountSpan.textContent = services.length;
+            } catch (err) {
+                serviceCountSpan.textContent = '0';
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // 3. APPOINTMENTS
+        // ================================================================
+        async function loadAppointments() {
+            console.log('[Appointments] Fetching for tutor:', TUTOR_NAME);
+            try {
+                const res = await fetch(`${API_BASE}/appointments/tutor/${encodeURIComponent(TUTOR_NAME)}`);
+                console.log('[Appointments] Response status:', res.status);
+                if (!res.ok) throw new Error('Failed to load appointments (status: ' + res.status + ')');
+                allAppointments = await res.json();
+                console.log('[Appointments] Data:', allAppointments);
+            } catch (err) {
+                console.warn('[Appointments] Error – using fallback sample data', err);
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const dayAfter = new Date(today);
+                dayAfter.setDate(dayAfter.getDate() + 2);
+                allAppointments = [
+                    { id: 9991, customerId: 1, course: 'Algebra II', tutorName: TUTOR_NAME, appointmentDate: formatDateStr(today), appointmentTime: '14:00', status: 'Confirmed' },
+                    { id: 9992, customerId: 2, course: 'Calculus I', tutorName: TUTOR_NAME, appointmentDate: formatDateStr(tomorrow), appointmentTime: '10:00', status: 'Confirmed' },
+                    { id: 9993, customerId: 3, course: 'Geometry', tutorName: TUTOR_NAME, appointmentDate: formatDateStr(dayAfter), appointmentTime: '15:30', status: 'Confirmed' }
+                ];
+                showToast('Using sample appointments (real API failed)');
+            }
+            updateStats();
+            renderCalendar();
+            renderUpcomingSessions();
+            loadRecentStudents();
+        }
+
+        function updateStats() {
+            totalAppointmentsSpan.textContent = allAppointments.length;
+            const uniqueStudents = new Set(allAppointments.map(a => a.customerId));
+            totalStudentsSpan.textContent = uniqueStudents.size;
+            const now = new Date();
+            const weekStart = getMonday(now);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            const thisWeek = allAppointments.filter(a => {
+                const d = getDateFromStr(a.appointmentDate);
+                return d >= weekStart && d <= weekEnd;
+            });
+            weekBookingsSpan.textContent = thisWeek.length;
+            totalHoursSpan.textContent = allAppointments.length * 1.5;
+        }
+
+        async function cancelAppointment(appointmentId) {
+            if (!confirm('Cancel this session?')) return;
+
+            const index = allAppointments.findIndex(a => a.id === appointmentId);
+            if (index !== -1) {
+                allAppointments.splice(index, 1);
+                updateStats();
+                renderCalendar();
+                renderUpcomingSessions();
+                loadRecentStudents();
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/appointments/${appointmentId}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Cancel failed on server');
+                showToast('❌ Session cancelled');
+                await loadAppointments();
+            } catch (err) {
+                showToast('❌ Error cancelling session – please try again');
+                console.error(err);
+                await loadAppointments();
+            }
+        }
+
+        // ================================================================
+        // 4. CALENDAR 
+        // ================================================================
+        function renderCalendar() {
+            const start = getMonday(currentDate);
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+            let html = '<div class="calendar"><div class="timeline"><div class="spacer"></div>';
+            for (let i = 9; i <= 18; i++) {
+                html += `<div class="time-marker">${getTimeLabel(i)}</div>`;
+            }
+            html += '</div><div class="days">';
+
+            for (let i = 0; i < 5; i++) {
+                const d = new Date(start);
+                d.setDate(start.getDate() + i);
+                const ds = formatDateStr(d);
+                const today = new Date().toDateString() === d.toDateString();
+
+          
+                const slots = availMap.get(ds) || new Set();
+                const hours = [];
+                slots.forEach(t => {
+                    const h = parseInt(t);
+                    if (h >= 9 && h <= 17) hours.push(h);
+                });
+                hours.sort((a, b) => a - b);
+                // ---------------------------------------------
+
+                const dayAppointments = allAppointments.filter(a =>
+                    a.appointmentDate === ds && a.status !== 'Cancelled'
+                );
+
+                html += `<div class="day ${['mon','tue','wed','thu','fri'][i]}">
+                    <div class="date ${today ? 'today' : ''}">
+                        <span class="date-num">${d.getDate()}</span>
+                        <span class="date-day">${days[i]}</span>
+                    </div>
+                    <div class="events">`;
+
+                for (let h = 9; h <= 17; h++) {
+                    const apt = dayAppointments.find(a => parseInt(a.appointmentTime.split(':')[0]) === h);
+                    if (apt) {
+                        html += `<div class="event session-event" onclick="cancelAppointment('${apt.id}')" style="background:#fef3c7;border-color:#f59e0b;">
+                            <span class="title">📚 ${apt.customerId ? 'Student ' + apt.customerId : 'Unknown'}</span>
+                            <span class="time">${getTimeLabel(h)} – ${getTimeLabel(h+1)}</span>
+                        </div>`;
+                    } else if (hours.includes(h)) {
+                        html += `<div class="event" onclick="toggleAvailability('${ds}',${h})" style="background:#e9f5db;border-color:#cfe1b9;">
+                            <span class="title">Available</span>
+                            <span class="time">${getTimeLabel(h)} – ${getTimeLabel(h+1)}</span>
+                        </div>`;
+                    } else {
+                        html += `<div class="empty-slot" data-date="${ds}" data-hour="${h}"></div>`;
+                    }
+                }
+                html += '</div></div>';
+            }
+            html += '</div></div>';
+            calendarContainer.innerHTML = html;
+
+       
+            calendarContainer.querySelectorAll('.empty-slot').forEach(el => {
+                el.addEventListener('click', function() {
+                    const dateStr = this.dataset.date;
+                    const hour = parseInt(this.dataset.hour);
+                    toggleAvailability(dateStr, hour);
+                });
+            });
+
+            const monday = getMonday(currentDate);
+            const friday = new Date(monday);
+            friday.setDate(monday.getDate() + 4);
+            const opts = { month: 'short', day: 'numeric' };
+            weekLabel.textContent = `${monday.toLocaleDateString('en-US', opts)} – ${friday.toLocaleDateString('en-US', opts)}, ${friday.getFullYear()}`;
+        }
+
+        // ================================================================
+        // 5. AVAILABILITY TOGGLE
+        // ================================================================
+        function toggleAvailability(dateStr, hour) {
+            console.log('toggleAvailability called:', dateStr, hour);
+            const t = String(hour).padStart(2, '0') + ':00';
+            if (!availMap.has(dateStr)) availMap.set(dateStr, new Set());
+            const set = availMap.get(dateStr);
+            if (set.has(t)) {
+                set.delete(t);
+                console.log('Removed availability for:', dateStr, t);
+            } else {
+                set.add(t);
+                console.log('Added availability for:', dateStr, t);
+            }
+            if (!set.size) availMap.delete(dateStr);
+            saveCoursesAndAvailability();
+            renderCalendar();
+        }
+
+        // ================================================================
+        // 6. UPCOMING SESSIONS
+        // ================================================================
+        function renderUpcomingSessions() {
+            const upcoming = allAppointments.filter(a => a.status !== 'Cancelled');
+            if (!upcoming.length) {
+                upcomingSessionsDiv.innerHTML = '<p class="text-muted" style="text-align:center;padding:16px 0;">No upcoming sessions</p>';
+                return;
+            }
+            upcoming.sort((a, b) => a.appointmentDate.localeCompare(b.appointmentDate) || a.appointmentTime.localeCompare(b.appointmentTime));
+            const next = upcoming.slice(0, 4);
+            upcomingSessionsDiv.innerHTML = next.map(a => {
+                const date = new Date(a.appointmentDate + 'T' + a.appointmentTime);
+                const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                const dateStr = new Date(a.appointmentDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                return `<div class="session-preview">
+                    <div class="session-info">
+                        <span class="session-student">${a.customerId ? 'Student ' + a.customerId : 'Unknown'}</span>
+                        <span class="session-subject">${a.course || 'General'}</span>
+                    </div>
+                    <span class="session-time">${dateStr} · ${timeStr}</span>
+                    <button class="btn btn-sm btn-danger" onclick="cancelAppointment('${a.id}')">Cancel</button>
+                </div>`;
+            }).join('');
+        }
+
+        // ================================================================
+        // 7. RECENT STUDENTS
+        // ================================================================
+        function loadRecentStudents() {
+            if (!allAppointments.length) {
+                studentListDiv.innerHTML = '<p class="text-muted">No students yet.</p>';
+                return;
+            }
+            const customerIds = [...new Set(allAppointments.map(a => a.customerId).filter(id => id != null))];
+            if (!customerIds.length) {
+                studentListDiv.innerHTML = '<p class="text-muted">No students yet.</p>';
+                return;
+            }
+            studentListDiv.innerHTML = customerIds.slice(0, 5).map(id =>
+                `<div class="student-item" onclick="window.location.href='student-profile.html?id=${id}'" style="cursor:pointer;">
+                    <span class="name">Student ${id}</span>
+                    <span class="detail">${allAppointments.find(a => a.customerId === id)?.course || 'General'}</span>
+                </div>`
+            ).join('');
+        }
+
+        // ================================================================
+        // 8. REVIEWS
+        // ================================================================
+        async function loadReviews() {
+            try {
+                const res = await fetch(`${API_BASE}/reviews/tutor/${encodeURIComponent(TUTOR_NAME)}`);
+                if (!res.ok) throw new Error('Failed to load reviews');
+                allReviews = await res.json();
+                if (allReviews.length > 0) {
+                    const sum = allReviews.reduce((acc, r) => acc + r.rating, 0);
+                    const avg = (sum / allReviews.length).toFixed(1);
+                    avgRatingSpan.textContent = `⭐ ${avg}`;
+                } else {
+                    avgRatingSpan.textContent = '⭐ 0.0';
+                }
+                renderReviewsPreview();
+            } catch (err) {
+                showToast('Error loading reviews');
+                console.error(err);
+            }
+        }
+
+        function renderReviewsPreview() {
+            if (!allReviews.length) {
+                reviewsPreviewDiv.innerHTML = '<p class="text-muted" style="padding:8px 0;">No reviews yet.</p>';
+                return;
+            }
+            const latest = allReviews.slice(-2).reverse();
+            reviewsPreviewDiv.innerHTML = latest.map(r =>
+                `<div class="review-item">
+                    <span class="reviewer-name">${r.studentName || 'Student'}</span>
+                    <span class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+                    <span class="review-text">"${(r.comment || '').substring(0, 60)}${(r.comment || '').length > 60 ? '...' : ''}"</span>
+                </div>`
+            ).join('');
+        }
+
+        // ================================================================
+        // 9. STUDY RESOURCES
+        // ================================================================
+        async function loadStudyResources() {
+            try {
+                const res = await fetch(`${API_BASE}/studies`);
+                if (!res.ok) throw new Error('Failed to load studies');
+                allStudies = await res.json();
+                renderResourcesPreview();
+            } catch (err) {
+                showToast('Error loading study resources');
+                console.error(err);
+            }
+        }
+
+        function renderResourcesPreview() {
+            if (!allStudies.length) {
+                resourcesPreviewDiv.innerHTML = '<p class="text-muted" style="padding:8px 0;">No resources yet.</p>';
+                return;
+            }
+            const latest = allStudies.slice(-2).reverse();
+            resourcesPreviewDiv.innerHTML = latest.map(s =>
+                `<div class="review-item">
+                    <span class="reviewer-name">${s.title}</span>
+                    <span class="review-rating">📄</span>
+                    <span class="review-text">"${(s.description || '').substring(0, 60)}${(s.description || '').length > 60 ? '...' : ''}"</span>
+                </div>`
+            ).join('');
+        }
+
+        // ================================================================
+        // 10. COURSES (localStorage)
+        // ================================================================
+        function loadCourses() {
+            try {
+                const raw = localStorage.getItem('studySpaceCoursesAvail');
+                if (raw) {
+                    const data = JSON.parse(raw);
+                    courses = data.courses || [];
+                    if (data.availability) {
+                        availMap.clear();
+                        data.availability.forEach(([k, v]) => availMap.set(k, new Set(v)));
+                        console.log('Loaded availMap from localStorage:', Array.from(availMap.entries()));
+                    }
+                } else {
+                    courses = ['Algebra I', 'Algebra II', 'Calculus I', 'Calculus II', 'Geometry', 'Trigonometry', 'Statistics', 'Linear Algebra'];
+                    const today = new Date();
+                    const start = getMonday(today);
+                    for (let i = 0; i < 5; i++) {
+                        const d = new Date(start);
+                        d.setDate(start.getDate() + i);
+                        const ds = formatDateStr(d);
+                        if (Math.random() < 0.6) {
+                            const slots = new Set();
+                            const count = 2 + Math.floor(Math.random() * 4);
+                            for (let j = 0; j < count; j++) {
+                                const hour = 9 + Math.floor(Math.random() * 8);
+                                slots.add(String(hour).padStart(2, '0') + ':00');
+                            }
+                            availMap.set(ds, slots);
+                        }
+                    }
+                    saveCoursesAndAvailability();
+                }
+            } catch (e) {
+                courses = [];
+                console.error('Error loading courses:', e);
+            }
+            renderCourses();
+        }
+
+        function renderCourses() {
+            courseListDiv.innerHTML = courses.length ?
+                courses.map(c =>
+                    `<span class="tag">${c} <span class="remove" onclick="removeCourse('${c.replace(/'/g,"\\'")}')">✕</span></span>`
+                ).join('') :
+                '<span class="text-muted">No courses added.</span>';
+        }
+
+        function addCourse() {
+            const input = document.getElementById('courseInput');
+            const v = input.value.trim();
+            if (!v) return showToast('Enter a course name.');
+            if (courses.includes(v)) return showToast('Course already added.');
+            courses.push(v);
+            input.value = '';
+            saveCoursesAndAvailability();
+            renderCourses();
+            showToast('➕ Added: ' + v);
+        }
+
+        function removeCourse(name) {
+            courses = courses.filter(c => c !== name);
+            saveCoursesAndAvailability();
+            renderCourses();
+            showToast('✖ Removed: ' + name);
+        }
+
+        function saveCoursesAndAvailability() {
+            try {
+                const data = {
+                    courses,
+                    availability: Array.from(availMap.entries()).map(([k, v]) => [k, Array.from(v)])
+                };
+                localStorage.setItem('studySpaceCoursesAvail', JSON.stringify(data));
+                console.log('Saved availMap to localStorage:', data.availability);
+            } catch (e) {
+                console.error('Error saving courses/availability:', e);
+            }
+        }
+
+        // ================================================================
+        // 11. CHANGE WEEK
+        // ================================================================
+        function changeWeek(delta) {
+            currentDate.setDate(currentDate.getDate() + delta * 7);
+            renderCalendar();
+        }
+
+        // ================================================================
+        // 12. RESET
+        // ================================================================
+        async function resetProfile() {
+            if (!confirm('Reset all local data?')) return;
+            courses = ['Algebra I', 'Algebra II', 'Calculus I', 'Calculus II', 'Geometry', 'Trigonometry', 'Statistics', 'Linear Algebra'];
+            availMap.clear();
+            const today = new Date();
+            const start = getMonday(today);
+            for (let i = 0; i < 5; i++) {
+                const d = new Date(start);
+                d.setDate(start.getDate() + i);
+                const ds = formatDateStr(d);
+                if (Math.random() < 0.6) {
+                    const slots = new Set();
+                    const count = 2 + Math.floor(Math.random() * 4);
+                    for (let j = 0; j < count; j++) {
+                        const hour = 9 + Math.floor(Math.random() * 8);
+                        slots.add(String(hour).padStart(2, '0') + ':00');
+                    }
+                    availMap.set(ds, slots);
+                }
+            }
+            saveCoursesAndAvailability();
+            renderCourses();
+            renderCalendar();
+            await loadProfile();
+            showToast('🔄 Local data reset');
+        }
+
+        // ================================================================
+        // 13. VIEW ALL STUDENTS
+        // ================================================================
+        document.getElementById('viewAllStudents').addEventListener('click', function(e) {
+            e.preventDefault();
+            const id = prompt('Enter student ID:', '1');
+            if (id && parseInt(id) > 0) {
+                window.location.href = 'student-profile.html?id=' + id;
+            }
+        });
+
+        // ================================================================
+        // 14. TOAST
+        // ================================================================
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+
+        // ================================================================
+        // 15. INIT
+        // ================================================================
+        async function init() {
+            loadCourses();
+            await loadProfile();
+            await loadServiceCount();
+            await loadAppointments();
+            await loadReviews();
+            await loadStudyResources();
+        }
+
+        window.saveProfile = saveProfile;
+        window.resetProfile = resetProfile;
+        window.addCourse = addCourse;
+        window.removeCourse = removeCourse;
+        window.toggleAvailability = toggleAvailability;
+        window.changeWeek = changeWeek;
+        window.cancelAppointment = cancelAppointment;
+        window.showToast = showToast;
+
+        init();
+    </script>
+
+</body>
+</html>

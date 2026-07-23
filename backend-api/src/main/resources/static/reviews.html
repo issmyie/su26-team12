@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudySpace · Reviews</title>
+    <link rel="stylesheet" href="reviews.css" />
+</head>
+<body>
+
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">📘</span>
+                <span>StudySpace</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a>
+                <a href="booking-statistics.html"><span class="nav-icon">📈</span> Booking Stats</a>
+                <a href="reviews.html" class="active"><span class="nav-icon">⭐</span> Reviews</a>
+                <a href="services.html"><span class="nav-icon">📋</span> Services</a>
+                <a href="math-resources.html"><span class="nav-icon">📚</span> Resources</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="tutor-card">
+                    <div class="avatar">JD</div>
+                    <div>
+                        <p class="tutor-name">Jane Doe</p>
+                        <p class="tutor-role">Math Tutor</p>
+                    </div>
+                </div>
+                <a href="index.html" class="btn btn-logout">🚪 Log Out</a>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="main-header">
+                <div>
+                    <h1>⭐ Reviews</h1>
+                    <p class="greeting">Read and reply to student feedback</p>
+                </div>
+                <div class="header-actions">
+                    <a href="dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
+                    <span class="rating-summary">⭐ 4.9 · 28 reviews</span>
+                </div>
+            </header>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="5">5 ★</button>
+                <button class="filter-btn" data-filter="4">4 ★</button>
+                <button class="filter-btn" data-filter="3">3 ★</button>
+                <button class="filter-btn" data-filter="2">2 ★</button>
+                <button class="filter-btn" data-filter="1">1 ★</button>
+                <button class="filter-btn" data-filter="unreplied">Unreplied</button>
+            </div>
+
+            <!-- Reviews List -->
+            <div class="reviews-list" id="reviewsList">
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================================================================
+        // API CONFIG
+        // ================================================================
+const API_BASE = '/api';
+        const TUTOR_NAME = 'Jane Doe'; 
+
+        let allReviews = [];
+
+        // ================================================================
+        // LOAD REVIEWS
+        // ================================================================
+        async function loadReviews() {
+            try {
+                const res = await fetch(`${API_BASE}/reviews/tutor/${encodeURIComponent(TUTOR_NAME)}`);
+                if (!res.ok) throw new Error('Failed to load reviews');
+                allReviews = await res.json();
+                renderReviews('all');
+            } catch (err) {
+                showToast('Error loading reviews');
+                console.error(err);
+            }
+        }
+
+        function renderReviews(filter) {
+            const container = document.getElementById('reviewsList');
+            let filtered = allReviews;
+
+            if (filter === 'unreplied') {
+                filtered = allReviews.filter(r => !r.reply || r.reply.trim() === '');
+            } else if (filter !== 'all') {
+                const rating = parseInt(filter);
+                filtered = allReviews.filter(r => r.rating === rating);
+            }
+
+            if (!filtered.length) {
+                container.innerHTML = '<p class="text-muted" style="text-align:center;padding:40px 0;">No reviews match this filter.</p>';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(r => {
+                const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                const hasReply = r.reply && r.reply.trim() !== '';
+                html += `
+                    <div class="review-card" data-id="${r.id}">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <span class="reviewer-avatar">${(r.student || '?').charAt(0)}</span>
+                                <div>
+                                    <span class="reviewer-name">${r.student || 'Anonymous'}</span>
+                                    <span class="reviewer-course">${r.course || 'General'}</span>
+                                </div>
+                            </div>
+                            <div class="review-meta">
+                                <span class="review-rating">${stars}</span>
+                                <span class="review-date">${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : 'N/A'}</span>
+                            </div>
+                        </div>
+                        <p class="review-text">"${r.comment || ''}"</p>
+                        <div class="review-reply ${hasReply ? '' : 'unreplied'}">
+                            <p class="reply-text">${hasReply ? `<strong>Your reply:</strong> ${r.reply}` : '<em>No reply yet.</em>'}</p>
+                        </div>
+                        <div class="reply-input">
+                            <input type="text" placeholder="Write a reply..." data-id="${r.id}" />
+                            <button class="btn btn-sm btn-primary" onclick="replyToReview(this)">Reply</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // REPLY TO REVIEW
+        // ================================================================
+        async function replyToReview(btn) {
+            const input = btn.previousElementSibling;
+            const replyText = input.value.trim();
+            const reviewId = parseInt(input.dataset.id);
+
+            if (!replyText) {
+                showToast('Please enter a reply.');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/reviews/${reviewId}/reply`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reply: replyText })
+                });
+                if (!res.ok) throw new Error('Reply failed');
+                showToast('✅ Reply posted!');
+                input.value = '';
+                loadReviews(); // refresh
+            } catch (err) {
+                showToast('❌ Error posting reply');
+                console.error(err);
+            }
+        }
+
+        // ================================================================
+        // FILTER BUTTONS
+        // ================================================================
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderReviews(this.dataset.filter);
+            });
+        });
+
+        // ================================================================
+        // TOAST
+        // ================================================================
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 2600);
+        }
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        loadReviews();
+
+        window.replyToReview = replyToReview;
+        window.showToast = showToast;
+    </script>
+
+</body>
+</html>
