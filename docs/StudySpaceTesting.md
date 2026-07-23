@@ -5,6 +5,13 @@
 
 ## Actors
 - Provider P: Eman Dweik
+**Project Name:**   StudySpace
+**Version:** 1.0
+**Date:**  07/22/2026
+**Purpose:** 
+
+## Actors
+- Provider P: Eman Dweik
 - Customer C:
 - Service S:
 
@@ -74,4 +81,5 @@
 - **Steps:**
   1. x
   2. y
+- **Expected Outcome:** 
 - **Expected Outcome:** 

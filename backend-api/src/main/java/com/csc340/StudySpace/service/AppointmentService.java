@@ -64,4 +64,16 @@ public class AppointmentService {
     public List<Appointment> getAppointmentsByTutorName(String tutorName) {
         return appointmentRepository.findByTutorName(tutorName);
     }
+
+    public Appointment cancelAppointment(Long id) {
+
+    Appointment appointment = appointmentRepository.findById(id)
+            .orElseThrow(() ->
+                    new RuntimeException("Appointment not found with id: " + id));
+
+    appointment.setStatus("CANCELED");
+
+    return appointmentRepository.save(appointment);
+}
+
 }
