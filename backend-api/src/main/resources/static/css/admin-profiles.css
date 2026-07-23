@@ -5,8 +5,6 @@
     --blue-300: #aecbeb;
     --blue-400: #1d4ed8;
     --blue-500: #2563eb;
-    --green-100: #e9f5db;
-    --green-600: #718355;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -32,8 +30,6 @@ body {
 button {
     cursor: pointer;
     font: inherit;
-    border: none;
-    background: none;
 }
 
 .app {
@@ -98,205 +94,11 @@ button {
     text-align: center;
 }
 
-.sidebar-footer {
-    border-top: 1px solid var(--blue-100);
-    padding-top: 18px;
-}
-
-.admin-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg);
-    padding: 8px 10px;
-    border-radius: var(--radius-sm);
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--blue-500);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
-
-.admin-name {
-    font-weight: 600;
-    font-size: 0.85rem;
-}
-
-.admin-role {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.main {
-    flex: 1;
-    padding: 28px 32px 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.main-header h1 {
-    font-size: 1.6rem;
-}
-
-.greeting {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn {
-    padding: 8px 20px;
-    border-radius: var(--radius-sm);
-    font-weight: 500;
-    font-size: 0.85rem;
-    border: 1px solid var(--blue-300);
-    background: var(--white);
-    color: var(--text-primary);
-    transition: var(--transition);
-}
-
-.btn:hover {
-    background: var(--blue-100);
-}
-
-.btn-primary {
-    background: var(--blue-500);
-    border-color: var(--blue-500);
-    color: white;
-}
-
-.btn-primary:hover {
-    background: var(--blue-400);
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 32px;
-}
-
-.stat-card {
-    background: var(--white);
-    padding: 18px 22px;
-    border-radius: var(--radius);
-    border: 1px solid var(--blue-100);
-    box-shadow: var(--shadow-sm);
-}
-
-.stat-card:hover {
-    box-shadow: var(--shadow-md);
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-.stat-number {
-    font-size: 1.7rem;
-    font-weight: 700;
-}
-
-.stat-change {
-    font-size: 0.75rem;
-    color: var(--green-600);
-    background: var(--green-100);
-    display: inline-block;
-    padding: 1px 10px;
-    border-radius: 20px;
-    margin-top: 6px;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 24px;
-}
-
-.card {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--blue-100);
-    box-shadow: var(--shadow-sm);
-    padding: 20px 24px 24px;
-    margin-bottom: 24px;
-}
-
-.card:hover {
-    box-shadow: var(--shadow-md);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-}
-
-.card-header h2 {
-    font-size: 1rem;
-}
-
-.card p {
-    color: var(--text-primary);
-    margin-bottom: 14px;
-}
-
-.badge {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    background: var(--bg);
-    padding: 2px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--blue-100);
-}
-
-@media (max-width: 900px) {
-    .dashboard-grid,
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .app {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-    }
-}
-/* Main resource moderation page */
 .main-content {
     flex: 1;
     padding: 36px 48px;
 }
 
-/* Heading and back button */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -306,85 +108,103 @@ button {
 }
 
 .section-header h1 {
-    margin: 0 0 8px;
+    margin-bottom: 8px;
     font-size: 30px;
 }
 
 .section-header p {
-    margin: 0;
-    color: #64748b;
+    color: var(--text-secondary);
 }
 
-/* Resource cards */
-.resource-list {
+.profile-list {
     display: grid;
     gap: 18px;
 }
 
-.resource-card {
+.profile-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
     padding: 22px;
-    background: white;
-    border: 1px solid #dbe7f5;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    background: var(--white);
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
 }
 
-.resource-info h3 {
-    margin: 0 0 12px;
+.profile-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.profile-info h3 {
+    margin-bottom: 12px;
     font-size: 19px;
 }
 
-.resource-info p {
+.profile-info p {
     margin: 5px 0;
     color: #334155;
 }
 
-/* Resource moderation buttons */
-.resource-actions {
+.profile-actions {
     display: flex;
     gap: 10px;
+}
+
+.profile-actions form {
+    margin: 0;
 }
 
 .btn {
     display: inline-block;
     padding: 10px 18px;
-    border: 1px solid #b7d1f5;
-    border-radius: 8px;
+    border: 1px solid var(--blue-300);
+    border-radius: var(--radius-sm);
     font: inherit;
-    cursor: pointer;
     text-decoration: none;
-    background: white;
+    background: var(--white);
+    color: var(--text-primary);
+    transition: var(--transition);
 }
 
 .approve-btn {
     color: white;
-    background: #2563eb;
-    border-color: #2563eb;
+    background: var(--blue-500);
+    border-color: var(--blue-500);
 }
 
-.remove-btn {
+.approve-btn:hover {
+    background: var(--blue-400);
+}
+
+.reject-btn {
     color: #b42318;
-    background: #fff;
+    background: white;
     border-color: #f0b4ae;
 }
 
 .secondary-btn {
-    color: #1d4ed8;
-    background: white;
+    color: var(--blue-400);
 }
 
-/* Smaller screens */
 @media (max-width: 750px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
     .main-content {
         padding: 24px;
     }
 
     .section-header,
-    .resource-card {
+    .profile-card {
         flex-direction: column;
         align-items: flex-start;
     }

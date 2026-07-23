@@ -10,38 +10,69 @@
     <div class="app">
 
         <aside class="sidebar">
-            <div class="sidebar-brand">
-                <span class="brand-icon">📘</span>
-                <span>StudySpace</span>
+
+    <div class="sidebar-brand">
+        <span class="brand-icon">📘</span>
+        <span>StudySpace</span>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <a href="/admin">
+            <span class="nav-icon">📊</span>
+            Dashboard
+        </a>
+
+        <a href="/admin/users">
+            <span class="nav-icon">👥</span>
+            Users
+        </a>
+
+        <a href="/admin/profiles">
+            <span class="nav-icon">🧑‍🏫</span>
+            Profiles
+        </a>
+
+        <a href="/admin/resources">
+            <span class="nav-icon">📚</span>
+            Resources
+        </a>
+
+        <a href="/admin/reviews">
+            <span class="nav-icon">⭐</span>
+            Reviews
+        </a>
+
+        <a href="/admin/statistics">
+            <span class="nav-icon">📈</span>
+            Statistics
+        </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+        <div class="admin-profile">
+
+            <div class="admin-avatar">
+                SM
             </div>
 
-            <nav class="sidebar-nav">
-                <a href="/admin">
-                    <span class="nav-icon">📊</span> Dashboard
-                </a>
+            <div class="admin-details">
+                <strong>Shafath Moreano</strong>
+                <span>SysAdmin</span>
+            </div>
 
-                <a href="#">
-                    <span class="nav-icon">👥</span> Users
-                </a>
+        </div>
 
-                <a href="#">
-                    <span class="nav-icon">🧑‍🏫</span> Profiles
-                </a>
+        <a href="/logout" class="logout-link">
+            <span class="nav-icon">🚪</span>
+            Logout
+        </a>
 
-                <a href="/admin/resources" class="active">
-                    <span class="nav-icon">📚</span> Resources
-                </a>
+    </div>
 
-                <a href="#">
-                    <span class="nav-icon">⭐</span> Reviews
-                </a>
-
-                <a href="#">
-                    <span class="nav-icon">📈</span> Statistics
-                </a>
-            </nav>
-        </aside>
-
+</aside>
         <main class="main-content">
 
             <section class="resources-section">
