@@ -145,4 +145,14 @@ public class CustomerService {
         return customerRepository.findByEmail(email);
     }
 
+    public Customer updateRole(Long id, String role) {
+
+    Customer customer = customerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+    customer.setRole(role);
+
+    return customerRepository.save(customer);
+}
+
 }
