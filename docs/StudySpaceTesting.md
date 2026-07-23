@@ -6,7 +6,7 @@
 ## Actors
 - Provider P: Eman Dweik
 - Customer C: Student using StudySpace
-- Service S:
+- Service S: Shafath Moreano
 
 ## Use Cases
 #### 1. Customer: US‑CUST‑001 — Register & manage profile
