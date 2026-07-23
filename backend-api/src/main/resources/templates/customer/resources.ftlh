@@ -61,7 +61,7 @@
                 <div class="avatar">S</div>
 
                 <div>
-                    <p class="student-name">${customer.name!"Student"}</p>
+                    <p class="student-name">Alex carter</p>
                     <p class="student-role">Student</p>
                 </div>
 
