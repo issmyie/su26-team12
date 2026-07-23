@@ -74,4 +74,13 @@ public class ResourceService {
     public List<Resource> searchResourcesByTitle(String title) {
         return resourceRepository.findByTitleContainingIgnoreCase(title);
     }
+
+    public List<Resource> getVisibleResources() {
+    return resourceRepository.findAll()
+            .stream()
+            .filter(resource ->
+                    resource.getStatus() == null
+                    || !resource.getStatus().equalsIgnoreCase("REMOVED"))
+            .toList();
+    }
 }

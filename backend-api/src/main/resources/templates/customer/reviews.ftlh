@@ -21,34 +21,35 @@
             <span>StudySpace</span>
         </div>
 
-        <nav class="sidebar-nav">
+      
+    <nav class="sidebar-nav">
 
-            <a href="#">
-                <span class="nav-icon">📊</span>
-                Dashboard
-            </a>
+          <a href="/customer/dashboard/1">
+             <span class="nav-icon">📊</span>
+              Dashboard
+           </a>
 
-            <a href="/customer/profile/1">
-                <span class="nav-icon">👤</span>
-                Profile
-            </a>
+          <a href="/customer/profile/1">
+             <span class="nav-icon">👤</span>
+               Profile
+         </a>
 
-            <a href="#">
-                <span class="nav-icon">📚</span>
-                Resources
-            </a>
+         <a href="/customer/resources">
+             <span class="nav-icon">📚</span>
+              Resources
+         </a>
 
-            <a href="#">
-                <span class="nav-icon">📅</span>
-                Appointments
-            </a>
+           <a href="/customer/appointments?customerId=1">
+             <span class="nav-icon">📅</span>
+             Appointments
+          </a>
 
-            <a href="/customer/reviews" class="active">
-                <span class="nav-icon">⭐</span>
-                Reviews
-            </a>
+          <a href="/customer/reviews" class="active">
+             <span class="nav-icon">⭐</span>
+              Reviews
+          </a>
 
-        </nav>
+    </nav>
 
         <!-- Student info -->
         <div class="sidebar-footer">

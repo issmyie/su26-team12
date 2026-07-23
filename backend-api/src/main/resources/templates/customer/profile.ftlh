@@ -19,33 +19,33 @@
             <span class="brand-icon">📘</span>
             <span>StudySpace</span>
         </div>
-
+       
         <nav class="sidebar-nav">
 
-            <a href="#">
-                <span class="nav-icon">📊</span>
-                Dashboard
-            </a>
+            <a href="/customer/dashboard/${customer.id}">
+               <span class="nav-icon">📊</span>
+                 Dashboard
+             </a>
 
-            <a href="/customer/profile/${customer.id?c}" class="active">
-                <span class="nav-icon">👤</span>
-                Profile
-            </a>
+             <a href="/customer/profile/${customer.id}" class="active">
+                   <span class="nav-icon">👤</span>
+                   Profile
+             </a>
 
-            <a href="#">
-                <span class="nav-icon">📚</span>
-                Resources
-            </a>
+             <a href="/customer/resources">
+                     <span class="nav-icon">📚</span>
+                     Resources
+             </a>
 
-            <a href="#">
-                <span class="nav-icon">📅</span>
-                Appointments
-            </a>
+              <a href="/customer/appointments?customerId=${customer.id}">
+                      <span class="nav-icon">📅</span>
+                     Appointments
+              </a>
 
             <a href="/customer/reviews">
-                <span class="nav-icon">⭐</span>
-                Reviews
-            </a>
+                        <span class="nav-icon">⭐</span>
+                      Reviews
+             </a>
 
         </nav>
 
