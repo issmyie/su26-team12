@@ -28,7 +28,7 @@
 
     2. Create services:
     
-    Providers will be able to post study resources and list themselves as tutors. They will be able to look at appointment bookings. 
+    Providers will be able to post study resources. They will be able to look at appointment bookings. 
 
 
     3. View customer statistics: 
