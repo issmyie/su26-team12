@@ -341,7 +341,22 @@ DELETE /api/reviews/{id}
 
 ## Provider Endpoints
 
-(To be completed by Eman.)
+| User Story | Related Endpoints |
+|------------|------------------|
+| Register and manage provider profile | POST /api/providers, GET /api/providers/{id}, PUT /api/providers/{id}, PUT /api/providers/{id}/profile, DELETE /api/providers/{id} |
+| Create tutoring services | POST /api/providers/{providerId}/services |
+| View all offered services | GET /api/providers/{providerId}/services |
+| Update a service | PUT /api/providers/{providerId}/services/{serviceId} |
+| Delete a service | DELETE /api/providers/{providerId}/services/{serviceId} |
+| View appointments for this tutor | GET /api/appointments/tutor/{tutorName} |
+| Cancel an appointment | DELETE /api/appointments/{id} |
+| View reviews for this tutor | GET /api/reviews/tutor/{tutorName} |
+| Reply to a review | PUT /api/reviews/{id}/reply |
+| Delete a reply | DELETE /api/reviews/{id}/reply |
+| View booking statistics per service | GET /api/providers/{providerId}/statistics |
+| View all study resources | GET /api/studies |
+| Post a study resource | POST /api/studies |
+| Delete a study resource | DELETE /api/studies/{id} |
 
 ---
 
