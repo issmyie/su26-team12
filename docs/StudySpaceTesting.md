@@ -35,12 +35,30 @@
 4. The review is saved and displayed.
 
 #### 6. Provider: 
-1.
-2.
+1. Provider is logged in and wants to view bookings
+2. Provider can see bookings on sidebar
+3. Provider can click on cancel on side bar to cancel
+4. provider can see bookings on calendar as well
+5. provider can click on empty slots on calendar to open up new slots
+6. provider can also click on booked spots to cancel
+7. changes are saved 
 
 #### 7. Provider: 
-1.
-2.
+1. provider wants to look at bookings stats
+2. provider clicks on booking stats to look at booking stats
+3. provider can see booking stats
+
+#### 8. Provider:  
+1. provider wants to look at reviews
+2. provider clicks on sidebar
+3. provider can see reviews and filter them
+4. provider can reply to reviews
+5. all replies are saved 
+
+#### 9. Provider:   
+1. Provider wants to edit profile
+2. Provider edits information
+3. new informwation is saved and is reflected on the program and database
 
 ## CROSS-CUTTING TEST SCENARIOS (Non-Functional Requirements)
 
