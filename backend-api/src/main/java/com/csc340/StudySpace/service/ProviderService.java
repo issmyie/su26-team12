@@ -64,6 +64,16 @@ public class ProviderService {
         return providerRepository.save(existing);
     }
 
+    // Admin use case: moderate provider profile
+    public Provider updateProfileStatus(Long id, String profileStatus) {
+
+        Provider existing = providerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Provider not found"));
+
+        existing.setProfileStatus(profileStatus);
+        return providerRepository.save(existing);
+}
+
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
     }
@@ -71,4 +81,14 @@ public class ProviderService {
     public Provider findByEmail(String email) {
         return providerRepository.findByEmail(email).orElse(null);
     }
+
+    public Provider updateRole(Long id, String role) {
+
+    Provider provider = providerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Provider not found"));
+
+    provider.setRole(role);
+
+    return providerRepository.save(provider);
+}
 }
